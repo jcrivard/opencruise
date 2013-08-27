@@ -33,9 +33,9 @@ Browser Configuration:
 and others have more specific options.  To be safe, be sure to upload data before clearing the cache.
 
 Installation Tips: 
-1. Download all files to a directory on your web server.
-2. Install php (only used for data uploading via gmail).
-3. Enable the serving of compressed files (via gzip).  This is "mod_deflate" for apache web servers.
+* Download all files to a directory on your web server.
+* Install php (only used for data uploading via gmail).
+* Enable the serving of compressed files (via gzip).  This is "mod_deflate" for apache web servers.
  
 The code is currently not "minified" due to the relative frequency of updates at this point in time.
   Some of the files in the repository are not currently used (i.e. js/mainmin.js, js/ocruise-min.js),
