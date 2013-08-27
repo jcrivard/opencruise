@@ -15,14 +15,15 @@ It works offline (i.e. airplane mode) in remote areas where network access is un
  Users are free to configure the field names/default values via the "Config" button.
  
  The application makes heavy use of HTML5 technologies, including:  offline use,
- local storage, local database and geolocation.  Most modern web browsers will work including:
- 
- Chrome (update channel version).
- Firefox (update channel version).
- Safari (on IOS 5+).
- Android Browser (on Android 4+; most older versions work as well).
- Dolphin Browser (on IOS 5+; on Android 2.2.x+; good alternative for older Android devices).
- Internet Explorer V10 should work, but has not been tested.
+ local storage, local database and geolocation.  
+
+ Browser Support: 
+ 1. Chrome (update channel version).
+ 2. Firefox (update channel version).
+ 3. Safari (on IOS 5+).
+ 4. Android Browser (on Android 4+; most older versions work as well).
+ 5. Dolphin Browser (on IOS 5+; on Android 2.2.x+; good alternative for older Android devices).
+ 6. Internet Explorer V10 should work, but has not been tested.
  
  Browser Configuration:
  1. Most default browser configurations will work.
@@ -31,8 +32,7 @@ It works offline (i.e. airplane mode) in remote areas where network access is un
  4. Different browsers treat local storage differently.  Some delete local storage when the cache is cleared
  and others have more specific options.  To be safe, be sure to upload data before clearing the cache.
  
- If you wish to download/modify the software, the following tips are offered:
- 
+ Installation Tips: 
  1. Download all files to a directory on your web server.
  2. Install php (only used for data uploading via gmail).
  3. Enable the serving of compressed files (via gzip).  This is "mod_deflate" for apache web servers.
