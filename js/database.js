@@ -124,8 +124,8 @@ var OCRUISE = (function (oc) {
 		checkVersion: function(){
 			var thisOBJ = this;
 			if (this.DB.version == '1.0'){
-				//upgrade to version 2.0
-				this.DB.changeVersion('1.0','2.0',
+				//upgrade to version 3.0
+				this.DB.changeVersion('1.0','3.0',
 					function(t){
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field2name TEXT DEFAULT "DBH" ');
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field3name TEXT DEFAULT "Saw" ');

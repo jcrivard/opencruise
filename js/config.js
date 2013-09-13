@@ -127,7 +127,9 @@ var OCRUISE = (function (oc) {
 		this.load = function() {
 			 var LS = JSON.parse(localStorage['defaults']);
 			 this.speciesKey.species(LS.speciesKey.species);
-			 this.cruiseParms = LS.cruiseParms;
+			 if (LS.cruiseParms.field2) {
+				 this.cruiseParms = LS.cruiseParms;  //for migration to field config by cruise
+			 }
 			 this.defaultSpecies(LS.defaultSpecies);
 			 //need to find a better way - loop through properties, but check for KO
 		};
