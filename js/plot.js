@@ -6,12 +6,12 @@ http://www.gnu.org/copyleft/gpl.html
 
 var OCRUISE = (function (oc) {
 
-	oc.plot = function(plotType, cruiseid, plotnum, defaultSpecies) { //newplot indicates new plot, otherwise editing plot
+	oc.plot = function(plotType, cruiseid, plotnum, defaultSpecies, field2Name, field3Name, field4Name) { //newplot indicates new plot, otherwise editing plot
 		var dv = oc.defaultValues;
-		this.field1Name = dv.field1.name();
-		this.field2Name = dv.field2.name();
-		this.field3Name = dv.field3.name();
-		this.field4Name = dv.field4.name();
+		this.field1Name = dv.field1.name;
+		this.field2Name = field2Name;
+		this.field3Name = field3Name;
+		this.field4Name = field4Name;
 		this.plotnum = plotnum;  //plot number being worked on
 		this.trees = ko.observableArray([]);
 		this.plotID = ko.observable(plotnum.toString());

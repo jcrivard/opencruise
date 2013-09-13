@@ -15,7 +15,27 @@ var OCRUISE = (function (oc) {
 			jobName: 'New Cruise',
 			cruisers: 'Michigan Tech FERM',
 			date: oc.currentDate(),
-			BAF: '10'
+			BAF: '10',
+			field2: {
+			    name: 'DBH',
+			    min: '5',
+			    max: '62',
+			    init: ''
+		    },
+		    field3: {
+			    name: 'Saw',
+			    min: '0',
+			    max: '10',
+			    init: '',
+			    field2Min: 11   //field2min - min value for field2 for field3 to be > 0; ie. min DBH of 11 for sawlogs
+		    },
+		    field4: {
+			    name: 'Pulp',
+			    min: '0',
+			    max: '12',
+			    init: ''
+		    }
+
 		};
 		this.speciesKey = {
 		    species: ko.observableArray([
@@ -47,30 +67,17 @@ var OCRUISE = (function (oc) {
 		};
 		this.defaultSpecies = ko.observable("HM");
 		this.field1 =  {
-			name: ko.observable('Species'),
+			name: 'Species',
 			dbName: 'species'
 		};
 		this.field2 = {
-			name: ko.observable('DBH'),
-			dbName: 'dbh',
-			min: 5,
-			max: 45,
-			initValue: ''
+			dbName: 'dbh'
 		};
 	    this.field3 = {
-			name: ko.observable('Saw'),
-			dbName: 'sawlogs',
-			min: 0,
-			max: 10,
-			initValue: 0,
-			field2Min: 11   //field2min - min value for field2 for field3 to be > 0; ie. min DBH of 11 for sawlogs
+			dbName: 'sawlogs'
 		}; 
 		this.field4 = {
-			name: ko.observable('Pulp'),
-			dbName: 'pulpsticks',
-			min: 0,
-			max: 12,
-			initValue: ''
+			dbName: 'pulpsticks'
 		};
 		this.grade = ["W","1","2","3","V"];  //Not used yet
 		this.BAF = [10,20,40,80]; //Not currently used; edit index.html to change
@@ -120,20 +127,8 @@ var OCRUISE = (function (oc) {
 		this.load = function() {
 			 var LS = JSON.parse(localStorage['defaults']);
 			 this.speciesKey.species(LS.speciesKey.species);
-			 this.cruiseParms.jobName = LS.cruiseParms.jobName;
-			 this.cruiseParms.cruisers = LS.cruiseParms.cruisers;
-			 this.cruiseParms.BAF = LS.cruiseParms.BAF;
+			 this.cruiseParms = LS.cruiseParms;
 			 this.defaultSpecies(LS.defaultSpecies);
-			 this.field1.name(LS.field1.name);
-			 this.field2.name(LS.field2.name);
-			 this.field3.name(LS.field3.name);
-			 this.field4.name(LS.field4.name);
-			 this.field2.min = LS.field2.min;
-			 this.field2.max = LS.field2.max;
-			 this.field3.min = LS.field3.min;
-			 this.field3.max = LS.field3.max;
-			 this.field4.min = LS.field4.min;
-			 this.field4.max = LS.field4.max;
 			 //need to find a better way - loop through properties, but check for KO
 		};
 

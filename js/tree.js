@@ -22,24 +22,25 @@ var OCRUISE = (function (oc) {
 	   //change color of field2, field3, field3 in DOM to red or green
 	   //increment lastEditedTree which is used by speech recognition methods
 	   validateTree: function(thisObj, event) {
-	    	var dv = oc.defaultValues; //shorthand
+	    	var cruise = oc.activeList.selectedCruise(); //get field min,max, etc... for active cruise
 		    var goodBG = "#088A08";
 	    	var badBG = "#FF0000";
 	    	var thisElem = event.target;
+	    	var thisValue = Number(thisElem.value);
 	    	//field 2 in range?
-	    	if ((thisElem.id == 'field2') && ((thisElem.value < dv.field2.min) || (thisElem.value > dv.field2.max)) ) {
+	    	if ((thisElem.id == 'field2') && ((thisValue < cruise.field2.min()) || (thisValue > cruise.field2.max())) ) {
 	    		$(thisElem).parent().css('background-color', badBG);
 	    	}
 	    	//field2 too small for field3 value (ie. 5 inch tree with > 0 sawlogs)
-	    	else if ((thisElem.id == 'field3') && (thisElem.value > 0) && (thisObj.field2() < dv.field3.field2Min)) {
+	    	else if ((thisElem.id == 'field3') && (thisValue > 0) && (Number(thisObj.field2()) < cruise.field3.field2Min())) {
 	    		$(thisElem).parent().css('background-color', badBG);
 	    	}
 	    	//field 3 in range? (ie. too many sawlogs entered)
-	    	else if ((thisElem.id == 'field3') && ((thisElem.value < dv.field3.min) || (thisElem.value > dv.field3.max)) ) {
+	    	else if ((thisElem.id == 'field3') && ((thisValue < cruise.field3.min()) || (thisValue > cruise.field3.max())) ) {
 	    		$(thisElem).parent().css('background-color', badBG);
 	    	}
 	    	//field 4 in range? (ie. too many pulpsticks entered)
-	    	else if ((thisElem.id == 'field4') && ((thisElem.value < dv.field4.min) || (thisElem.value > dv.field4.max)) ) {
+	    	else if ((thisElem.id == 'field4') && ((thisValue < cruise.field4.min()) || (thisValue > cruise.field4.max())) ) {
 	    		$(thisElem).parent().css('background-color', badBG);
 	    	}
 	    	else {

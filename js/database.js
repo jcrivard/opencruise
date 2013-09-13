@@ -111,14 +111,40 @@ var OCRUISE = (function (oc) {
 			);
 		},
 		initDatabase: function(dbParms, initCallback) {
-			this.DB = openDatabase(dbParms.name, dbParms.version, dbParms.descript, dbParms.maxsize);
+			this.DB = openDatabase(dbParms.name, "", dbParms.descript, dbParms.maxsize);
 			if (this.DB) {
 				console.log('Database Opened');
 			    this.createTables(dbParms, initCallback);
+			    this.checkVersion();
 			}
 			else {
 				alert('Cannot open database, try installing and using a different web browser such as Chrome or Firefox.');
 			}
+		},
+		checkVersion: function(){
+			var thisOBJ = this;
+			if (this.DB.version == '1.0'){
+				//upgrade to version 2.0
+				this.DB.changeVersion('1.0','2.0',
+					function(t){
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field2name TEXT DEFAULT "DBH" ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field3name TEXT DEFAULT "Saw" ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field4name TEXT DEFAULT "Pulp" ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field2min TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field2max TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field2init TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field3min TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field3max TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field3init TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field3field2min TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field4min TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field4max TEXT ');
+						t.executeSql('ALTER TABLE cruise ADD COLUMN field4init TEXT ');
+				    },
+				    function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
+				    function() {thisOBJ.nullDataHandler();}
+				);
+			}	
 		},
 		createTables: function(dbParms, initCallback){
 			var thisOBJ = this;

@@ -6,13 +6,32 @@ http://www.gnu.org/copyleft/gpl.html
 
 var OCRUISE = (function (oc) {
 
-	oc.cruise = function(id, cname, cdate, cpeople, cbaf) {
+	oc.cruise = function(id, parms ) {
 		var dv = oc.defaultValues;
 		this.self = this;
-		this.cruiseName = ko.observable(cname);
-		this.people = ko.observable(cpeople);
-		this.BAF = ko.observable(cbaf);
-		this.date = ko.observable(cdate);
+		this.cruiseName = ko.observable(parms.jobName);
+		this.people = ko.observable(parms.cruisers);
+		this.BAF = ko.observable(parms.BAF);
+		this.date = ko.observable(parms.date);
+		this.field2 = {
+				name: ko.observable(parms.field2.name || dv.cruiseParms.field2.name),
+				min: ko.observable(parms.field2.min || dv.cruiseParms.field2.min),
+				max: ko.observable(parms.field2.max || dv.cruiseParms.field2.max),
+				init: ko.observable(parms.field2.init || dv.cruiseParms.field2.init)
+		};
+		this.field3 = {
+				name: ko.observable(parms.field3.name || dv.cruiseParms.field3.name),
+				min: ko.observable(parms.field3.min || dv.cruiseParms.field3.min),
+				max: ko.observable(parms.field3.max || dv.cruiseParms.field3.max),
+				init: ko.observable(parms.field3.init || dv.cruiseParms.field3.init),
+				field2Min: ko.observable(parms.field3.field2Min || dv.cruiseParms.field3.field2Min)
+		};
+		this.field4 = {
+				name: ko.observable(parms.field4.name || dv.cruiseParms.field4.name),
+				min: ko.observable(parms.field4.min || dv.cruiseParms.field4.min),
+				max: ko.observable(parms.field4.max || dv.cruiseParms.field4.max),
+				init: ko.observable(parms.field4.init || dv.cruiseParms.field4.init)
+		};
 		this.selectedPlot = ko.observable(); //plot being edited; init for knockout 
 		this.plots = ko.observableArray([]);
 		this.cruiseID = id;
@@ -32,7 +51,7 @@ var OCRUISE = (function (oc) {
                     for (var i=0; i<results.rows.length; i++) {       
                         var row = results.rows.item(i);
                         newPlotNum = row.MAXPLOT + 1;
-                        thisCruise.selectedPlot(new oc.plot('new', thisCruise.cruiseID, newPlotNum, thisCruise.defaultSpecies()));
+                        thisCruise.selectedPlot(new oc.plot('new', thisCruise.cruiseID, newPlotNum, thisCruise.defaultSpecies(), thisCruise.field2.name(), thisCruise.field3.name(), thisCruise.field4.name()));
                         $.mobile.changePage('#plotPage',{role: 'dialog'});
                     }
                 };
@@ -44,7 +63,24 @@ var OCRUISE = (function (oc) {
 			updateCruise: function(data,event){
 				//var thisCruise = data.selectedCruise();
 				var thisCruise = this;
-				var fieldObj = {cname: thisCruise.cruiseName(), cpeople: thisCruise.people(), cdate: thisCruise.date(), cbaf: thisCruise.BAF()};
+				var fieldObj = {cname: thisCruise.cruiseName(),
+						cpeople: thisCruise.people(),
+						cdate: thisCruise.date(),
+						cbaf: thisCruise.BAF(),
+					    field2name: thisCruise.field2.name(),
+						field2min: thisCruise.field2.min(),
+						field2max: thisCruise.field2.max(),
+						field2init: thisCruise.field2.init(),
+						field3name: thisCruise.field3.name(),
+						field3min: thisCruise.field3.min(),
+						field3max: thisCruise.field3.max(),
+						field3init: thisCruise.field3.init(),
+						field3field2min: thisCruise.field3.field2Min(),
+						field4name: thisCruise.field4.name(),
+						field4min: thisCruise.field4.min(),
+						field4max: thisCruise.field4.max(),
+						field4init: thisCruise.field4.init()
+				};
 				var whereObj = {cruiseid: thisCruise.cruiseID}; 
 			    oc.DB.update('cruise', fieldObj, whereObj);
 			    //$('#cruiseUpdatedPopup').popup( 'open');//assume it worked :-)
@@ -65,7 +101,7 @@ var OCRUISE = (function (oc) {
 		    //A series of two chained callbacks is used to 1st get plot level data, and 2nd to get tree data for that plot
 			editPlot: function(plotnum){
 				$.mobile.loading( 'show', {text: 'Loading',	textVisible: true, theme: 'e', html: ""	});
-				this.selectedPlot(new oc.plot('edit', this.cruiseID, plotnum, this.defaultSpecies()));	
+				this.selectedPlot(new oc.plot('edit', this.cruiseID, plotnum, this.defaultSpecies(), this.field2.name(), this.field3.name(), this.field4.name()));	
 			},
 			//EXPORTTOCSV - runs 3 chained, async DB calls (trees,plots,cruise), invokes method to build CSV for each DB Call,
 			//              When all 3 calls are done, the method to send email is invoked
@@ -127,9 +163,11 @@ var OCRUISE = (function (oc) {
 			},
 			sendEmail: function(csvObj) {
 				var dv = oc.defaultValues;
-				//update user modifiable field names, currently global parms
-				var oldFieldNames = dv.field1.dbName + ',' + dv.field2.dbName + ',' + dv.field3.dbName + ',' + dv.field4.dbName;
-				var newFieldNames = dv.field1.name() + ',' + dv.field2.name() + ',' + dv.field3.name() + ',' + dv.field4.name();
+				//update user modifiable field names
+				//var oldFieldNames = dv.field1.dbName + ',' + dv.field2.dbName + ',' + dv.field3.dbName + ',' + dv.field4.dbName;
+				//var newFieldNames = dv.field1.name() + ',' + dv.field2.name() + ',' + dv.field3.name() + ',' + dv.field4.name();
+				var oldFieldNames = dv.field2.dbName + ',' + dv.field3.dbName + ',' + dv.field4.dbName;
+				var newFieldNames = this.field2.name() + ',' + this.field3.name() + ',' + this.field4.name();
 				csvObj.trees = csvObj.trees.replace(oldFieldNames, newFieldNames);
 				var data = 'sep=,\r\n' + csvObj.cruise + csvObj.plots + csvObj.trees; //send as one attachment for now
 		        $.ajax({

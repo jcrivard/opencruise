@@ -41,6 +41,7 @@ var OCRUISE = (function (oc) {
 	    	        ko.applyBindings(oc.activeList,$('#cruiseListPage')[0]);
 	    	        ko.applyBindings(oc.activeList,$('#cruisePage')[0]);
 	    	        ko.applyBindings(oc.activeList,$('#emailPage')[0]);
+	    	        ko.applyBindings(oc.activeList,$('#fieldsPage')[0]);
 	    	        ko.applyBindings(oc.activeList,$('#plotPage')[0]);
 	    	        ko.applyBindings(oc.defaultValues,$('#configPage')[0]);
 	        	}
@@ -64,6 +65,10 @@ var OCRUISE = (function (oc) {
 			    $('#plotPage').bind( "pagebeforeshow", function(){
 			    	$('#plotPage').trigger("create");
 			    });
+			    //reapply jquery mobile styling which is lost at times
+			    $('#fieldsPage').bind( "pagebeforeshow", function(){
+			    	$('#fieldsPage').trigger("create");
+			    });
 	        }
 		
 		});
@@ -75,7 +80,7 @@ var OCRUISE = (function (oc) {
 		var dv = oc.defaultValues;
 	    var webSQLInfo = {
 	    		name: 'CRUISEDB',
-	    		version: '1.0',
+	    		version: '3.0',
 	    		descript: 'CRUISE DB',
 	    		maxsize: 200000,
 	    		tables: [{tableName: 'cruise',
@@ -83,7 +88,20 @@ var OCRUISE = (function (oc) {
 	    			               {name: 'cname', type: 'TEXT NOT NULL'},
 	    			               {name: 'cpeople', type: 'TEXT NOT NULL'},
 	    			               {name: 'cdate', type: 'TEXT'},
-	    			               {name: 'cbaf', type: 'TEXT'}
+	    			               {name: 'cbaf', type: 'TEXT'},
+	    			               {name: 'field2name', type: 'TEXT DEFAULT "DBH"'},
+	    			               {name: 'field3name', type: 'TEXT DEFAULT "Saw"'},
+	    			               {name: 'field4name', type: 'TEXT DEFAULT "Pulp"'},
+	    			               {name: 'field2min', type: 'TEXT'},
+	    			               {name: 'field2max', type: 'TEXT'},
+	    			               {name: 'field2init', type: 'TEXT'},
+	    			               {name: 'field3min', type: 'TEXT'},
+	    			               {name: 'field3max', type: 'TEXT'},
+	    			               {name: 'field3init', type: 'TEXT'},
+	    			               {name: 'field3field2min', type: 'TEXT'},
+	    			               {name: 'field4min', type: 'TEXT'},
+	    			               {name: 'field4max', type: 'TEXT'},
+	    			               {name: 'field4init', type: 'TEXT'}
 	    			              ]
 	    		         },
 	    		         {tableName: 'plots',

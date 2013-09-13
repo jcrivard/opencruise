@@ -88,9 +88,10 @@
  <div data-role="footer" id="cruiseFooter" class="ui-bar">
    <div data-role="controlgroup"  data-type="horizontal">
     <!-- ko with: selectedCruise -->
-    <a href="javascript:void(0)" data-bind="click: newPlot" id="newPlotBtn" data-inline="true" data-role="button" data-icon="plus" data-transition="none"  data-rel="dialog" data-theme="b">New Plot</a>
+    <a href="javascript:void(0)" data-bind="click: newPlot" id="newPlotBtn" data-inline="true" data-role="button" data-icon="plus" data-transition="none"  data-rel="dialog" data-theme="b">Plot</a>
     <!-- /ko -->
-    <a href="#selectPlotPopup" data-rel="popup" data-position-to="window" id="editPlotsBtn" data-inline="true" data-role="button" data-icon="grid"  data-theme="b">Edit Plots</a>
+    <a href="#selectPlotPopup" data-rel="popup" data-position-to="window" id="editPlotsBtn" data-inline="true" data-role="button" data-icon="edit"  data-theme="b">Plot</a>
+    <a href="#fieldsPage" id="fieldsBtn" data-inline="true" data-role="button" data-icon="gear"  data-rel="dialog" data-theme="b">Fields</a>
     <a href="#emailPage" id="emailBtn" data-inline="true" data-role="button" data-icon="gear"  data-rel="dialog" data-theme="b">Email</a>    
    </div>
  </div><!-- /footer -->
@@ -111,6 +112,85 @@
         <p>Cruise Information Update Successful.<p>
 </div>
 </div><!-- /page cruisePage-->
+
+<!--****  FIELDS PAGE  *******************-->
+<div data-role="page" id="fieldsPage" class="OC-not-initialized">
+ <div data-role="header">
+     <h1>Field Names</h1>
+ </div><!-- /header -->
+ <div data-role="content" class="ui-body ui-body-a" >   
+     <form>
+      <div data-role="fieldcontain" data-bind="with: selectedCruise">
+         <fieldset class='ui-grid-c'  data-mini='true' >
+             <div class='ui-block-a'>Name</div>
+             <div class='ui-block-b'>Min</div>
+             <div class='ui-block-c'>Max</div>
+             <div class='ui-block-d'>Init</div>
+         </fieldset>
+         <div data-bind="with: field2">
+         <fieldset class='ui-grid-c ui-hide-label' data-mini='true'>
+             <div class='ui-block-a'>
+                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-c'>
+                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-d'>
+                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+         </fieldset>
+         </div>
+         <div data-bind="with: field3">
+         <fieldset class='ui-grid-c ui-hide-label' data-mini='true'>
+             <div class='ui-block-a'>
+                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-c'>
+                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-d'>
+                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+         </fieldset>
+         </div>
+         <div data-bind="with: field4">
+         <fieldset class='ui-grid-c ui-hide-label' data-mini='true'>
+             <div class='ui-block-a'>
+                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-c'>
+                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+             <div class='ui-block-d'>
+                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+         </fieldset>
+         </div>
+         <div data-bind="with: field3">
+         <fieldset class='ui-grid-a ui-hide-label' data-mini='true'>
+             <div class='ui-block-a'>
+                 Min field2 for field3 (ie. min DBH for Saw)
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: field2Min, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
+             </div>
+         </fieldset>
+         </div>
+      </div>
+     </form>
+ </div><!-- /content --> 
+ 
+</div><!-- /page fieldsPage-->
+
 
 <!--****  EMAIL PAGE  *******************-->
 <div data-role="page" id="emailPage" class="OC-not-initialized">
@@ -212,8 +292,9 @@
                 <ol>
                     <li>Visit the homepage and create a bookmark to the site.  Add the bookmark to your home screen for the best experience.</li>
                     <li>IOS(Apple) users will get a full screen, native looking web application after adding the bookmark to the home screen.</li>
-                    <li>Do NOT clear browser cache before uploading the data.  All collected data is stored
-                        in localstorage, which may be deleted when clearing the browser cache.
+                    <li>To be safe, do NOT clear browser cache before uploading the data.  All collected data is stored
+                        in localstorage, which should persist regardless of cache status.  However, some older browser versions may improperly
+                        delete localstorage as part of the cache clearing process.
                     </li>
                     <li>Browser settings and general use notes:
                         <ul>
@@ -229,13 +310,14 @@
                     </li>
                     <li>Mobile support:<br>
                      <strong>Android Browser</strong> - most platforms should work, but if you encounter problems,
-                     especially on older versions (2.x.x) of Android, try installing Firefox.  When entering data, you may have to use the upper NEXT button
+                     especially on older versions (2.x.x) of Android, try installing Firefox or Dolphin Browser.  When entering data, you may have to use the upper NEXT button
                      to tab between fields.<br>
                      <strong>Chrome</strong> - all platforms supported, but only available on Android 4.0+.<br>
                      <strong>Safari</strong> - all platforms supported.<br>
+                     <strong>Dolphin Browser</strong> - should work on all platforms.<br>
                      <strong>Firefox</strong> - all platforms supported. You will need to respond to the prompt to allow the application to store
                      data locally.  To properly create a new cruise you must tap NEW and then on the next screen,
-                     change at least one of the fields (due to bug in Firefox implementation on IndexedDB).<br>
+                     change at least one of the fields (due to bug in Firefox implementation of IndexedDB).<br>
                      </li>
                     <li>Desktop computers: Chrome, Safari, Firefox.<br/>
 
@@ -257,19 +339,74 @@
                 </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Configuration</h2>
+             <h2>Setup and Configuration</h2>
                 <ol>
                     <li>Tap "Config" on main page.</li>
-                    <li>Update cruise parameters as needed.</li>
+                    <li>Update cruise parameters as needed.  The values entered here will become the defaults when creating a new cruise.</li>
+                    <li>Default Data Fields - these are the global defaults and can be changed later for each cruise.
+                        The field names are the title(s) on the plot entry screen.
+                        Min and max values are used during plot entry to control field colors (red is out of range, green
+                        is in range).  Min field2 for field3 is intended to be a limit check for sawtimber.  Assuming field2
+                        is DBH and field3 is a measure of Sawtimber, this value indicates the minimum diameter that a tree
+                        can be to have sawtimber.  If a tree with a smaller diameter is entered and the user enters a value 
+                        greater than zero for sawtimber, the sawtimber field will turn red.</li>
+                    <li>Species codes are currently global parameters that apply to all cruises.</li>
                     <li>Click "Add Species" to add a new species code.</li>
                     <li>The "Voice #X" fields are only for voice recognition (see Installation and Browser Notes) and can be 
                         left blank if you are not using speech input.</li>
                     <li>To reorder species, swap the codes.</li>
-                    <li>Data Fields - change the name field to change the title(s) on the plot entry screen.
-                        Mix and max values are used during plot entry to control field colors (red is out of range, green
-                        is in range).</li>
+                    
                 </ol>
-         </div>   
+         </div>
+         <div data-role="collapsible">
+             <h2>Create/Update cruise</h2>
+                <ol>
+                    <li>Tap "New" on main page.</li>
+                    <li>Update date, name, BAF, etc...</li>
+                    <li>Click "Fields" to change plot level field names and data ranges.</li>
+                    <li>Tap "New Plot" to start entering data.<br/>
+                     </li>
+                </ol>
+         </div>
+         <div data-role="collapsible">
+             <h2>Plot Entry</h2>
+                 <ol>
+                     <li>Tap "New Plot"</li>
+                     <li>Update plotid or use as comments field.  This field can be used to record any amount of 
+                     text as long as it does not contain a comma.  Covertype, habitat type, notes, etc...</li>
+                     <li>Add trees by tapping plus sign</li>
+                     <li>Tap "Save" when done</li>
+                     <li>Delete a tree by changing the 2nd field (ie. DBH) to blank or zero.</li>
+                 </ol>
+         </div>
+         <div data-role="collapsible">
+             <h2>Edit Plots</h2>
+                 <ol>
+                     <li>Tap "Edit Plots".</li>
+                     <li>Choose Plot to edit from popup.</li>
+                     <li>Change tree records and add new trees as needed.</li>
+                     <li>To delete a tree record, change 2nd field (ie. DBH) to zero.</li>
+                     <li>Tap "Update" when done.</li>
+                 </ol>
+         </div>
+         <div data-role="collapsible">
+             <h2>Email/Upload data</h2>
+                 <ol>
+                     <li>Tap "Email" from the cruise page.</li>
+                     <li>Make sure you are in secure mode (lock icon in browser).</li>
+                     <li>Enter a valid GMail userid/password.</li>
+                     <li>Tap "Send Email"</li>
+                     <li>Userid/password are not saved or used for any purpose other than uploading data.</li>
+                 </ol>
+         </div>
+         <div data-role="collapsible">
+             <h2>Work offline (Airplane Mode)</h2>
+                 <ol>
+                     <li>Visit website, or open application from home screen (see Browser Notes) when you have network access.</li>
+                     <li>Go into "Airplane Mode" to save battery.</li>
+                     <li>When done collecting data, exit airplane mode.</li>
+                 </ol>
+         </div>
          <div data-role="collapsible">
              <h2>Output File Format</h2>
                 <ol>
@@ -289,74 +426,29 @@
                         </ul>
                     </li>
                 </ol>
-         </div> 
-         <div data-role="collapsible">
-             <h2>Create a new cruise</h2>
-                <ol>
-                    <li>Tap "New" on main page.</li>
-                    <li>Update date, name, BAF, etc...</li>
-                    <li>Tap "New Plot" to start entering data.<br/>
-                     </li>
-                </ol>
-         </div>   
-         <div data-role="collapsible">
-             <h2>Update cruise paramaters</h2>
-                <ol>
-                    <li>Change date, name, etc...</li>
-                    <li>Updates to database are automatic.</li>
-                </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Create a new plot</h2>
-                 <ol>
-                     <li>Tap "New Plot"</li>
-                     <li>Update plotid or use as comments field</li>
-                     <li>Add trees by tapping plus sign</li>
-                     <li>Tap "Save" when done</li>
-                 </ol>
-         </div>
-         <div data-role="collapsible">
-             <h2>Work offline</h2>
-                 <ol>
-                     <li>Visit website, or open application from home screen (see Browser Notes) when you have network access.</li>
-                     <li>Go into "Airplane Mode" to save battery.</li>
-                     <li>When done collecting data, exit airplane mode.</li>
-                 </ol>
-         </div>
-         <div data-role="collapsible">
-             <h2>Upload data</h2>
-                 <ol>
-                     <li>Tap "Email" from the cruise page.</li>
-                     <li>Make sure you are in secure mode (lock icon in browser).</li>
-                     <li>Enter a valid GMail userid/password.</li>
-                     <li>Tap "Send Email"</li>
-                     <li>Userid/password are not saved or used for any purpose other than uploading data.</li>
-                 </ol>
-         </div>
-         <div data-role="collapsible">
-             <h2>Edit Data</h2>
-                 <ol>
-                     <li>Tap "Edit Plots".</li>
-                     <li>Choose Plot to edit from popup.</li>
-                     <li>Change tree records and add new trees as needed.</li>
-                     <li>To delete a tree record, change DBH to zero.</li>
-                     <li>Tap "Update" when done.</li>
-                 </ol>
-         </div>
+             <h2>Release Notes</h2>
+                 <ul>
+                     <li>Version 1.0.0914.1</li>
+                     <ul>
+                         <li>Removed default sawlog value to fix Firefox tab issue.</li>
+                         <li>Added ability to configure field defaults for each cruise as opposed to globally.</li>
+                     </ul>
+                </ul>
+         </div>        
          <div data-role="collapsible">
              <h2>Coming Soon...</h2>
                  <ol>
-                     <li>Fix tabbing issue with Firefox and sawlogs field - cursor tabs to left of zero instead of right.</li>
                      <li>Improved performance(ongoing).</li>
                      <li>Activate comments and covertype plot fields.</li>
-                     <li>Allow config parms for each cruise as opposed to global parms.</li>
                      <li>Add support for more than 2 products per tree.</li>
                 </ol>
          </div>
          <div data-role="collapsible">
              <h2>About</h2>
                  <ol>
-                     <li>Version: 1.0.2608.1</li>
+                     <li>Version: 1.0.0914.1</li>
                      <li>OpenCruise is open source and licensed under the : 
                          <a href="http://www.gnu.org/copyleft/gpl.html">GNU Public License Version 3.</a></li>
                      <li>Developed by <a href="mailto:jcrivard@mtu.edu">Jim Rivard.</a></li>
@@ -377,14 +469,73 @@
  </div><!-- /header -->
  <div data-role="content" class="ui-body ui-body-a" id="configContent" >
     <div id="cruiseParms" data-role="fieldcontain" >
-         <h2>Cruise Parameters</h2>
+         <h2>Default Cruise Parms</h2>
          <label for="configJobName">Job Name:</label>
          <input id='configJobName' type='text' data-bind="value: cruiseParms.jobName, event: { change: function(data,event) {save(); }}" />
          <label for="configCruisers">Personnel:</label>
          <input id='configCruisers' type='text' data-bind="value: cruiseParms.cruisers, event: { change: function(data,event) {save(); }}">
          <label for="configDefaultSpecies">Default Species:</label>
          <input id='configDefaultSpecies' type='text' data-bind="value: defaultSpecies, event: { change: function(data,event) {save(); }}">
-    
+         <h3>Default Fields</h3>
+         <fieldset class='ui-grid-c'  data-mini='true' >
+             <div class='ui-block-a'>Name</div>
+             <div class='ui-block-b'>Min</div>
+             <div class='ui-block-c'>Max</div>
+             <div class='ui-block-d'>Init</div>
+         </fieldset>
+
+         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field2" data-mini='true' >
+             <div class='ui-block-a'>
+                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+             <div class='ui-block-c'>
+                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+             <div class='ui-block-d'>
+                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+         </fieldset>
+         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field3" data-mini='true' >
+             <div class='ui-block-a'>
+                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+             <div class='ui-block-c'>
+                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+             <div class='ui-block-d'>
+                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+         </fieldset>
+         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field4" data-mini='true' >
+             <div class='ui-block-a'>
+                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+             <div class='ui-block-c'>
+                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+             <div class='ui-block-d'>
+                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+         </fieldset>
+         <div data-bind="with: cruiseParms.field3">
+         <fieldset class='ui-grid-a ui-hide-label' data-mini='true'>
+             <div class='ui-block-a'>
+                 Min field2 for field3 (ie. min DBH for Saw)
+             </div>
+             <div class='ui-block-b'>
+                 <input type='number' data-bind="value: field2Min, event: { change: function(data,event) {$parent.save(data,event); }}" />
+             </div>
+         </fieldset>
+         </div>
          <!-- ko with: speciesKey -->
          <h2>Species Codes</h2>
          <button data-bind='click: function(data,event) {addSpecies(data,event); $root.save();}' data-mini='true' data-inline="true" data-theme="b">Add Species</button>
@@ -419,62 +570,6 @@
              </fieldset>
          </div>
          <!-- /ko -->
-
-
-         <h2>Data Fields</h2>
-         <fieldset class='ui-grid-c'  data-mini='true' >
-             <div class='ui-block-a'>Name</div>
-             <div class='ui-block-b'>Min</div>
-             <div class='ui-block-c'>Max</div>
-             <div class='ui-block-d'>Initial</div>
-         </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: field1" data-mini='true' >
-             <div class='ui-block-a' >
-                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
-             </div>
-             <div class='ui-block-b'>&nbsp;</div>
-             <div class='ui-block-c'>&nbsp;</div>
-             <div class='ui-block-d'>&nbsp;</div>
-         </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: field2" data-mini='true' >
-             <div class='ui-block-a'>
-                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
-             </div>
-             <div class='ui-block-b'>
-                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-c'>
-                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-d'>&nbsp;</div>
-         </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: field3" data-mini='true' >
-             <div class='ui-block-a'>
-                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
-             </div>
-             <div class='ui-block-b'>
-                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-c'>
-                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-d'>&nbsp;</div>
-         </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: field4" data-mini='true' >
-             <div class='ui-block-a'>
-                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
-             </div>
-             <div class='ui-block-b'>
-                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-c'>
-                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-d'>&nbsp;</div>
-         </fieldset>
-
-
-
     </div><!-- /fieldcontain -->
  </div><!-- /content -->
  <div data-role="footer" data-position="fixed">
