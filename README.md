@@ -1,5 +1,5 @@
-opencruise
-==========
+Opencruise V1.1
+===============
 
 Forest Inventory Software for Mobile Platforms - HTML 5 Web Application
 
