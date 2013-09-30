@@ -16,6 +16,7 @@ var OCRUISE = (function (oc) {
 			cruisers: 'Michigan Tech FERM',
 			date: oc.currentDate(),
 			BAF: '10',
+			mpm: false,
 			field2: {
 			    name: 'DBH',
 			    min: '5',
@@ -79,7 +80,17 @@ var OCRUISE = (function (oc) {
 		this.field4 = {
 			dbName: 'pulpsticks'
 		};
-		this.grade = ["W","1","2","3","V"];  //Not used yet
+		this.gradeKey = {
+			grades: ko.observableArray([
+			 {key: '1'},
+			 {key: '2'},
+			 {key: '3'},
+			 {key: 'Bolt'},
+			 {key: 'V'},
+			 {key: 'C'},
+			 {key: 'Pulp'}
+			])
+		};
 		this.BAF = [10,20,40,80]; //Not currently used; edit index.html to change
 		this.pages = {
 		     cruiseListPage: '#cruiseListPage',
@@ -112,6 +123,21 @@ var OCRUISE = (function (oc) {
 			  }
 			  return speciesArray;
 		};
+		this.gradeKey.toArray = function() {
+			  var gradeArray = [];
+			  for (var i=0; i < this.grades().length; i++) {
+			    gradeArray.push(this.grades()[i].key);
+			  }
+			  return gradeArray;
+		};
+		this.gradeKey.deleteGrade = function(grdObj, event){
+		  	  var removed = this.grades.remove(grdObj);
+		};
+		this.gradeKey.addGrade = function(grdObj, event) {
+	    	  this.grades.unshift({key: 'new'});
+	    	  //$('#configPage ul').listview().listview('refresh');
+	    	  $('#configPage').trigger("create");
+	    };
 		
 		this.save = function (data,event) {
 			 if (data) {              //knockout.js converting number input to string; change back to integer
@@ -127,8 +153,11 @@ var OCRUISE = (function (oc) {
 		this.load = function() {
 			 var LS = JSON.parse(localStorage['defaults']);
 			 this.speciesKey.species(LS.speciesKey.species);
-			 if (LS.cruiseParms.field2) {
+			 if (LS.cruiseParms.mpm) {
 				 this.cruiseParms = LS.cruiseParms;  //for migration to field config by cruise
+			 }
+			 if (LS.gradeKey) {
+				 this.gradeKey.grades(LS.gradeKey.grades); //for migration
 			 }
 			 this.defaultSpecies(LS.defaultSpecies);
 			 //need to find a better way - loop through properties, but check for KO

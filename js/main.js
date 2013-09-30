@@ -8,9 +8,9 @@ require.config({
   //baseUrl: "/OpenCruiseV3", //testing
   waitSeconds: 180,
   paths: {
-    'jquery': 'libs/jquery/jquery-1.8.3.min',
+    'jquery': 'libs/jquery/jquery-1.9.1.min',
     'mobileinit': 'mobileinit',
-    'jquery.mobile': 'libs/jquery.mobile-1.3.1/jquery.mobile-1.3.1.min',
+    'jquery.mobile': 'libs/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min',
     'knockout': 'libs/knockout/knockout-2.2.1',
     'fastclick': 'libs/fastclick/fastclick',
     'database' : 'database',

@@ -1,4 +1,5 @@
 /** Overrides for jquery mobile v1.3.0;  **/
+/* ui-controlgroup-controls 100% width for plot entry screen */
 .ui-controlgroup-controls {
     width: 100% !important;
 }
@@ -71,6 +72,9 @@ input.ui-input-text.ui-slider-input,
 .OC-not-initialized { 
     display: none;
 }
+.OCBAF .ui-controlgroup-controls {
+    width: auto !important;
+}
 .OCSelect {
     font-size: 1.1em;
     background-color: #2d2d2d;
@@ -133,6 +137,10 @@ input.ui-input-text.ui-slider-input,
     -moz-animation-fill-mode: forwards;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
+}
+.OCButtonCorners {
+    -webkit-border-radius: 1em !important;
+    border-radius: 1em !important;
 }
 @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }

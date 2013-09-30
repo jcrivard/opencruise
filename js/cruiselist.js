@@ -3,13 +3,11 @@ Forest Inventory Data Collection - Jim Rivard, Michigan Technological University
 Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */
-
 var OCRUISE = (function (oc) {
 
 	oc.cruiseList = function(cruisePage){
 		var parms = oc.defaultValues.cruiseParms;
 		var self = this;
-		//this.defaultParms = ko.observable(oc.defaultValues);  //for config options
 		this.editCruisePage = cruisePage;      //DOM page to open after cruise is selected for editing
 		this.cruises = ko.observableArray([]); //arrray of active jobs
 		this.selectedCruise = ko.observable(new oc.cruise(0, parms)); //cruise being edited; init for knockout
@@ -57,6 +55,7 @@ var OCRUISE = (function (oc) {
 		        		date: row.cdate,
 		        		cruisers: row.cpeople,
 		        		BAF: row.cbaf,
+		        		mpm: row.mpm,
 		        		field2: {
 		        	        name: row.field2name,
 		        	        min: row.field2min,
@@ -75,7 +74,7 @@ var OCRUISE = (function (oc) {
 		        	        min: row.field4min,
 		        	        max: row.field4max,
 		        	        init: row.field4init
-		                },
+		                }
 		        };
 		        this.cruises.push(new oc.cruise(row.cruiseid, parms));
 		    }

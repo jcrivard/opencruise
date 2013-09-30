@@ -6,7 +6,7 @@ http://www.gnu.org/copyleft/gpl.html
 
 var OCRUISE = (function (oc) {
 
-	oc.tree = function(field1, field2, field3, field4) { 
+	oc.tree = function(field1, field2, field3, field4, inSegments) { 
 		var dv = oc.defaultValues;
 		var field1Array = dv.speciesKey.toArray();
 		if (field1Array.indexOf(field1) == -1 ) {
@@ -16,7 +16,22 @@ var OCRUISE = (function (oc) {
 		this.field2 = ko.observable(field2);
 		this.field3 = ko.observable(field3);
 		this.field4 = ko.observable(field4);
+		this.segments = []; //for multiproduct mode
+		this.grades = ko.observableArray(dv.gradeKey.toArray());
 		this.field1Values = ko.observableArray(field1Array);
+		for (var i=0; i < 6; i++) { //put segment array into observables
+			if (inSegments[i]){
+	        	this.segments.push({id: i, product: ko.observable(inSegments[i].product), length: ko.observable(inSegments[i].length)});  //init 6 multiproduct segments.
+	        	//check if grade in default list; if not, user changed valid grades since tree recorded; add grade to dropdown
+	        	if (this.grades.indexOf(inSegments[i].product) == -1) {
+	        		this.grades.push(inSegments[i].product);
+	        	}
+			}
+			else {
+				this.segments.push({id: i, product: ko.observable(" "), length: ko.observable(null)});  //init 6 multiproduct segments.
+			}
+        }
+
 	};
 	oc.tree.prototype = {
 	   //change color of field2, field3, field3 in DOM to red or green

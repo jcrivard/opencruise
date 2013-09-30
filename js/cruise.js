@@ -5,7 +5,6 @@ http://www.gnu.org/copyleft/gpl.html
 */
 
 var OCRUISE = (function (oc) {
-
 	oc.cruise = function(id, parms ) {
 		var dv = oc.defaultValues;
 		this.self = this;
@@ -13,6 +12,7 @@ var OCRUISE = (function (oc) {
 		this.people = ko.observable(parms.cruisers);
 		this.BAF = ko.observable(parms.BAF);
 		this.date = ko.observable(parms.date);
+		this.multiProducts = ko.observable(Boolean(parms.mpm)); //parms.mpm is integer 0 or 1 from DB
 		this.field2 = {
 				name: ko.observable(parms.field2.name || dv.cruiseParms.field2.name),
 				min: ko.observable(parms.field2.min || dv.cruiseParms.field2.min),
@@ -38,6 +38,7 @@ var OCRUISE = (function (oc) {
 		this.defaultSpecies = dv.defaultSpecies;
 		this.loadPlots(); //load current plotlist into plots array
 		this.field1Values = ko.observableArray(dv.speciesKey.toArray()); //need to fix to update with changes
+		this.showDownloadFileBtn = ko.observable(false);
 	};
 	
 	oc.cruise.prototype = {		
@@ -59,14 +60,13 @@ var OCRUISE = (function (oc) {
                 //oc.DB.select('trees', 'MAX(plotnum) AS MAXPLOT', whereClause, '', callback);
                 oc.DB.select('trees', 'plotnum', '', callback, 'MAXPLOT', whereObj);
 			},
-			//update cruise table when user clicks SAVE in upper right of cruise page
 			updateCruise: function(data,event){
-				//var thisCruise = data.selectedCruise();
 				var thisCruise = this;
 				var fieldObj = {cname: thisCruise.cruiseName(),
 						cpeople: thisCruise.people(),
 						cdate: thisCruise.date(),
 						cbaf: thisCruise.BAF(),
+						mpm: Number(thisCruise.multiProducts()), //store as integer 0 or 1 in DB
 					    field2name: thisCruise.field2.name(),
 						field2min: thisCruise.field2.min(),
 						field2max: thisCruise.field2.max(),
@@ -83,7 +83,6 @@ var OCRUISE = (function (oc) {
 				};
 				var whereObj = {cruiseid: thisCruise.cruiseID}; 
 			    oc.DB.update('cruise', fieldObj, whereObj);
-			    //$('#cruiseUpdatedPopup').popup( 'open');//assume it worked :-)
 			},
 			loadPlots: function(){
 				var thisCruise = this;
@@ -105,18 +104,17 @@ var OCRUISE = (function (oc) {
 			},
 			//EXPORTTOCSV - runs 3 chained, async DB calls (trees,plots,cruise), invokes method to build CSV for each DB Call,
 			//              When all 3 calls are done, the method to send email is invoked
-			exporttoCSV: function(data,event) {
+			exporttoCSV: function(data,useEmail) {
 				var csv = {
 		           plots: '',
 		           trees: '',
 		           cruise: ''
 			    };
-				$.mobile.loading( 'show', {	text: 'Connecting to server....', textVisible: true, theme: 'b', html: '' });
 			    function validateEmail(email) {
 				    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 				    return emailReg.test( email );
 				}
-				var thisCruise = data.selectedCruise();
+				var thisCruise = this;
 				var whereObj = {cruiseid: thisCruise.cruiseID}; 
 			    var orderbyClause = 'plotnum';
 			    var callbackTrees = function(transaction, results){
@@ -128,23 +126,48 @@ var OCRUISE = (function (oc) {
 			    	  oc.DB.select('cruise', '*', '', callbackCruise, '', whereObj);
                 };
                 var callbackCruise = function(transaction, results){
+                	  var dv = oc.defaultValues;
 			    	  csv.cruise = thisCruise.buildCSV(transaction,results);
-			    	  thisCruise.sendEmail(csv); //done with all 3 DB calls, send the email
+			    	  //update user modifiable field names
+    				  var oldFieldNames = dv.field2.dbName + ',' + dv.field3.dbName + ',' + dv.field4.dbName;
+					  var newFieldNames = thisCruise.field2.name() + ',' + thisCruise.field3.name() + ',' + thisCruise.field4.name();
+					  csv.trees = csv.trees.replace(oldFieldNames, newFieldNames);
+					  var data = 'sep=,\r\n' + csv.cruise + csv.plots + csv.trees; //send as one attachment for now
+					  thisCruise.csv = data; //store in object for sendEmail routine
+					  thisCruise.setFileDownload(); //enable file download if supported
                 };
-			    if (validateEmail($('#emailTo').val())) {
-			      oc.DB.select('trees', '*', orderbyClause, callbackTrees, '', whereObj); //start the 1st database call
-			    }
-			    else {
-			        alert('Invalid email address');
-			        $.mobile.loading( 'hide');
-			    }
+			    oc.DB.select('trees', '*', orderbyClause, callbackTrees, '', whereObj); //start the 1st database call
+			},
+			setFileDownload: function(){
+				var success = false;
+				window.URL = (window.URL || window.webkitURL);
+				if ( window.URL &&  window.Blob ) {
+				  try {
+					  var blob = new Blob([this.csv], {type: "text/csv"});
+				  }
+				  catch(e) {
+					  console.log("setFileDownload: blobs not supported");
+				  }
+				  if  (window.URL.createObjectURL && blob){
+					  var url = window.URL.createObjectURL(blob);
+					  $('#downloadFileBtn').attr('href', url); //move to ko observable
+					  $('#downloadFileBtn').attr('download', this.cruiseName() + '.csv');
+					  this.showDownloadFileBtn(true);
+					  success = true;
+					  console.log("File download supported!");
+				  }
+				  else {
+					  console.log("File download NOT supported.");
+				  }
+				}
+				return success;
 			},
 			buildCSV: function(transaction, results) {
 				var data = '';
 				var row;
-				//build headings from 1st record
+				//build headings from last record to get most recent DB field names
 				if (results.rows.length > 0) {
-					row = results.rows.item(0);
+					row = results.rows.item(results.rows.length - 1);
 				    for (var label in row) {
 				    	data += label + ',';
 				    }
@@ -159,35 +182,41 @@ var OCRUISE = (function (oc) {
 			        data = data.substring(0,data.length -1 ); //remove last comma
 			    	data += '\r\n';
 			    }
+			    data = data.replace(/null/g, ''); //save space in output file
 			    return data;
 			},
-			sendEmail: function(csvObj) {
-				var dv = oc.defaultValues;
-				//update user modifiable field names
-				//var oldFieldNames = dv.field1.dbName + ',' + dv.field2.dbName + ',' + dv.field3.dbName + ',' + dv.field4.dbName;
-				//var newFieldNames = dv.field1.name() + ',' + dv.field2.name() + ',' + dv.field3.name() + ',' + dv.field4.name();
-				var oldFieldNames = dv.field2.dbName + ',' + dv.field3.dbName + ',' + dv.field4.dbName;
-				var newFieldNames = this.field2.name() + ',' + this.field3.name() + ',' + this.field4.name();
-				csvObj.trees = csvObj.trees.replace(oldFieldNames, newFieldNames);
-				var data = 'sep=,\r\n' + csvObj.cruise + csvObj.plots + csvObj.trees; //send as one attachment for now
-		        $.ajax({
-		              type: 'POST',
-		              url: 'gmail.php',
-		              data: { data: data, emailTo: $('#emailTo').val(), emailPW: $('#emailPW').val(), cruiseName: this.cruiseName },
-		              success: function(results) {
-		            	      $.mobile.loading( 'hide');
-		            	      $( "#emailSentPopup p" ).html( "Results: " + results);
-		            	      $( "#emailSentPopup" ).popup( "open");
-		            	  },
-		              error: function(jqXHR, textStatus, errorThrown) {
-		            		  $.mobile.loading( 'hide');
-		                      $( "#emailSentPopup p" ).html( "Error: " + textStatus + " - Make sure you have a network connection.");
-			            	  $( "#emailSentPopup" ).popup( "open");
-		            	  },
-		              dataType: 'text'
-		         });
+			sendEmail: function() {
+				function validateEmail(email) {
+				    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+				    return emailReg.test( email );
+				}
+				if (validateEmail($('#emailTo').val())) {
+					$.mobile.loading( 'show', {	text: 'Connecting to server....', textVisible: true, theme: 'b', html: '' });
+					var data = this.csv;
+			        $.ajax({
+			              type: 'POST',
+			              url: 'gmail.php',
+			              data: { data: data, emailTo: $('#emailTo').val(), emailPW: $('#emailPW').val(), cruiseName: this.cruiseName },
+			              success: function(results) {
+			            	      $.mobile.loading( 'hide');
+			            	      $( "#emailSentPopup p" ).html( "Results: " + results);
+			            	      $( "#emailSentPopup" ).popup( "open");
+			            	  },
+			              error: function(jqXHR, textStatus, errorThrown) {
+			            		  $.mobile.loading( 'hide');
+			                      $( "#emailSentPopup p" ).html( "Error: " + textStatus + " - Make sure you have a network connection.");
+				            	  $( "#emailSentPopup" ).popup( "open");
+			            	  },
+			              dataType: 'text'
+			         });
+				}
+				else {
+				    alert('Invalid email address');
+				    $.mobile.loading( 'hide');
+				}
+				
 			    
-			}
+			}			
 			
 	};
 

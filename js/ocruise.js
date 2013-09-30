@@ -8,7 +8,6 @@ var OCRUISE = (function (oc) {
 	oc.currentDate = function() {
 	    var cdate = new Date();
 	    return cdate.getMonth()+1 + "/" + cdate.getDate() + "/" + cdate.getFullYear();
-	
 	};
 	oc.init = function() {
 		$(document).ready(function() {
@@ -43,10 +42,11 @@ var OCRUISE = (function (oc) {
 	    	        ko.applyBindings(oc.activeList,$('#emailPage')[0]);
 	    	        ko.applyBindings(oc.activeList,$('#fieldsPage')[0]);
 	    	        ko.applyBindings(oc.activeList,$('#plotPage')[0]);
+	    	        ko.applyBindings(oc.activeList,$('#multiProductPage')[0]);
 	    	        ko.applyBindings(oc.defaultValues,$('#configPage')[0]);
 	        	}
 	        	
-	        	if (window.openDatabase) { //use webSQL if available
+	        	if (window.openDatabase) { //use webSQL if available; need to reverse this at some point.
 	        		oc.DB = new oc.webSQL(oc.webSQLConfig(), initDBCallback);
 	        	}
 	        	else {
@@ -69,6 +69,14 @@ var OCRUISE = (function (oc) {
 			    $('#fieldsPage').bind( "pagebeforeshow", function(){
 			    	$('#fieldsPage').trigger("create");
 			    });
+			    $('#multiProductPage').bind( "pagebeforeshow", function(){
+			    	$('#multiProductPage').trigger("create");
+			    	//$("input[type='radio']").checkboxradio("refresh");
+			    });
+			    $('#emailPage').bind( "pagebeforeshow", function(){
+			    	oc.activeList.selectedCruise().exporttoCSV();
+			    	$('#emailPage').trigger("create");
+			    });
 	        }
 		
 		});
@@ -80,7 +88,7 @@ var OCRUISE = (function (oc) {
 		var dv = oc.defaultValues;
 	    var webSQLInfo = {
 	    		name: 'CRUISEDB',
-	    		version: '3.0',
+	    		version: '5.0',
 	    		descript: 'CRUISE DB',
 	    		maxsize: 200000,
 	    		tables: [{tableName: 'cruise',
@@ -89,6 +97,7 @@ var OCRUISE = (function (oc) {
 	    			               {name: 'cpeople', type: 'TEXT NOT NULL'},
 	    			               {name: 'cdate', type: 'TEXT'},
 	    			               {name: 'cbaf', type: 'TEXT'},
+	    			               {name: 'mpm', type: 'INTEGER'},
 	    			               {name: 'field2name', type: 'TEXT DEFAULT "DBH"'},
 	    			               {name: 'field3name', type: 'TEXT DEFAULT "Saw"'},
 	    			               {name: 'field4name', type: 'TEXT DEFAULT "Pulp"'},
@@ -129,7 +138,19 @@ var OCRUISE = (function (oc) {
       	    			               {name: dv.field2.dbName, type: 'INTEGER NOT NULL'},
       	    			               {name: dv.field3.dbName, type: 'INTEGER'},
       	    			               {name: dv.field4.dbName, type: 'INTEGER'},
-      	    			               {name: 'deleted', type: 'INTEGER'}
+      	    			               {name: 'deleted', type: 'INTEGER'},
+      	    			               {name: 'seg0prod', type: 'TEXT'},
+    	    			               {name: 'seg0len', type: 'INTEGER'},
+    	    			               {name: 'seg1prod', type: 'TEXT'},
+    	    			               {name: 'seg1len', type: 'INTEGER'},
+    	    			               {name: 'seg2prod', type: 'TEXT'},
+    	    			               {name: 'seg2len', type: 'INTEGER'},
+    	    			               {name: 'seg3prod', type: 'TEXT'},
+    	    			               {name: 'seg3len', type: 'INTEGER'},
+    	    			               {name: 'seg4prod', type: 'TEXT'},
+    	    			               {name: 'seg4len', type: 'INTEGER'},
+    	    			               {name: 'seg5prod', type: 'TEXT'},
+    	    			               {name: 'seg5len', type: 'INTEGER'}
       	    			              ]
       	    		     }
    	    		         

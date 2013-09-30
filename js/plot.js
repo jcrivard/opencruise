@@ -18,6 +18,7 @@ var OCRUISE = (function (oc) {
 		this.cruiseid = cruiseid;
 		this.defaultSpecies = defaultSpecies;
 		this.lastEditedTree = -1; //indicates the array element in trees for speech input
+		this.selectedTree = ko.observable(); //tree being edited when in multiproduct mode
 		this.showSaveButton = ko.observable(true);
 		this.showUpdateButton = ko.observable(false);
 		this.showSpeechButton = ko.observable(false);
@@ -47,14 +48,14 @@ var OCRUISE = (function (oc) {
 	oc.plot.prototype = {
 		   initPlot: function(){
 		        for (var i=0; i < 10; i++) {
-		        	this.trees.push(new oc.tree(this.defaultSpecies, null, 0, null));
+		        	this.trees.push(new oc.tree(this.defaultSpecies,null,null,null,[]));
 		        }
 				this.updatePosition(); //get current geolocation information
 				this.showSaveButton(true);
 				this.showUpdateButton(false);
 	       },
 		   addTree: function () {
-	    	    this.trees.push(new oc.tree(this.defaultSpecies, null, 0, null));
+	    	    this.trees.push(new oc.tree(this.defaultSpecies,null,null,null,[]));
 	    	    $('#plotDetail').trigger('create'); //need to get this moved
 		   },
 	       loadPlot: function() {
@@ -67,7 +68,11 @@ var OCRUISE = (function (oc) {
 			   var callbackTrees = function (transaction, results){
                    for (var i=0; i<results.rows.length; i++) { //populate input fields from DB       
                        var row = results.rows.item(i);
-                       thisPlot.trees.push(new oc.tree(row[dv.field1.dbName], row[dv.field2.dbName], row[dv.field3.dbName], row[dv.field4.dbName]));
+                       var segments = [];
+                       for (var j=0; j < 6; j++){
+                    	   segments.push({product: row['seg' + j + 'prod'], length: row['seg' + j + 'len']});
+                       }
+                       thisPlot.trees.push(new oc.tree(row[dv.field1.dbName], row[dv.field2.dbName], row[dv.field3.dbName], row[dv.field4.dbName], segments));
                        thisPlot.lastEditedTree ++; //for speech input
                    }
                    if (row) {thisPlot.plotID(row.plotid);}  //in case no plot record, use last one from last tree record
@@ -154,14 +159,35 @@ var OCRUISE = (function (oc) {
 		        var fieldNames = ['cruiseid', 'plotid', 'plotnum', 'comments', 'covertype', 'accuracy', 'latitude', 'longitude', 'deleted'];
 		        queryArray.push([tableName,fieldNames,[this.cruiseid, this.plotID(), this.plotnum,'','', position.coords.accuracy, position.coords.latitude, position.coords.longitude,0]]);
 		        tableName = 'trees';
-		        fieldNames = ['cruiseid', 'plotid', 'plotnum', 'treenum', dv.field1.dbName, dv.field2.dbName, dv.field3.dbName, dv.field4.dbName, 'deleted'];
+		        fieldNames = ['cruiseid', 'plotid', 'plotnum', 'treenum',
+		                      dv.field1.dbName, dv.field2.dbName, dv.field3.dbName, dv.field4.dbName, 'deleted',
+		                      'seg0prod', 'seg0len', 'seg1prod', 'seg1len', 'seg2prod', 'seg2len', 'seg3prod', 'seg3len',
+		                      'seg4prod', 'seg4len', 'seg5prod', 'seg5len'];
 		        for (var tree in treeArray) {
-		          var temp = '';
 		          if (treeArray[tree].field2() > 0) { //only insert records with field2 (DBH) > 0
-		              queryArray.push([tableName,fieldNames,[this.cruiseid, this.plotID(), this.plotnum, tree, treeArray[tree].field1(), treeArray[tree].field2(), treeArray[tree].field3(), treeArray[tree].field4(),0]]);
+		              queryArray.push([tableName,fieldNames,
+		                               [this.cruiseid, this.plotID(), this.plotnum, tree,
+		                                treeArray[tree].field1(), treeArray[tree].field2(),
+		                                treeArray[tree].field3(), treeArray[tree].field4(),0,
+		                                treeArray[tree].segments[0].product(), treeArray[tree].segments[0].length(),
+		                                treeArray[tree].segments[1].product(), treeArray[tree].segments[1].length(),
+		                                treeArray[tree].segments[2].product(), treeArray[tree].segments[2].length(),
+		                                treeArray[tree].segments[3].product(), treeArray[tree].segments[3].length(),
+		                                treeArray[tree].segments[4].product(), treeArray[tree].segments[4].length(),
+		                                treeArray[tree].segments[5].product(), treeArray[tree].segments[5].length()
+		                                ]]);
                   }
 		        }
 		        oc.DB.insert(queryArray,callback,transCallback); //uncomment when done testing
+		        /**** Next few lines for STRESS TESTING ***/
+		        /*if (confirm("Stress Test?")){
+		        	console.log("Running stress test...");
+			        for (var i=0; i < 1000; i++) {
+			        	oc.DB.insert(queryArray,callback,transCallback);
+			        }
+			        alert("Stress test done.");
+		        }
+		        /**** end of STRESS TEST routine  ****/
 			},
 			//User clicks UPDATE from plot entry screen, delete old plot data, reinsert new plot data
 			//This is not the best way to do it - transaction including deletes AND inserts would be better.
@@ -176,6 +202,13 @@ var OCRUISE = (function (oc) {
 				var queryArray = [['plots',whereObj],['trees',whereObj]];
 				oc.DB.deleteRows(queryArray,callback);
                 this.insertPlot(parent);
+			},
+			//User clicks button to enter multiple segments.  Set selectedTree to current object and load segment entry page.
+			multiProductEntry: function(thisTree,thisPlot){
+				//$.mobile.loading( 'show', {text: 'Loading',	textVisible: true, theme: 'e', html: ""	});
+                this.selectedTree(thisTree);
+                $.mobile.changePage('#multiProductPage',{role: 'dialog'});
+                //setTimeout(function () {$.mobile.changePage('#multiProductPage',{role: 'dialog'});}, 100); //need async timeout to get loading message
 			},
 			logMessage: function(message){
 			    console.log(message);

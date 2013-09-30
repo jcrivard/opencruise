@@ -113,7 +113,7 @@ var OCRUISE = (function (oc) {
 		initDatabase: function(dbParms, initCallback) {
 			this.DB = openDatabase(dbParms.name, "", dbParms.descript, dbParms.maxsize);
 			if (this.DB) {
-				console.log('Database Opened');
+				console.log('Database Opened, Version: ' + this.DB.version);
 			    this.createTables(dbParms, initCallback);
 			    this.checkVersion();
 			}
@@ -123,10 +123,21 @@ var OCRUISE = (function (oc) {
 		},
 		checkVersion: function(){
 			var thisOBJ = this;
-			if (this.DB.version == '1.0'){
-				//upgrade to version 3.0
-				this.DB.changeVersion('1.0','3.0',
+			//set version for new database; should be latest version
+			if (this.DB.version == ''){ 
+				this.DB.changeVersion('',thisOBJ.version,
 					function(t){
+						t.executeSql('SELECT * FROM cruise'); //dummy  query, maybe remove						
+				    },
+				    function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
+				    function() {console.log('Database initialized to version: ' + thisOBJ.version);}
+				);
+			}	
+			else if (this.DB.version == '1.0'){
+				//upgrade to version 3.0
+				this.DB.changeVersion('1.0','5.0',
+					function(t){
+					    t.executeSql('ALTER TABLE cruise ADD COLUMN mpm INTEGER ');
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field2name TEXT DEFAULT "DBH" ');
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field3name TEXT DEFAULT "Saw" ');
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field4name TEXT DEFAULT "Pulp" ');
@@ -140,9 +151,51 @@ var OCRUISE = (function (oc) {
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field4min TEXT ');
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field4max TEXT ');
 						t.executeSql('ALTER TABLE cruise ADD COLUMN field4init TEXT ');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg0prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg0len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg1prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg1len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg2prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg2len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg3prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg3len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg4prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg4len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg5prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg5len INTEGER');
 				    },
 				    function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
-				    function() {thisOBJ.nullDataHandler();}
+				    function() {console.log('Database upgraded from version 1.0 to version: 5.0');}
+				);
+			}
+			else if (this.DB.version == '3.0'){
+				this.DB.changeVersion('3.0','5.0',
+					function(t){
+						t.executeSql('ALTER TABLE cruise ADD COLUMN mpm INTEGER ');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg0prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg0len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg1prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg1len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg2prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg2len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg3prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg3len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg4prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg4len INTEGER');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg5prod TEXT');
+						t.executeSql('ALTER TABLE trees ADD COLUMN seg5len INTEGER');
+				    },
+				    function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
+				    function() {console.log('Database upgraded from version 3.0 to version: 5.0');}
+				);
+			}
+			else if (this.DB.version == '4.0'){
+				this.DB.changeVersion('4.0','5.0',
+					function(t){
+						t.executeSql('ALTER TABLE cruise ADD COLUMN mpm INTEGER ');
+				    },
+				    function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
+				    function() {console.log('Database upgraded from version 4.0 to version: 5.0');}
 				);
 			}	
 		},
@@ -184,7 +237,7 @@ var OCRUISE = (function (oc) {
 				}
 				this.DB.transaction(
 			        function (transaction) {
-			            for (i=0; i<queries.length; i++) {
+			            for (var i=0; i<queries.length; i++) {
 				            transaction.executeSql(queries[i], [], thisOBJ.nullDataHandler(), function(transaction, error) {thisOBJ.errorHandler(transaction, error);});
 			            }
 			        },
@@ -197,8 +250,18 @@ var OCRUISE = (function (oc) {
 		    console.log("SQL Query Succeeded!!!");
 		},
 		errorHandler: function(transaction, error){
-		    console.log('Database Error:  '+error.message+' (Code '+error.code+')');
-		    alert('Database Error:  '+error.message+' (Code '+error.code+')' + ' - make sure private browsing is OFF.');
+			var message = '';
+			var code = '';
+			if (error){
+				message = error.message;
+				code = error.code;
+			}
+			else if (transaction){
+				message = transaction.message;
+				code = transaction.code;
+			}
+		    console.log('Database Error: ' + message +' (Code ' + code + ')');
+		    alert('Database Error:  ' + message +' (Code ' + code + ')' + ' - make sure private browsing is OFF.');
 		    return false;
 		}
 	} //end of protype defs
