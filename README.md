@@ -40,15 +40,23 @@ and others have more specific options.  To be safe, be sure to upload data befor
 should thoroughly test the software with their preferred browser before using in production. 
 
 Installation Tips (for those wanting to run their own version of the software): 
-* Download all files to a directory on your web server.
-* Install php (only used for data uploading via gmail).
-* Enable the serving of compressed files (via gzip).  This is "mod_deflate" for apache web servers.
+* Click "Download Zip" on the right of this page.
+* Unzip the file to a directory (ie. opencruise) on your web server.  If you don't need to use email to upload data, and can
+tolerate a little slower load time (initially and when the software changes), this all you need to do.
+Just point your web browser to the directory (i.e your.domain.com/opencruise) and run the software.
+
+Additional Installation
+* To use the email upload feature:  Check to see if you web hosting company has "php" installed and if there
+is anything you need to do to utilize it.
+* Faster software load:  Check if your webhosting company enables the serving of compressed files (via gzip).
+This is often an option that must be turned on.  The option may be referred to as "mod_deflate" for apache web servers.
+
+For those who want to modify the software (technical information for your programmer)
 * offline-min.manifest, /js/mainmin.js and /js/ocruise-min.js are for production use.
 * offline.manifest, /js/main.js, ocruise.js, cruise.js, etc... are for development.  To use the development
 files, change the manifest file name in index.html and ocruise.html; change the data-main parameter in 
 ocruise.html from mainmin.js to main.js.   
- 
-To minify the code for production use, use the closure compiler, currently located at http://closure-compiler.appspot.com
+*To minify the code for production use, use the closure compiler, currently located at http://closure-compiler.appspot.com
 Select either "simple" or "whitespace only" (do not use advanced) and compile the following files:
 ocruise.js, database.js. cruiselist.js, cruise.js, plot.js, tree.js, config.js .  Copy/paste the compiled code into
 ocruise-min.js and use offline-min.manifest and mainmin.js in the html files.
