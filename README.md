@@ -46,7 +46,7 @@ tolerate a little slower load time (initially and when the software changes), th
 Just point your web browser to the directory (i.e your.domain.com/opencruise) and run the software.
 
 Additional Installation Tips
-* To use the email upload feature:  Check to see if you web hosting company has "php" installed and if there
+* To use the email upload feature:  Check if your web hosting company has "php" installed and if there
 is anything you need to do to utilize it.
 * Faster software load:  Check if your webhosting company enables the serving of compressed files (via gzip).
 This is often an option that must be turned on.  The option may be referred to as "mod_deflate" for apache web servers.
