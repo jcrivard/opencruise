@@ -23,7 +23,7 @@ require.config({
         }
 });
 require(['knockout', 'jquery.mobile', 'ocruise', 'fastclick' ],
-		function(ko){
-	         window.ko = ko;
+        function(ko){
+             window.ko = ko;
              OCRUISE.init();
         });
