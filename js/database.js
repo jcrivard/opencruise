@@ -113,28 +113,23 @@ var OCRUISE = (function (oc) {
         initDatabase: function(dbParms, initCallback) {
             this.DB = openDatabase(dbParms.name, "", dbParms.descript, dbParms.maxsize);
             if (this.DB) {
-                console.log('Database Opened, Version: ' + this.DB.version);
-                this.createTables(dbParms, initCallback);
-                this.checkVersion();
+                this.checkVersion(dbParms,initCallback);
             }
             else {
                 alert('Cannot open database, try installing and using a different web browser such as Chrome or Firefox.');
             }
         },
-        checkVersion: function(){
+        checkVersion: function(dbParms, initCallback){
             var thisOBJ = this;
             //set version for new database; should be latest version
             if (this.DB.version == ''){ 
-                this.DB.changeVersion('',thisOBJ.version,
-                    function(t){
-                        t.executeSql('SELECT * FROM cruise'); //dummy  query, maybe remove
-                    },
+                this.DB.changeVersion('',thisOBJ.version, this.createTables(dbParms, initCallback),
                     function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
                     function() {console.log('Database initialized to version: ' + thisOBJ.version);}
                 );
             }    
             else if (this.DB.version == '1.0'){
-                //upgrade to version 3.0
+                //upgrade to version 5.0
                 this.DB.changeVersion('1.0','5.0',
                     function(t){
                         t.executeSql('ALTER TABLE cruise ADD COLUMN mpm INTEGER ');
@@ -165,38 +160,16 @@ var OCRUISE = (function (oc) {
                         t.executeSql('ALTER TABLE trees ADD COLUMN seg5len INTEGER');
                     },
                     function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
-                    function() {console.log('Database upgraded from version 1.0 to version: 5.0');}
+                    function() {
+                        console.log('Database upgraded from version 1.0 to version: 5.0');
+                        initCallback();
+                    }
                 );
             }
-            else if (this.DB.version == '3.0'){
-                this.DB.changeVersion('3.0','5.0',
-                    function(t){
-                        t.executeSql('ALTER TABLE cruise ADD COLUMN mpm INTEGER ');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg0prod TEXT');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg0len INTEGER');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg1prod TEXT');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg1len INTEGER');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg2prod TEXT');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg2len INTEGER');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg3prod TEXT');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg3len INTEGER');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg4prod TEXT');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg4len INTEGER');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg5prod TEXT');
-                        t.executeSql('ALTER TABLE trees ADD COLUMN seg5len INTEGER');
-                    },
-                    function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
-                    function() {console.log('Database upgraded from version 3.0 to version: 5.0');}
-                );
-            }
-            else if (this.DB.version == '4.0'){
-                this.DB.changeVersion('4.0','5.0',
-                    function(t){
-                        t.executeSql('ALTER TABLE cruise ADD COLUMN mpm INTEGER ');
-                    },
-                    function(transaction, error) {thisOBJ.errorHandler(transaction, error);},
-                    function() {console.log('Database upgraded from version 4.0 to version: 5.0');}
-                );
+            else { //current version
+                this.createTables(dbParms, initCallback);
+                console.log('Database Opened, Version: ' + this.DB.version);
+                
             }    
         },
         createTables: function(dbParms, initCallback){
