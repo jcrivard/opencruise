@@ -1,5 +1,5 @@
 /*
-Forest Inventory Data Collection - Jim Rivard, Michigan Technological University, 2013
+OpenCruise - Copyright (C) 2013 James C. Rivard
 Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */
