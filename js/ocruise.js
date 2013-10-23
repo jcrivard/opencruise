@@ -55,6 +55,7 @@ var OCRUISE = (function (oc) {
                 //Event Handlers - most events are handled via knockout.js (data-bind attr in index.html)
                 $('#cruisePage').bind( "pagebeforeshow", function(){
                     $('#selectPlotPopup ul').listview().listview('refresh');
+                    $('#cruiseName').trigger("change"); //workaround for Firefox indexedDB bug failure to create index for new object
                     $('#cruisePage').trigger("create");
                 });
                 $('#selectPlotPopup').on( "click", "li a", function () {oc.activeList.selectedCruise().editPlot($(this).data('plotnum')); });
