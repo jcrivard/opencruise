@@ -17,8 +17,8 @@ var OCRUISE = (function (oc) {
             window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
             window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
             window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
-			//check for speech recognition support
-			window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
+            //check for speech recognition support
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
     
             if (!window.openDatabase && !window.indexedDB) {
                 alert('Local Databases are not supported by your browser.');
@@ -55,9 +55,9 @@ var OCRUISE = (function (oc) {
                 }
                 $(".OCLoading").hide();
                 $.mobile.initializePage();
-				$.mobile.pageContainer.pagecontainer('change', dv.pages.cruiseListPage,{}); // in case of page refresh, go to cruiselist page 
+                $.mobile.pageContainer.pagecontainer('change', dv.pages.cruiseListPage,{}); // in case of page refresh, go to cruiselist page 
                 //Event Handlers - most events are handled via knockout.js data bindings, but these are not;
- 				//                         trigger(create) actions are necessary to reapply jquery mobile stying after DOM changes.
+                 //                         trigger(create) actions are necessary to reapply jquery mobile stying after DOM changes.
                 $('#cruisePage').bind( "pagebeforeshow", function(){
                     $('#selectPlotPopup ul').listview().listview('refresh');
                     $('#cruiseName').trigger("change"); //workaround for Firefox indexedDB bug failure to create index for new object

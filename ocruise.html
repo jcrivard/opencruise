@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta charset="UTF-8">
-	<link rel="stylesheet" href="css/theme/opencruise.css" />
+    <link rel="stylesheet" href="css/theme/opencruise.css" />
     <link rel="stylesheet" href="css/theme/jquery.mobile.icons.min.css" />
     <link rel="stylesheet" href="js/libs/jquery.mobile-1.4.0/jquery.mobile.structure-1.4.0.min.css" >
     <link rel="stylesheet" href="css/ocruise.css" >
@@ -81,7 +81,7 @@
     </div>
     <div class="ui-field-contain">
         <fieldset class="OCBAF ui-mini" data-role="controlgroup" data-type="horizontal">
-		    <legend style="font-size: 1.3em;">BAF:</legend>
+            <legend style="font-size: 1.3em;">BAF:</legend>
             <label for="baf10">10</label>
             <input type="radio" name="baf" id="baf10" value="10" data-bind="checked: BAF, event: { change: updateCruise }" />
             <label for="baf20">20</label>
@@ -354,7 +354,7 @@
                     <li>Browser settings and general use notes:
                         <ul>
                             <li>Javascript must be enabled.</li>
-							<li>Respond "Allow" to prompts for storing local data (Firefox only), position (to get plot coordinates), and microphone (for speech input).</li>
+                            <li>Respond "Allow" to prompts for storing local data (Firefox only), position (to get plot coordinates), and microphone (for speech input).</li>
                             <li>You may need to also adjust the system (as opposed to browser) location settings for geolocation to work.</li>
                             <li>If a new screen with cruise parameters does not popup when tapping NEW, check
                             other browser settings.</li>
@@ -371,7 +371,7 @@
                      <strong>Safari</strong> - all platforms supported.<br>
                      <strong>Dolphin Browser</strong> - all platforms supported.<br>
                      <strong>Firefox</strong> - all platforms supported. <br>
-					 <strong>Internet Explorer</strong> - V10 or higher should work, but has not been tested. <br>
+                     <strong>Internet Explorer</strong> - V10 or higher should work, but has not been tested. <br>
                      </li>
                     <li>Desktop computers: Chrome, Safari, Firefox.<br/>
 
@@ -398,35 +398,35 @@
                     
                 </ol>
          </div>
-		 <div data-role="collapsible">
+         <div data-role="collapsible">
              <h4>Speech Input</h4>
-				<ul>
-					<li>If supported by your browser, a SPEECH button will appear on the plot screen.  As of January 2014, Chrome on Android is the only
-					browser with support.</li>
-					<li>To enable OFFLINE speech recognition (newer versions of Android), you need to adjust the
-					"language and input" settings.  This process will vary somewhat, but in general:
-						<ol>
-							<li>Set "Google Voice Typing" to automatic.</li>
-							<li>Under "Voice Search", select "Offline Speech Recognition" and download the proper language pack.</li>
-							<li>On some versions of Android, there is a "Download Offline Speech Recognition" option directly on the languages and input screen.</li>
-						</ol>
-					</li>
-					<li>To "train" the software to recognize your speech input for tree species, go into airplane mode (this will make sure that
+                <ul>
+                    <li>If supported by your browser, a SPEECH button will appear on the plot screen.  As of January 2014, Chrome on Android is the only
+                    browser with support.</li>
+                    <li>To enable OFFLINE speech recognition (newer versions of Android), you need to adjust the
+                    "language and input" settings.  This process will vary somewhat, but in general:
+                        <ol>
+                            <li>Set "Google Voice Typing" to automatic.</li>
+                            <li>Under "Voice Search", select "Offline Speech Recognition" and download the proper language pack.</li>
+                            <li>On some versions of Android, there is a "Download Offline Speech Recognition" option directly on the languages and input screen.</li>
+                        </ol>
+                    </li>
+                    <li>To "train" the software to recognize your speech input for tree species, go into airplane mode (this will make sure that
                     you are using the offline language pack), open the config page of Opencruise and tap in one of the voice input fields for 
-					a given species.  On the popup keyboard, tap the microphone icon and speak as indicated.  
-					Once the text appears in the input field, remove any spaces (i.e. change "red oak" to "redoak".  Do this several times since
-					the voice recognition varies (i.e sometimes aspen is returned as "aspirin", oak may be returned as "ok" or "okh").</li>
-					<li>To use speech input, tap the "Speech" button in the plot entry screeen and respond ALLOW to the browser prompt.</li>
-					<li>When the speech button turns red you can begin to enter trees.</li>
-					<li>Enter tree information by speaking clearly with small pauses between words as follows:<br/><br/>
-					&quot;HARD MAPLE 12 dash 2 dash 4&quot;.  <br/><br/>Say the species name, followed by the diameter, followed
-					by the word &quot;dash&quot; followed by the number of sawlogs (use the word zero if there are none)
-					followed by the word &quot;dash&quot; and finishing with the number of pulpsticks.</li>
-					<li>You can also just enter species and diameter (ie. for multiproduct mode) and manually enter heights.  In this case
-					just say &quot;HARD MAPLE 12&quot;. </li>
-					<li>Wait until the tree data populates the fields, check and edit as needed, then begin speaking again to enter the next tree.</li>
-					<li>To stop voice processing, press the red speech button.  When it turns green, speech processing has stopped.</li>
-				</ul>
+                    a given species.  On the popup keyboard, tap the microphone icon and speak as indicated.  
+                    Once the text appears in the input field, remove any spaces (i.e. change "red oak" to "redoak".  Do this several times since
+                    the voice recognition varies (i.e sometimes aspen is returned as "aspirin", oak may be returned as "ok" or "okh").</li>
+                    <li>To use speech input, tap the "Speech" button in the plot entry screeen and respond ALLOW to the browser prompt.</li>
+                    <li>When the speech button turns red you can begin to enter trees.</li>
+                    <li>Enter tree information by speaking clearly with small pauses between words as follows:<br/><br/>
+                    &quot;HARD MAPLE 12 dash 2 dash 4&quot;.  <br/><br/>Say the species name, followed by the diameter, followed
+                    by the word &quot;dash&quot; followed by the number of sawlogs (use the word zero if there are none)
+                    followed by the word &quot;dash&quot; and finishing with the number of pulpsticks.</li>
+                    <li>You can also just enter species and diameter (ie. for multiproduct mode) and manually enter heights.  In this case
+                    just say &quot;HARD MAPLE 12&quot;. </li>
+                    <li>Wait until the tree data populates the fields, check and edit as needed, then begin speaking again to enter the next tree.</li>
+                    <li>To stop voice processing, press the red speech button.  When it turns green, speech processing has stopped.</li>
+                </ul>
          </div>
          <div data-role="collapsible">
              <h4>Create/Update cruise</h4>
@@ -511,16 +511,16 @@
          <div data-role="collapsible">
              <h4>Release Notes</h4>
                  <ul>
-				     <li>Version 1.2.0115.1
+                     <li>Version 1.2.0115.1
                        <ul>
                            <li>Incorporated jquery-mobile V1.4.0 for improved performance.</li>
                            <li>Incorporated knockout.js V3.0.0 for improved performance.</li>
                            <li>Config - fixed species delete button overlap for small mobile devices.</li>
                            <li>Reworked button markup to take advantage of JQM 1.4.0 performance enhancements.</li>
-						   <li>Fixed error with default cruiseparms not being saved to localstorage.</li>
-						   <li>Removed fastclick.js library.</li>
+                           <li>Fixed error with default cruiseparms not being saved to localstorage.</li>
+                           <li>Removed fastclick.js library.</li>
                        </ul>
-					 </li>
+                     </li>
                      <li>Version 1.1.0925.2
                        <ul>
                            <li>Removed default sawlog value to fix Firefox tab issue.</li>
@@ -530,12 +530,12 @@
                            <li>Bigger dialog close buttons.</li>
                            <li>Add workaround for IOS 7 Safari bugs related to page navigation.</li>
                        </ul>
-					 </li>
+                     </li>
                      <li>Version 1.1.1023.1
                        <ul>
                            <li>Workaround for Firefox indexedDB index creation bug.</li>
                        </ul>
-					 </li>
+                     </li>
                 </ul>
          </div>        
          <div data-role="collapsible">

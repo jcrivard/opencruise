@@ -22,7 +22,7 @@ var OCRUISE = (function (oc) {
         };
         this.editCruise = function(cruise){
             self.selectedCruise(cruise);
-			$.mobile.pageContainer.pagecontainer('change',self.editCruisePage,{});
+            $.mobile.pageContainer.pagecontainer('change',self.editCruisePage,{});
             //$.mobile.changePage(self.editCruisePage);
         }
     };

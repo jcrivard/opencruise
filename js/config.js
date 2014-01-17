@@ -94,7 +94,7 @@ var OCRUISE = (function (oc) {
         this.pages = {
              cruiseListPage: '#cruiseListPage',
              cruisePage: '#cruisePage',
-			 plotPage: '#plotPage'
+             plotPage: '#plotPage'
         };
         //methods
         this.speciesKey.deleteSpecies = function(spcObj, event){
@@ -148,7 +148,7 @@ var OCRUISE = (function (oc) {
              }
              localStorage['defaults'] = ko.toJSON(this);
         };
-		// update this method when adding new configuration properties that need to persist (loaded from localstorage) 
+        // update this method when adding new configuration properties that need to persist (loaded from localstorage) 
         this.load = function() {
              var LS = JSON.parse(localStorage['defaults']);
              this.speciesKey.species(LS.speciesKey.species);
@@ -162,7 +162,7 @@ var OCRUISE = (function (oc) {
              //need to find a better way - loop through properties, but check for KO
         };
     };
-	oc.webSQLConfig = function(){
+    oc.webSQLConfig = function(){
         //change to generic database definition so that it can be used elsewhere
         //ie. pull fieldnames from defaultvalues above like with field1-field4
         var dv = oc.defaultValues;
