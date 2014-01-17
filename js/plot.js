@@ -3,7 +3,9 @@ OpenCruise - Copyright (C) 2013 James C. Rivard
 Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */
-
+/*
+plot.js - handles plot level function.
+*/
 var OCRUISE = (function (oc) {
 
     oc.plot = function(plotType, cruiseid, plotnum, defaultSpecies, field2Name, field3Name, field4Name) { //newplot indicates new plot, otherwise editing plot
@@ -30,12 +32,18 @@ var OCRUISE = (function (oc) {
                     longitude: null
                 }
         };
-        //speech recognition object - only in Chrome right now
-        window.speechRecognition = window.speechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition;
-        if (window.speechRecognition) {
+        //speech recognition supported - setup recognition object/handlers and activate speech button        
+        if (window.SpeechRecognition) {
             var thisPlot = this;
-            this.recognition = new webkitSpeechRecognition();
+            this.recognition = new SpeechRecognition();
+			this.recognition.continuous = true;
+			this.recognition.ocRunning = false;  //user defined property to indicate if speech input is active
             this.recognition.onresult = function(event) {thisPlot.speechInputResult(event);};
+			this.recognition.onend = function() {  //restart if error - ie long pause between entering trees
+			    if (thisPlot.recognition.ocRunning) {
+			        thisPlot.recognition.start();
+				}
+			};  
             this.showSpeechButton(true);
         }
         if (plotType == 'new'){
@@ -43,7 +51,6 @@ var OCRUISE = (function (oc) {
         } else {
             this.loadPlot();  //existing plot
         }
-        
     };
     
     oc.plot.prototype = {
@@ -77,7 +84,7 @@ var OCRUISE = (function (oc) {
                        thisPlot.lastEditedTree ++; //for speech input
                    }
                    if (row) {thisPlot.plotID(row.plotid);}  //in case no plot record, use last one from last tree record
-                   $.mobile.changePage('#plotPage',{role: 'dialog'});
+                   $.mobile.pageContainer.pagecontainer('change',dv.pages.plotPage,{});  
                };
                var callbackPlots = function (transaction, results){
                        thisPlot.position = {coords:{accuracy: null, latitude: null, longitude: null}}; //in case no plot record, do not use stale data
@@ -104,45 +111,57 @@ var OCRUISE = (function (oc) {
                    ); 
                }
            },
-           speechInputStart: function() {
-               $.mobile.loading( 'show', {text: 'Begin Speaking Now', textVisible: true, theme: 'b', html: ""});
-                this.recognition.start();  //start speech input
+		   speechInputToggle: function(thisObj, event) {
+		       var thisBtn = event.target;
+			   if (this.recognition.ocRunning) {
+			       this.recognition.ocRunning = false;
+				   $(thisBtn).css('background-color', '#088A08');
+			       this.recognition.stop(thisBtn);  
+			   }
+			   else {
+			       this.recognition.ocRunning = true;
+                   this.recognition.start(thisBtn);  //start speech input
+				   $(thisBtn).css('background-color', '#FF0000');
+			   }
            },
            speechInputResult: function(event) {
-                var dv = oc.defaultValues; //shorthand
-                var treeRecord, field1Val, field2Val, field3Val, field4Val, transcript;
-                var treeArray = this.trees();
-                $.mobile.loading( 'hide');
-                //transcript should have: field1 field2 - field3 - field4; ie. Hard Maple 12 - 2 - 4
-                transcript = event.results[0][0].transcript.replace('Dash','-');
-                transcript = transcript.replace('dash','-');
-                treeRecord = transcript.split('-');
-                if (treeArray[this.lastEditedTree + 1]){ //have an empty tree to work with
-                    this.lastEditedTree ++; //point to next empty tree slot in DOM
-                    if (treeRecord[0]) { //field1, field2 have content
-                        field1Val = treeRecord[0].replace(/[0-9]+/g,''); //remove numbers 
-                        field1Val = field1Val.replace(/\s+/g,''); //remove spaces; should now have field1 without spaces
-                        field2Val = treeRecord[0].replace(/[a-zA-Z]+/g,''); //remove alpha
-                        field2Val = field2Val.replace(/\s+/g,''); //remove spaces; should now have field2
-                        field1Val = dv.speciesKey.getKey(field1Val.toLowerCase());
-                        if (field1Val) {  //lookup succeeded
-                            treeArray[this.lastEditedTree].field1(field1Val);
-                        }
-                        treeArray[this.lastEditedTree].field2(field2Val);
-                    }
-                    if (treeRecord[1]) { //field3 has content
-                        field3Val = treeRecord[1].replace(/\s+/g,''); //remove spaces
-                        treeArray[this.lastEditedTree].field3(field3Val);
-                    }
-                    if (treeRecord[2]) { //field4 has content
-                        field4Val = treeRecord[2].replace(/\s+/g,''); //remove spaces
-                        treeArray[this.lastEditedTree].field4(field4Val);
-                    }
-                    //$('#plotDetail select').selectmenu('refresh'); //need to get this moved
-                }
+		        if (this.recognition.ocRunning) {   //speech api on android chrome fires result event with cumulative values after input stops.  This ignores that last result
+					var dv = oc.defaultValues; //shorthand
+					var treeRecord, field1Val, field2Val, field3Val, field4Val, transcript;
+					var treeArray = this.trees();
+					//transcript should have: field1 field2 - field3 - field4; ie. Hard Maple 12 - 2 - 4
+					transcript = event.results[event.resultIndex][0].transcript.replace(/dash/gi,'-').replace(/for/gi,'4').replace(/to/gi,'2');  //replace dash with "-" and common misinterpretations
+					treeRecord = transcript.split('-');
+					if (treeArray[this.lastEditedTree + 1]){ //have an empty tree to work with
+						this.lastEditedTree ++; //point to next empty tree slot in DOM
+						if (treeRecord[0]) { //field1, field2 have content
+							field1Val = treeRecord[0].replace(/[0-9]+/g,''); //remove numbers 
+							field1Val = field1Val.replace(/\s+/g,''); //remove spaces; should now have field1 without spaces
+							field2Val = treeRecord[0].replace(/[a-zA-Z]+/g,''); //remove alpha
+							field2Val = field2Val.replace(/\s+/g,''); //remove spaces; should now have field2
+							field1Val = dv.speciesKey.getKey(field1Val.toLowerCase());
+							if (field1Val) {  //lookup succeeded
+								treeArray[this.lastEditedTree].field1(field1Val);
+							}
+							treeArray[this.lastEditedTree].field2(field2Val);
+						}
+						if (treeRecord[1]) { //field3 has content
+							field3Val = treeRecord[1].replace(/\s+/g,''); //remove spaces
+							treeArray[this.lastEditedTree].field3(field3Val);
+						}
+						if (treeRecord[2]) { //field4 has content
+							field4Val = treeRecord[2].replace(/\s+/g,''); //remove spaces
+							treeArray[this.lastEditedTree].field4(field4Val);
+						}
+						$('#plotDetail select').selectmenu('refresh'); //need to get this moved
+					}
+				}
            },
            //insert new plot record and associated tree records into database
            insertPlot: function(parent){
+		        if (this.recognition) {  // check if we are actually using recognition
+				    this.recognition.ocRunning = false;  //turn off speech input running flag to prevent auto restart
+				}
                 var dv = oc.defaultValues; //shorthand
                 var thisPlot = this;
                 var treeArray = this.trees();
@@ -154,7 +173,7 @@ var OCRUISE = (function (oc) {
                         parent.plots.push({plotNum: thisPlot.plotnum, plotID: thisPlot.plotID()}); //update plot array for selectedCruise
                         thisPlot.logMessage('Plot added.');
                     }
-                    $.mobile.changePage('#cruisePage');
+					$.mobile.pageContainer.pagecontainer('change','#cruisePage',{});
                 };
                 var tableName = 'plots';
                 var fieldNames = ['cruiseid', 'plotid', 'plotnum', 'comments', 'covertype', 'accuracy', 'latitude', 'longitude', 'deleted'];
@@ -206,10 +225,8 @@ var OCRUISE = (function (oc) {
             },
             //User clicks button to enter multiple segments.  Set selectedTree to current object and load segment entry page.
             multiProductEntry: function(thisTree,thisPlot){
-                //$.mobile.loading( 'show', {text: 'Loading',    textVisible: true, theme: 'e', html: ""    });
                 this.selectedTree(thisTree);
-                $.mobile.changePage('#multiProductPage',{role: 'dialog'});
-                //setTimeout(function () {$.mobile.changePage('#multiProductPage',{role: 'dialog'});}, 100); //need async timeout to get loading message
+				$.mobile.pageContainer.pagecontainer('change','#multiProductPage',{});
             },
             logMessage: function(message){
                 console.log(message);

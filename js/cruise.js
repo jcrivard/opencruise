@@ -44,7 +44,7 @@ var OCRUISE = (function (oc) {
     oc.cruise.prototype = {        
             //build new plot page - need next plot id and prepopulate page with tree records
             newPlot: function(data,event) {
-                $.mobile.loading( 'show', {text: 'Loading', textVisible: true, theme: 'e', html: "" });
+                $.mobile.loading( 'show', {text: 'Loading', textVisible: true, theme: 'a', html: "" });
                 var thisCruise = this;
                 var whereObj = {cruiseid: thisCruise.cruiseID}; 
                 var callback = function (transaction, results) {
@@ -53,7 +53,7 @@ var OCRUISE = (function (oc) {
                         var row = results.rows.item(i);
                         newPlotNum = row.MAXPLOT + 1;
                         thisCruise.selectedPlot(new oc.plot('new', thisCruise.cruiseID, newPlotNum, thisCruise.defaultSpecies(), thisCruise.field2.name(), thisCruise.field3.name(), thisCruise.field4.name()));
-                        $.mobile.changePage('#plotPage',{role: 'dialog'});
+                        $.mobile.pageContainer.pagecontainer('change','#plotPage',{});
                     }
                 };
                 //need to eventually use plots table; trees is used since plots table was added later in development; may result in error if plot with no trees is saved
@@ -99,11 +99,11 @@ var OCRUISE = (function (oc) {
             //User clicks a plot in the plot list popup; build plot page and show
             //A series of two chained callbacks is used to 1st get plot level data, and 2nd to get tree data for that plot
             editPlot: function(plotnum){
-                $.mobile.loading( 'show', {text: 'Loading', textVisible: true, theme: 'e', html: "" });
+                $.mobile.loading( 'show', {text: 'Loading', textVisible: true, theme: 'a', html: "" });
                 this.selectedPlot(new oc.plot('edit', this.cruiseID, plotnum, this.defaultSpecies(), this.field2.name(), this.field3.name(), this.field4.name()));    
             },
             //EXPORTTOCSV - runs 3 chained, async DB calls (trees,plots,cruise), invokes method to build CSV for each DB Call,
-            //              When all 3 calls are done, the method to send email is invoked
+            //              currently invoked via event handler (pagebeforeshow on emailPage) defined in ocruise.js; prepares file for download or email
             exporttoCSV: function(data,useEmail) {
                 var csv = {
                    plots: '',

@@ -10,9 +10,8 @@ require.config({
   paths: {
     'jquery': 'libs/jquery/jquery-1.9.1.min',
     'mobileinit': 'mobileinit',
-    'jquery.mobile': 'libs/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min',
-    'knockout': 'libs/knockout/knockout-2.2.1',
-    'fastclick': 'libs/fastclick/fastclick',
+    'jquery.mobile': 'libs/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min',
+    'knockout': 'libs/knockout/knockout-3.0.0',
     'database' : 'database',
     'ocruise' : 'ocruise',
     'cruiselist' : 'cruiselist',
@@ -33,7 +32,7 @@ require.config({
           'tree': ['knockout','jquery.mobile']
         }
 });
-require(['knockout', 'jquery.mobile', 'ocruise', 'fastclick', 'database', 'cruiselist', 'cruise', 'plot', 'tree', 'config' ],
+require(['knockout', 'jquery.mobile', 'ocruise', 'database', 'cruiselist', 'cruise', 'plot', 'tree', 'config' ],
         function(ko){
              window.ko = ko;
              OCRUISE.init();

@@ -1,4 +1,4 @@
-Opencruise V1.1
+Opencruise V1.2
 ===============
 
 Forest Inventory Software for Mobile Platforms - HTML 5 Web Application
@@ -18,29 +18,27 @@ via the "Flds" button.
 Multi product mode allows for up to six products per tree to be recorded.  
  
 The application makes heavy use of HTML5 technologies, including:  offline use,
- local storage, local database and geolocation.  
+ local storage, local database, geolocation and speech input.  
 
 Browser Support: 
 * Chrome (update channel version).
 * Firefox (update channel version).
 * Safari (on IOS 5+). 
-* IOS 7 users: as of 9/30/2013, full screen (adding the web app to your home screen) is not
-recommended due to bugs in Safari related to confirm/alert dialogs. Back button (history) behavior does not work
-at all.
 * Android Browser (on Android 4+; most older versions work as well).
 * Dolphin Browser (on IOS 5+; on Android 2.2.x+; good alternative for older Android devices).
-* Internet Explorer V10 should work, but has not been tested.
+* Internet Explorer V10+ should work, but has not been tested.
 
 Browser Configuration:
 * Most default browser configurations will work.
 * Incognito Mode (Chrome) or Private Browsing (Safari) will not work since local storage is disabled.
 * Geolocation services must be enabled for the software to collect lat/long at each plot.
+* Speech input for tree entry is available for recent versions of Android running Chrome.  See the help section in the app for details.
 * Different browsers treat local storage differently.  Some delete local storage when the cache is cleared
 and others have more specific options.  To be safe, be sure to upload data before clearing the cache.  Users 
 should thoroughly test the software with their preferred browser before using in production. 
 
 Installation Tips (for those wanting to run their own version of the software): 
-* Click "Download Zip" on the right of this page.
+* Click "Releases" towards the top of the page and download the source code zip file.
 * Unzip the file to a directory (ie. opencruise) on your web server.  If you don't need to use email to upload data, and can
 tolerate a little slower load time (initially and when the software changes), this is all you need to do.
 Just point your web browser to the directory (i.e your.domain.com/opencruise) and run the software.

@@ -3,58 +3,57 @@
 .ui-controlgroup-controls {
     width: 100% !important;
 }
-.ui-controlgroup-horizontal.ui-mini .ui-btn-inner {
+/*.ui-controlgroup-horizontal.ui-mini  {
     height: 1em;
     line-height: 1em;
+}*/
+.ui-select .ui-btn-icon-right, .ui-select .ui-li-has-count, [class*="ui-block-"] > .ui-select {
+    padding-right: 2.2em;
+    margin-left: 0.0em;
 }
-.ui-select .ui-btn-icon-right .ui-btn-inner, .ui-select .ui-li-has-count .ui-btn-inner {
-    padding-right: 2.81em;
+
+.ui-select, .ui-input-text {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /** The following overrides are specifically to handle small font bug on android chrome.*/
 /* It may be possible to remove them in the future.**/
 /* Taken from stackoverflow response by Rick Pfaus..... */
 /* 16px > 1em */
- input.ui-input-text,
-.ui-bar,
-.ui-loader-verbose h1,
-.ui-bar h1, .ui-bar h2, .ui-bar h3, .ui-bar h4, .ui-bar h5, .ui-bar h6,
-.ui-header .ui-title, 
-.ui-footer .ui-title,
-.ui-btn-inner,
-.ui-fullsize .ui-btn-inner,
-.ui-fullsize .ui-btn-inner,
-label.ui-submit,
-.ui-collapsible-heading,
-.ui-controlgroup-label,
-.ui-controlgroup .ui-checkbox label, .ui-controlgroup .ui-radio label,
-.ui-popup .ui-title,
-label.ui-select,
-label.ui-input-text,
-textarea.ui-input-text,
-.ui-li-heading,
-label.ui-slider,
+.ui-mobile label,
+ div.ui-controlgroup-label, .ui-btn ,
+.ui-mini.ui-btn-icon-notext,
+.ui-mini .ui-btn-icon-notext,
+.ui-header .ui-btn-icon-notext,
+.ui-footer .ui-btn-icon-notext,
+.ui-mini .ui-controlgroup-label ,
 .ui-slider-switch .ui-slider-label {
     font-size: 1em;
 }
 
 /* 14px > 0.875em */
-.ui-li-divider,
-input.ui-mini, .ui-mini input, textarea.ui-mini, .ui-mini .ui-btn-inner,
-input.ui-input-text.ui-slider-input,
-.ui-slider-switch.ui-mini .ui-slider-label {
+.ui-listview > .ui-li-divider,
+input.ui-slider-input,
+.ui-slider-switch.ui-mini .ui-slider-label,
+.ui-mini .ui-input-text input,
+.ui-mini .ui-input-search input,
+.ui-input-text.ui-mini input,
+.ui-input-search.ui-mini input,
+.ui-mini textarea.ui-input-text,
+textarea.ui-mini {
     font-size: 0.875em;
 }
 
-/* 12px > 0.75em */
-.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, 
-.ui-li-desc {
-    font-size: 0.75em;
-}
-
-/* 11px > 0.65em */
-.ui-li-has-count .ui-li-count {
-    font-size: 0.65em;
+/* 12.5px > 0.781em */
+.ui-mini ,
+.ui-header .ui-btn,
+.ui-footer .ui-btn,
+.ui-header .ui-btn-left,
+.ui-header .ui-btn-right,
+.ui-navbar li .ui-btn ,
+.ui-li-count {
+    font-size: 0.781em;
 }
 @media only screen and (min-device-width: 600px) {
     /* increase font size on higher resolution */
@@ -71,6 +70,26 @@ input.ui-input-text.ui-slider-input,
 /*eliminate unformatted page flash due to require.js */
 .OC-not-initialized { 
     display: none;
+}
+.OCCenter {
+    text-align: center;
+}
+.OCMultiProductBtn {
+    background: #333333 !important;
+	border-color: #222222 !important;
+}
+.OCBtnSmall {
+    margin-left: 0.1em !important;
+	margin-top: 0.1em !important;
+	padding-left: 1.5em !important;
+}
+.OCBtnTop {
+    margin-left: 0.1em !important;
+	margin-top: 0.1em !important;
+}
+.OCNoMargin {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .OCBAF .ui-controlgroup-controls {
     width: auto !important;

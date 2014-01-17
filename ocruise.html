@@ -3,10 +3,12 @@
 <!--html lang="en" manifest="offline.manifest"-->
     <head> 
     <title>OpenCruise - Forest Inventory</title> 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="js/libs/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.css" >
+	<link rel="stylesheet" href="css/theme/opencruise.css" />
+    <link rel="stylesheet" href="css/theme/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="js/libs/jquery.mobile-1.4.0/jquery.mobile.structure-1.4.0.min.css" >
     <link rel="stylesheet" href="css/ocruise.css" >
     <script type="text/javascript" data-main="js/mainmin" src="js/libs/require/require.js"></script>
     <!--script type="text/javascript" data-main="js/main" src="js/libs/require/require.js"></script-->
@@ -26,89 +28,91 @@
 </div>
 <!--div id="mainBody"  class='OC-not-initialized'-->
 <!--*************  CRUISE LIST - MAIN PAGE  ****************************************-->
-<div data-role="page" id="cruiseListPage" class="OC-not-initialized" data-title="OpenCruise">
+<div data-role="page" id="cruiseListPage" class="OC-not-initialized" data-title="OpenCruise" data-theme='b'>
  <div data-role="header" data-position="fixed">
         <h1>Active Jobs</h1>
  </div><!-- /header -->
- <div data-role="content" class="ui-body ui-body-a" id="cruiseListContent" >
+ <div role="main" class="ui-content ui-body ui-body-b" id="cruiseListContent" >
      <ul data-role="listview" id="cruiseListContainer" data-bind="foreach: cruises">
          <li><h3 data-bind="text: cruiseName"></h3><p data-bind="text: date"></p><p data-bind="text: cruiseID"></p>
-          <div data-role='controlgroup' data-type='horizontal' data-mini='false'>
-              <a href='javascript:void(0)' data-bind='click: $parent.deleteCruise' data-inline='true' data-role='button' data-theme='b'>Delete</a>
+          <div data-role='controlgroup' data-type='horizontal'>
+              <button data-bind='click: $parent.deleteCruise' class='ui-btn ui-btn-inline ui-corner-all '>Delete</button>
               <!--a href='#deleteCruisePopup' data-rel="popup" data-inline='true' data-role='button' data-theme='b'>Delete</a-->
-              <a href='javascript:void(0)' data-bind='click: $parent.editCruise' data-inline='true' data-role='button' data-theme='b'>Edit</a>
+              <button data-bind='click: $parent.editCruise' class='ui-btn ui-btn-inline ui-corner-all'>Edit</button>
           </div>
        </li>
      </ul> 
  </div><!-- /content -->
  <div data-role="footer">
     <div data-role="controlgroup"  data-type="horizontal">
-      <a href="javascript:void(0)" data-bind="click: newCruise" id="newCruiseBtn" data-inline="true" data-role="button" data-theme="b">New</a>
-      <a href="#configPage" id="configButton" data-inline="true" data-role="button" data-theme="b">Config</a>
+      <a href="javascript:void(0)" data-bind="click: newCruise" id="newCruiseBtn" class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left">New</a>
+      <a href="#configPage" id="configButton" class="ui-btn ui-btn-inline ui-icon-grid ui-btn-icon-left">Config</a>
       <!--a href="javascript:void(0)" data-bind="click: deleteDatabase" id="deleteDBBtn" data-inline="true" data-role="button" data-theme="b">Delete All</a-->
-      <a href="#helpPage" id="helpButton" data-inline="true" data-role="button" data-theme="b">Help</a>
+      <a href="#helpPage" id="helpButton" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-left">Help</a>
     </div>  
  </div><!-- /footer -->
  <!-- POPUP delete cruise confirmation -->
-<div data-role="popup" id="deleteCruisePopup" data-theme="a">
+<div data-role="popup" id="deleteCruisePopup" data-theme="b">
     <p>Are your sure you want to delete the cruise?<p>
-    <a href="#cruiseListPage" data-role="button" data-theme="b" data-inline="true">No</a>
-    <a href="#cruiseListPage" data-bind="click: function(data,event)  {deleteCruise($data);}" data-role="button" data-theme="b" data-inline="true">Yes</a>
+    <a href="#cruiseListPage" class="ui-btn ui-btn-inline">No</a>
+    <a href="#cruiseListPage" data-bind="click: function(data,event)  {deleteCruise($data);}" class="ui-btn ui-btn-inline">Yes</a>
 </div>
 </div><!-- /page cruiseListPage -->
 
 <!--*************  CRUISE PAGE  ****************************************-->
-<div data-role="page" id="cruisePage" class="OC-not-initialized">
+<div data-role="page" id="cruisePage" class="OC-not-initialized"  data-theme='b'>
  <div data-role="header" data-position="fixed">
-     <a href="#cruiseListPage"  data-inline="true" data-role="button" data-icon="home"   data-theme="b">Home</a>
+     <a href="#cruiseListPage"  class="ui-btn ui-btn-inline ui-icon-home ui-btn-icon-left ui-corner-all">Home</a>
      <h1>Cruise Info</h1>
  </div><!-- /header -->
- <div id="cruisePageContent" data-role="content" class="ui-body ui-body-a" >   
+ <div id="cruisePageContent" role="main" class="ui-content ui-body ui-body-b" >   
  <form>
-  <div id="cruiseDetail" data-role="fieldcontain"  data-bind="with: selectedCruise">
+  <div id="cruiseDetail" class="ui-field-contain" data-bind="with: selectedCruise">
     <label for="cruiseDate">Date:</label>
-    <input type="text" name="cruiseDate" id="cruiseDate" data-bind="value: date, event: { change: updateCruise }" data-mini='false'/>
+    <input type="text" name="cruiseDate" id="cruiseDate" data-bind="value: date, event: { change: updateCruise }"/>
     <label for="cruiserName">Name:</label>
-    <input type="text" name="cruiserName" id="cruiserName" data-bind="value: people, event: { change: updateCruise }"  data-mini='false'/>
-    <label for="cruiseName">Project Name:</label>
-    <input type="text" name="cruiseName" id="cruiseName" data-bind="value: cruiseName, event: { change: updateCruise }"  data-mini='false'/>
-    <div data-role="fieldcontain">
-        <label for='defaultSpecies' class='select'>Default Species:</label>
-        <select data-mini='true' data-inline='true' name='defaultSpecies' id='defaultSpecies' data-bind='value: defaultSpecies, options: field1Values'>
+     <input type="text" name="cruiserName" id="cruiserName" data-bind="value: people, event: { change: updateCruise }"/>
+    <label  for="cruiseName">Project Name:</label>
+    <input type="text" name="cruiseName" id="cruiseName" data-bind="value: cruiseName, event: { change: updateCruise }"/>
+    <div class="ui-field-contain">
+        <label style="display: inline-block;" for='defaultSpecies' class='select'>Default Species:</label>
+        <select class="ui-mini" data-inline='true' name='defaultSpecies' id='defaultSpecies' data-bind='value: defaultSpecies, options: field1Values'>
         </select>
     </div>
-    <fieldset class="OCBAF" data-role="controlgroup" data-type="horizontal" data-mini='true'>
-        <legend>BAF:</legend>
-        <label for="baf10">10</label>
-        <input type="radio" name="baf" id="baf10" value="10" data-bind="checked: BAF, event: { change: updateCruise }" />
-        <label for="baf20">20</label>
-        <input type="radio" name="baf" id="baf20" value="20" data-bind="checked: BAF, event: { change: updateCruise }" />
-        <label for="baf40">40</label>
-        <input type="radio" name="baf" id="baf40" value="40" data-bind="checked: BAF, event: { change: updateCruise }" />
-        <label for="baf80">80</label>
-        <input type="radio" name="baf" id="baf80" value="80" data-bind="checked: BAF, event: { change: updateCruise }" />
-    </fieldset>
-    <label for="multiProductCheckBox">Multi Product Mode</label>
-    <input data-mini="true" type="checkbox" id="multiProductCheckBox" data-bind="checked: multiProducts, event: { change: updateCruise }" />
+    <div class="ui-field-contain">
+        <fieldset class="OCBAF ui-mini" data-role="controlgroup" data-type="horizontal">
+		    <legend style="font-size: 1.3em;">BAF:</legend>
+            <label for="baf10">10</label>
+            <input type="radio" name="baf" id="baf10" value="10" data-bind="checked: BAF, event: { change: updateCruise }" />
+            <label for="baf20">20</label>
+            <input type="radio" name="baf" id="baf20" value="20" data-bind="checked: BAF, event: { change: updateCruise }" />
+            <label for="baf40">40</label>
+            <input type="radio" name="baf" id="baf40" value="40" data-bind="checked: BAF, event: { change: updateCruise }" />
+            <label for="baf80">80</label>
+            <input type="radio" name="baf" id="baf80" value="80" data-bind="checked: BAF, event: { change: updateCruise }" />
+        </fieldset>
+    </div>
+    <label class="OCMultiProductBtn" for="multiProductCheckBox">Multi Product Mode</label>
+    <input class="ui-mini" type="checkbox" id="multiProductCheckBox" data-bind="checked: multiProducts, event: { change: updateCruise }" />
    </div>
   </form>
  </div><!-- /content -->
  <div data-role="footer" id="cruiseFooter" class="ui-bar">
    <div data-role="controlgroup"  data-type="horizontal">
     <!-- ko with: selectedCruise -->
-    <a href="javascript:void(0)" data-bind="click: newPlot" id="newPlotBtn" data-inline="true" data-role="button" data-icon="plus" data-transition="none"  data-rel="dialog" data-theme="b">Plot</a>
+    <a href="javascript:void(0)" data-bind="click: newPlot" id="newPlotBtn" class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left" data-transition="none">Plot</a>
     <!-- /ko -->
-    <a href="#selectPlotPopup" data-rel="popup" data-position-to="window" id="editPlotsBtn" data-inline="true" data-role="button" data-icon="edit"  data-theme="b">Plot</a>
-    <a href="#fieldsPage" id="fieldsBtn" data-inline="true" data-role="button" data-icon="gear"  data-rel="dialog" data-theme="b">Flds</a>
-    <a href="#emailPage" id="emailBtn" data-inline="true" data-role="button" data-icon="arrow-d"  data-rel="dialog" data-theme="b">Dwnld</a>    
+    <a href="#selectPlotPopup" data-rel="popup" data-position-to="window" id="editPlotsBtn" class="ui-btn ui-btn-inline ui-icon-edit ui-btn-icon-left">Plot</a>
+    <a href="#fieldsPage" id="fieldsBtn" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-left">Flds</a>
+    <a href="#emailPage" id="emailBtn" class="ui-btn ui-btn-inline ui-icon-arrow-d ui-btn-icon-left">Dld</a>    
    </div>
  </div><!-- /footer -->
  <!-- POPUP to show list of plots for this cruise -->
  <div data-role="popup" id="selectPlotPopup" data-theme="a" data-bind="with: selectedCruise">
-        <a href="#cruisePage" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <a href="#cruisePage" class="ui-btn ui-btn-right ui-icon-delete ui-btn-icon-notext ui-corner-all">Close</a>
        
-        <ul data-role="listview" data-inset="true" data-theme="b">
-            <li data-role="divider" data-theme="e">Select Plot</li>
+        <ul data-role="listview" data-inset="true">
+            <li data-role="divider">Select Plot</li>
             <!-- ko foreach: plots -->
                <li class="plotLI" ><a href="#" data-plotnum="0" data-bind="attr: {'data-plotnum': plotNum}, text: 'Plot#: ' + plotNum + ', PlotID: ' + plotID"></a></li>
             <!-- /ko -->
@@ -117,21 +121,21 @@
 </div><!-- /page cruisePage-->
 
 <!--****  FIELDS PAGE  *******************-->
-<div data-role="page" id="fieldsPage" class="OC-not-initialized" data-close-btn="none">
+<div data-dialog="true" data-role="page" id="fieldsPage" class="OC-not-initialized" data-close-btn="none" data-theme="b" data-overlay-theme='b'>
  <div data-role="header">
      <h1>Field Names</h1>
  </div><!-- /header -->
- <div data-role="content" class="ui-body ui-body-a" >   
+ <div role="main" class="ui-content ui-body ui-body-b" >   
      <form>
-      <div data-role="fieldcontain" data-bind="with: selectedCruise">
-         <fieldset class='ui-grid-c'  data-mini='true' >
+      <div class="ui-field-contain" data-bind="with: selectedCruise">
+         <fieldset class='ui-grid-c' >
              <div class='ui-block-a'>Name</div>
              <div class='ui-block-b'>Min</div>
              <div class='ui-block-c'>Max</div>
              <div class='ui-block-d'>Init</div>
          </fieldset>
          <div data-bind="with: field2">
-         <fieldset class='ui-grid-c ui-hide-label' data-mini='true'>
+         <fieldset class='ui-grid-c ui-hide-label'>
              <div class='ui-block-a'>
                  <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
              </div>
@@ -147,7 +151,7 @@
          </fieldset>
          </div>
          <div data-bind="with: field3">
-         <fieldset class='ui-grid-c ui-hide-label' data-mini='true'>
+         <fieldset class='ui-grid-c ui-hide-label'>
              <div class='ui-block-a'>
                  <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
              </div>
@@ -163,7 +167,7 @@
          </fieldset>
          </div>
          <div data-bind="with: field4">
-         <fieldset class='ui-grid-c ui-hide-label' data-mini='true'>
+         <fieldset class='ui-grid-c ui-hide-label'>
              <div class='ui-block-a'>
                  <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.updateCruise($parent)} }" />
              </div>
@@ -179,7 +183,7 @@
          </fieldset>
          </div>
          <div data-bind="with: field3">
-         <fieldset class='ui-grid-a ui-hide-label' data-mini='true'>
+         <fieldset class='ui-grid-a ui-hide-label'>
              <div class='ui-block-a'>
                  Min field2 for field3 (ie. min DBH for Saw)
              </div>
@@ -192,19 +196,19 @@
      </form>
  </div><!-- /content -->
  <div data-role="footer">
-     <a href="#cruisePage" data-role="button" data-theme="b" data-inline="true">Done</a>
+     <a href="#cruisePage" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left ui-corner-all">Done</a>
  </div>
  
 </div><!-- /page fieldsPage-->
 
 
 <!--****  EMAIL PAGE  *******************-->
-<div data-role="page" id="emailPage" class="OC-not-initialized" data-close-btn="none">
+<div data-dialog="true" data-role="page" id="emailPage" class="OC-not-initialized" data-close-btn="none"  data-theme='b' data-overlay-theme='b'>
  <div data-role="header">
      <h1>Email Data</h1>
  </div><!-- /header -->
- <div data-role="content" class="ui-body ui-body-a" >
-     File Download:  If your browser supports file downloading, a save file button will appear
+ <div role="main" class="ui-content ui-body ui-body-b" >
+     File Download:  If your browser supports file downloading, a save button will appear
      next to the email button.  Note: IOS users cannot actually save a file and it will either not
      open, or display in the browser window.
      <br/><br/>
@@ -213,146 +217,135 @@
      <br/><br/>
      See help for further details.
      <br/><br/>
-     <label for="emailTo" data-mini='false'>Email Address:</label>
-     <input type="email" name="emailTo" id="emailTo" value=""  data-mini='false' autofocus />
-     <label for="emailPW" data-mini='false'>Password:</label>
-     <input type="password" name="emailPW" id="emailPW" value=""  data-mini='false' />
+     <label for="emailTo">Email Address:</label>
+     <input type="email" name="emailTo" id="emailTo" value="" />
+     <label for="emailPW">Password:</label>
+     <input type="password" name="emailPW" id="emailPW" value="" />
  </div><!-- /content --> 
  <div data-role="footer" id="emailFooter" class="ui-bar">
-   <div data-role="controlgroup"  data-type="horizontal" data-bind="with: selectedCruise">  
-    <a href="javascript:void(0)" data-bind="click: sendEmail" id="sendEmailBtn" data-inline="true" data-role="button" data-icon="gear"  data-theme="b">Email</a>
-    <a href="javascript:void(0)" data-bind="visible: showDownloadFileBtn" id="downloadFileBtn" data-inline="true" data-role="button" data-icon="gear"  data-theme="b">Save File</a>
-    <a href="#cruisePage" data-role="button" data-icon="arrow-l" data-theme="b" data-inline="true">Close</a>
+   <div id="emailControl" data-role="controlgroup"  data-type="horizontal" data-bind="with: selectedCruise">  
+    <a href="javascript:void(0)" data-bind="click: sendEmail" id="sendEmailBtn" class="ui-btn ui-corner-all ui-icon-mail ui-btn-icon-left">Email</a>
+    <a href="javascript:void(0)" data-bind="visible: showDownloadFileBtn" id="downloadFileBtn" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-left">Save</a>
+    <a href="#cruisePage" class="ui-btn ui-corner-all ui-icon-arrow-l ui-btn-icon-left">Close</a>
 
    </div>
  </div><!-- /footer -->
- <div data-role="popup" id="emailSentPopup" data-theme="a">
-        <a href="#cruisePage" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+ <div data-role="popup" id="emailSentPopup" data-theme="b">
+        <a href="#cruisePage" class="ui-btn ui-icon-delete ui-btn-right ui-btn-icon-notext ui-corner-all">Close</a>
         <p>Message goes here</p>
  </div>
 </div><!-- /page email-->
 
 <!--*************  PLOT PAGE  ****************************************-->
-<div data-role="page" id="plotPage" class="OC-not-initialized" data-close-btn="none">
-    
+<div data-dialog="true" data-role="page" id="plotPage" class="OC-not-initialized" data-close-btn="none"  data-theme='b' data-overlay-theme='b'>
  <div data-role="header" >
    <div class="ui-grid-c">
      <div class="ui-block-a">
-         <a href="#cruisePage" data-role="button" data-theme="b" data-inline="true">Cancel</a>
+         <a href="#cruisePage" class="ui-btn ui-btn-inline ui-corner-all">Cancel</a>
      </div>
      <div class="ui-block-b">
-       <label for="plotPlotID"  style="text-align: right; margin:8px 10px 0 0; position:relative; top:15px;" data-mini="false">PlotID:</label>
+       <label for="plotPlotID"  style="margin-top: 0.5em; text-align: right; position:relative; top:0.65em;">PlotID:</label>
      </div>
-     <div class="ui-block-c" style="text-align: left;" data-bind="with: selectedCruise().selectedPlot()">
-       <input type="text" id="plotPlotID" data-mini="false"  data-bind="value: plotID">
+     <div class="ui-block-c" style="margin-top: 0.5em; text-align: left;" data-bind="with: selectedCruise().selectedPlot()">
+       <input type="text" id="plotPlotID" data-bind="value: plotID">
     </div>
     <div class="ui-block-d">
         <div id="speechInputDiv" data-bind="with: selectedCruise().selectedPlot()">
-           <a href="javascript:void(0)" data-bind='visible: showSpeechButton, click: speechInputStart' id="speechInputBtn" data-inline="true" data-role="button" data-theme="b">Speech</a>
+           <a href="javascript:void(0)" data-bind='visible: showSpeechButton, click: speechInputToggle' id="speechInputBtn" class="ui-btn ui-btn-inline ui-corner-all">Speech</a>
         </div>
     </div>
    </div>
- </div><!-- /header -->     
- <div data-role="content" class="ui-body ui-body-a" >    
-   <form>
-     <fieldset  data-bind="with: selectedCruise().selectedPlot()" class='ui-grid-c ui-hide-label' data-role='controlgroup' data-type='horizontal' data-mini='true'>
+ </div><!-- /header --> 
+ <div role="main" class="ui-content ui-body ui-body-b" >    
+   <!--form-->
+     <fieldset data-bind="with: selectedCruise().selectedPlot()" class='OCCenter ui-grid-c' >
        <div id='field1Title' class='ui-block-a' data-bind='html: field1Name'>Species</div>
        <div id='field2Title' class='ui-block-b' data-bind='html: field2Name'>DBH</div>
        <div id='field3Title' class='ui-block-c' data-bind='html: field3Name'>Saw</div>
        <div id='field4Title' class='ui-block-d' data-bind='visible: $root.selectedCruise().multiProducts() == false, html: field4Name'>Pulp</div>
      </fieldset>
      <!-- ko with: selectedCruise().selectedPlot() -->
-       <div id="plotDetail" data-role="fieldcontain"  data-bind="foreach: trees">
-         <fieldset class='ui-grid-c ui-hide-label'  data-corners='true' data-role='controlgroup' data-type='horizontal' data-mini='true'>
-            <div class='ui-block-a'>
-                <!--label for='field1' class='select' >field1:</label-->
-                <select  data-role="none" name='field1' class='field1 ui-corner-all OCSelect' id='field1'  data-inline="true" data-bind="value: field1, options: field1Values">
+     <div id="plotDetail" data-corners='true' data-bind="foreach: trees">
+         <form><fieldset class='ui-grid-c'  data-type='horizontal'>
+            <div class='ui-block-a ui-mini'>
+                <select  name='field1' id='field1' data-inline="true" data-bind="value: field1, options: field1Values">
                 </select>
             </div>
-            <div class='ui-block-b'><label for='field2'>field2</label>
-              <input type="number" name='field2' id='field2' data-bind="value: field2, event: { change: validateTree }">
+            <div class='ui-block-b'><label for='field2' class='ui-hidden-accessible'>field2</label>
+              <input  type="number" name='field2' id='field2' data-bind="value: field2, event: { change: validateTree }">
             </div>
-            <div class='ui-block-c'><label for='field3'>field3</label>
-              <input type="number" name='field3' id='field3' data-bind="value: field3, event: { change: validateTree }">
+            <div class='ui-block-c'><label for='field3' class='ui-hidden-accessible'>field3</label>
+              <input  type="number" name='field3' id='field3' data-bind="value: field3, event: { change: validateTree }">
             </div>
             <div class='ui-block-d' data-bind="visible: $root.selectedCruise().multiProducts">                  
-              <a class="OCButtonCorners" href="javascript:void(0)" data-bind="click: function(data,event) {$parent.multiProductEntry(data,$parent)}" id="multiProductBtn" data-inline="true"  data-role="button" data-icon="plus" data-transition="none"  data-rel="dialog" data-theme="b">Saw</a>
+              <a class="OCButtonCorners OCNoMargin ui-mini ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left" href="javascript:void(0)" data-bind="click: function(data,event) {$parent.multiProductEntry(data,$parent)}" id="multiProductBtn" data-transition="none"  data-rel="dialog">Saw</a>
             </div>
             <div class='ui-block-d' data-bind="visible: $root.selectedCruise().multiProducts() == false">
-              <input type="number" name='field4Name' id='field4' data-bind="value: field4, event: { change: validateTree }">
+              <input  type="number" name='field4Name' id='field4' data-bind="value: field4, event: { change: validateTree }">
             </div>
-        </fieldset>
-       </div>
-       <div data-bind="click: addTree" id="newTree" data-inline="true" data-role="button" data-icon="plus" data-theme="b">&nbsp;</div>
+         </fieldset></form>
+     </div>
+     <button data-bind="click: addTree" id="newTree" data-inline="true" class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left ui-corner-all ">&nbsp;</button>
      <!-- /ko -->
-   </form>      
+   <!--/form-->      
  </div><!-- /content -->
  <div data-role="footer">
     <!-- ko with: selectedCruise() -->
      <div id="savePlotDiv" data-bind="with: selectedPlot()">
-        <a data-bind='visible: showSaveButton, click: function(data,event) {insertPlot($parent)}' href="javascript:void(0)" id="savePlotBtn" data-inline="true" data-role="button" data-theme="b">Save</a>
+        <a data-bind='visible: showSaveButton, click: function(data,event) {insertPlot($parent)}' href="javascript:void(0)" id="savePlotBtn" class="ui-btn ui-btn-inline ui-corner-all">Save</a>
      </div>
      <div id="updatePlotDiv" data-bind="with: selectedPlot()">
-        <a data-bind='visible: showUpdateButton, click: function(data,event) {updatePlot($parent)}' href="javascript:void(0)" id="updatePlotBtn" data-inline="true" data-role="button" data-theme="b">Update</a>
+        <a data-bind='visible: showUpdateButton, click: function(data,event) {updatePlot($parent)}' href="javascript:void(0)" id="updatePlotBtn" class="ui-btn ui-btn-inline ui-corner-all">Update</a>
      </div>
     <!-- /ko -->
  </div><!-- /footer -->
 </div><!-- /page plotPage -->
 
 <!--****  MULTIPRODUCT PAGE  *******************-->
-<div data-role="page" id="multiProductPage" class="OC-not-initialized" data-close-btn="none">
+<div data-dialog="true" data-role="page" id="multiProductPage" class="OC-not-initialized" data-close-btn="none" data-theme='b' data-overlay-theme='b'>
  <div data-role="header">
      <h1>Tree Segments</h1>
  </div><!-- /header -->
- <div data-role="content" class="ui-body ui-body-a" >   
+ <div role="main" class="ui-content ui-body ui-body-b" >   
      <form>
       <!-- ko with: selectedCruise().selectedPlot() -->
-      <div data-role="fieldcontain" data-bind="with: selectedTree">
-         <fieldset class='ui-grid-b'  data-mini='true' >
+      <div style='text-align:center;' data-bind="with: selectedTree">
+         <div class='ui-grid-b' >
              <div class='ui-block-a'>Segment</div>
              <div class='ui-block-b'>Product</div>
              <div class='ui-block-c'>Length</div>
-         </fieldset>
-         <div data-role="fieldcontain" data-bind="foreach: segments">
-             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class='ui-grid-b'>
-                 <div class='ui-block-a'>
-                     <span data-bind="text: id"></span>
-                 </div>
+         </div>
+         <div data-bind="foreach: segments">
+             <fieldset class='ui-grid-b'>
+                 <div class='ui-block-a' style='line-height:3em;'><span  data-bind="text: id"></span></div>
                  <div class='ui-block-b'>
-                    <select data-bind="value: product, options: $parent.grades" data-role="none" class='field1 ui-corner-all OCSelect' data-inline="true" >
+                    <select data-bind="value: product, options: $parent.grades" class='ui-corner-all' data-inline="true" >
                     </select>
                  </div>
-
-                 <div class='ui-block-c'>
-                     <input type="number" data-bind="value: length" >
-                 </div>
+                 <div class='ui-block-c'><input type="number" data-bind="value: length"></div>
              </fieldset>
          </div>
-         
       </div>
       <!-- /ko -->
      </form>
  </div><!-- /content --> 
  <div data-role="footer">
-     <a href="#plotPage" data-role="button" data-theme="b" data-inline="true">Done</a>
+     <a href="#plotPage" class="ui-btn ui-btn-inline ui-icon-arrow-l ui-btn-icon-left ui-corner-all">Done</a>
  </div>
 </div><!-- /page multpProductPage-->
 
 <!--*************  HELP PAGE  ****************************************-->
-<div data-role="page" id="helpPage" class="OC-not-initialized">
+<div data-role="page" id="helpPage" class="OC-not-initialized"  data-theme='b'>
  <div data-role="header" data-position="fixed">
         <h1>Help</h1>
  </div><!-- /header -->
- <div data-role="content" class="ui-body ui-body-a">
+ <div role="main" class="ui-content">
      <div class="content-primary">
-     <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+     <div data-role="collapsible-set">
          <div data-role="collapsible">
-             <h2>Installation and Browser Notes</h2>
+             <h4>Installation and Browser Notes</h4>
                 <ol>
-                    <li>Visit the homepage and create a bookmark to the site.  Add the bookmark to your home screen for the best experience.</li>
-                    <li>IOS(Apple) users will get a full screen, native looking web application after adding the bookmark to the home screen.
-                         IOS 7 Users - as of 9/26/2013, full screen apps are not recommended due to bugs in Safari related to  back button
-                         behavior and confirmation dialogs.
+                    <li>Visit the homepage and create a bookmark to the site.  Add the bookmark to your home screen for the best experience.</li>   
                     </li>
                     <li>To be safe, do NOT clear browser cache before uploading the data.  All collected data is stored
                         in localstorage, which should persist regardless of cache status.  However, some older browser versions may improperly
@@ -361,7 +354,7 @@
                     <li>Browser settings and general use notes:
                         <ul>
                             <li>Javascript must be enabled.</li>
-                            <li>Enable geolocation to get coordinates at each plot.</li>
+							<li>Respond "Allow" to prompts for storing local data (Firefox only), position (to get plot coordinates), and microphone (for speech input).</li>
                             <li>You may need to also adjust the system (as opposed to browser) location settings for geolocation to work.</li>
                             <li>If a new screen with cruise parameters does not popup when tapping NEW, check
                             other browser settings.</li>
@@ -374,33 +367,19 @@
                      <strong>Android Browser</strong> - most platforms should work, but if you encounter problems,
                      especially on older versions (2.x.x) of Android, try installing Firefox or Dolphin Browser.  When entering data, you may have to use the upper NEXT button
                      to tab between fields.<br>
-                     <strong>Chrome</strong> - all platforms supported, but only available on Android 4.0+.<br>
+                     <strong>Chrome</strong> - all platforms supported.<br>
                      <strong>Safari</strong> - all platforms supported.<br>
-                     <strong>Dolphin Browser</strong> - should work on all platforms.<br>
-                     <strong>Firefox</strong> - all platforms supported. You will need to respond to the prompt to allow the application to store
-                     data locally.<br>
+                     <strong>Dolphin Browser</strong> - all platforms supported.<br>
+                     <strong>Firefox</strong> - all platforms supported. <br>
+					 <strong>Internet Explorer</strong> - V10 or higher should work, but has not been tested. <br>
                      </li>
                     <li>Desktop computers: Chrome, Safari, Firefox.<br/>
 
-                    <li>Speech input:
-                        <ul>
-                            <li>If supported by your browser, a SPEECH button will appear on the plot screen.</li>
-                            <li>Speech input ONLY WORKS IF YOU HAVE A NETWORK CONNECTION since spoken words are sent over the
-                            network for interpretation.</li>
-                            <li>As of 3/14/2013, only Chrome on the desktop supports speech input.  Chrome on Android support is
-                            expected soon.</li>
-                            <li>To use speech input, tap the button and respond ALLOW to the browser prompt.</li>
-                            <li>Enter tree information by speaking clearly with small pauses between words as follows:<br/><br/>
-                            &quot;HARD MAPLE 12 dash 2 dash 4&quot;.  <br/><br/>Say the species name, followed by the diameter, followed
-                            by the word &quot;dash&quot; followed by the number of sawlogs (use the word zero if there are none)
-                            followed by the word &quot;dash&quot; and finishing with the number of pulpsticks.</li>
-                            <li>Tap the SPEECH button again to enter the next tree.</li>
-                        </ul>
-                    </li>
+                    
                 </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Setup and Configuration</h2>
+             <h4>Setup and Configuration</h4>
                 <ol>
                     <li>Tap "Config" on main page.</li>
                     <li>Update cruise parameters as needed.  The values entered here will become the defaults when creating a new cruise.</li>
@@ -413,14 +392,44 @@
                         greater than zero for sawtimber, the sawtimber field will turn red.</li>
                     <li>Species codes are currently global parameters that apply to all cruises.</li>
                     <li>Click "Add Species" to add a new species code.</li>
-                    <li>The "Voice #X" fields are only for voice recognition (see Installation and Browser Notes) and can be 
+                    <li>The "Voice #X" fields are only for voice recognition (see Speech Input) and can be 
                         left blank if you are not using speech input.</li>
                     <li>To reorder species, swap the codes.</li>
                     
                 </ol>
          </div>
+		 <div data-role="collapsible">
+             <h4>Speech Input</h4>
+				<ul>
+					<li>If supported by your browser, a SPEECH button will appear on the plot screen.  As of January 2014, Chrome on Android is the only
+					browser with support.</li>
+					<li>To enable OFFLINE speech recognition (newer versions of Android), you need to adjust the
+					"language and input" settings.  This process will vary somewhat, but in general:
+						<ol>
+							<li>Set "Google Voice Typing" to automatic.</li>
+							<li>Under "Voice Search", select "Offline Speech Recognition" and download the proper language pack.</li>
+							<li>On some versions of Android, there is a "Download Offline Speech Recognition" option directly on the languages and input screen.</li>
+						</ol>
+					</li>
+					<li>To "train" the software to recognize your speech input for tree species, go into airplane mode (this will make sure that
+                    you are using the offline language pack), open the config page of Opencruise and tap in one of the voice input fields for 
+					a given species.  On the popup keyboard, tap the microphone icon and speak as indicated.  
+					Once the text appears in the input field, remove any spaces (i.e. change "red oak" to "redoak".  Do this several times since
+					the voice recognition varies (i.e sometimes aspen is returned as "aspirin", oak may be returned as "ok" or "okh").</li>
+					<li>To use speech input, tap the "Speech" button in the plot entry screeen and respond ALLOW to the browser prompt.</li>
+					<li>When the speech button turns red you can begin to enter trees.</li>
+					<li>Enter tree information by speaking clearly with small pauses between words as follows:<br/><br/>
+					&quot;HARD MAPLE 12 dash 2 dash 4&quot;.  <br/><br/>Say the species name, followed by the diameter, followed
+					by the word &quot;dash&quot; followed by the number of sawlogs (use the word zero if there are none)
+					followed by the word &quot;dash&quot; and finishing with the number of pulpsticks.</li>
+					<li>You can also just enter species and diameter (ie. for multiproduct mode) and manually enter heights.  In this case
+					just say &quot;HARD MAPLE 12&quot;. </li>
+					<li>Wait until the tree data populates the fields, check and edit as needed, then begin speaking again to enter the next tree.</li>
+					<li>To stop voice processing, press the red speech button.  When it turns green, speech processing has stopped.</li>
+				</ul>
+         </div>
          <div data-role="collapsible">
-             <h2>Create/Update cruise</h2>
+             <h4>Create/Update cruise</h4>
                 <ol>
                     <li>Tap "New" on main page.</li>
                     <li>Update date, name, BAF, etc...</li>
@@ -431,7 +440,7 @@
                 </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Plot Entry</h2>
+             <h4>Plot Entry</h4>
                  <ol>
                      <li>Tap "New Plot"</li>
                      <li>Update plotid or use as comments field.  This field can be used to record any amount of 
@@ -442,7 +451,7 @@
                  </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Multi Product Mode</h2>
+             <h4>Multi Product Mode</h4>
                  <ol>
                      <li>Click "Flds" on the cruise page and change the 2nd field to "Pulp" if you want to 
                      record pulp trees without using the segment entry.</li>
@@ -451,7 +460,7 @@
                  </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Edit Plots</h2>
+             <h4>Edit Plots</h4>
                  <ol>
                      <li>Tap "Edit Plots".</li>
                      <li>Choose Plot to edit from popup.</li>
@@ -461,7 +470,7 @@
                  </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Download data</h2>
+             <h4>Download data</h4>
                  <ol>
                      <li>Tap "Dwnld" from the cruise page.</li>
                      <li>File Download: If your browser supports file downloads, a download button is available.  Otherwise email is your
@@ -472,7 +481,7 @@
                  </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Work offline (Airplane Mode)</h2>
+             <h4>Work offline (Airplane Mode)</h4>
                  <ol>
                      <li>Visit website, or open application from home screen (see Browser Notes) when you have network access.</li>
                      <li>Go into "Airplane Mode" to save battery.</li>
@@ -480,7 +489,7 @@
                  </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Output File Format</h2>
+             <h4>Output File Format</h4>
                 <ol>
                     <li>The output file is a comma delimited file that should be directly readable by Excel, LibreOffice, OpenOffice or similar products.</li>
                     <li>When opening the file, you may need to set the delimeter (Separator) to a comma only.  Uncheck options for separating by Tab, Semicolon, etc...</li>
@@ -500,34 +509,39 @@
                 </ol>
          </div>
          <div data-role="collapsible">
-             <h2>Release Notes</h2>
+             <h4>Release Notes</h4>
                  <ul>
-                     <li>Version 1.1.0925.2</li>
-                     <ul>
-                         <li>Removed default sawlog value to fix Firefox tab issue.</li>
-                         <li>Added ability to configure field defaults for each cruise as opposed to globally.</li>
-                         <li>Added multi product mode.</li>
-                         <li>Add ability to download data as a file for browsers that support BLOB URLs.</li>
-                         <li>Bigger dialog close buttons.</li>
-                         <li>Add workaround for IOS 7 Safari bugs related to page navigation.</li>
-                     </ul>
-                     <li>Version 1.1.1023.1</li>
-                     <ul>
-                         <li>Workaround for Firefox indexedDB index creation bug.</li>
-                     </ul>
+				     <li>Version 1.2.0115.1
+                       <ul>
+                           <li>Incorporated jquery-mobile V1.4.0 for improved performance.</li>
+                           <li>Incorporated knockout.js V3.0.0 for improved performance.</li>
+                           <li>Config - fixed species delete button overlap for small mobile devices.</li>
+                           <li>Reworked button markup to take advantage of JQM 1.4.0 performance enhancements.</li>
+						   <li>Fixed error with default cruiseparms not being saved to localstorage.</li>
+						   <li>Removed fastclick.js library.</li>
+                       </ul>
+					 </li>
+                     <li>Version 1.1.0925.2
+                       <ul>
+                           <li>Removed default sawlog value to fix Firefox tab issue.</li>
+                           <li>Added ability to configure field defaults for each cruise as opposed to globally.</li>
+                           <li>Added multi product mode.</li>
+                           <li>Add ability to download data as a file for browsers that support BLOB URLs.</li>
+                           <li>Bigger dialog close buttons.</li>
+                           <li>Add workaround for IOS 7 Safari bugs related to page navigation.</li>
+                       </ul>
+					 </li>
+                     <li>Version 1.1.1023.1
+                       <ul>
+                           <li>Workaround for Firefox indexedDB index creation bug.</li>
+                       </ul>
+					 </li>
                 </ul>
          </div>        
          <div data-role="collapsible">
-             <h2>Coming Soon...</h2>
+             <h4>About</h4>
                  <ol>
-                     <li>Improved performance(ongoing).</li>
-                     <li>Activate comments and covertype plot fields.</li>
-                </ol>
-         </div>
-         <div data-role="collapsible">
-             <h2>About</h2>
-                 <ol>
-                     <li>Version: 1.1.1023.1</li>
+                     <li>Version: 1.2.0115.1</li>
                      <li>OpenCruise is open source and licensed under the : 
                          <a href="http://www.gnu.org/copyleft/gpl.html">GNU Public License Version 3.</a></li>
                      <li>Developed by <a href="mailto:jcrivard@mtu.edu">Jim Rivard.</a></li>
@@ -537,17 +551,17 @@
      </div> <!-- /content-primary--> 
  </div><!-- /content -->
  <div data-role="footer" data-position="fixed">
-    <a href="#cruiseListPage"  data-inline="true" data-role="button" data-icon="home"   data-theme="b">Home</a>
+    <a href="#cruiseListPage"  class="ui-btn ui-btn-inline ui-icon-home ui-btn-icon-left ui-corner-all">Home</a>
  </div><!-- /footer -->
 </div><!-- /page helpPage -->
 
 <!--*************  CONFIG PAGE  ****************************************-->
-<div data-role="page" id="configPage" class="OC-not-initialized">
+<div data-role="page" id="configPage" class="OC-not-initialized"  data-theme='b'>
  <div data-role="header" data-position="fixed">
         <h1>Configuration</h1>
  </div><!-- /header -->
- <div data-role="content" class="ui-body ui-body-a" id="configContent" >
-    <div id="cruiseParms" data-role="fieldcontain" >
+ <div role="main" class="ui-content" id="configContent" >
+    <div id="cruiseParms" class="ui-field-contain" >
          <h2>Default Cruise Parms</h2>
          <label for="configJobName">Job Name:</label>
          <input id='configJobName' type='text' data-bind="value: cruiseParms.jobName, event: { change: function(data,event) {save(); }}" />
@@ -555,15 +569,15 @@
          <input id='configCruisers' type='text' data-bind="value: cruiseParms.cruisers, event: { change: function(data,event) {save(); }}">
          <label for="configDefaultSpecies">Default Species:</label>
          <input id='configDefaultSpecies' type='text' data-bind="value: defaultSpecies, event: { change: function(data,event) {save(); }}">
-         <h3>Default Fields</h3>
-         <fieldset class='ui-grid-c'  data-mini='true' >
+         <h2>Default Fields</h2>
+         <fieldset class='ui-grid-c' >
              <div class='ui-block-a'>Name</div>
              <div class='ui-block-b'>Min</div>
              <div class='ui-block-c'>Max</div>
              <div class='ui-block-d'>Init</div>
          </fieldset>
 
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field2" data-mini='true' >
+         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field2">
              <div class='ui-block-a'>
                  <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
              </div>
@@ -577,7 +591,7 @@
                  <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
              </div>
          </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field3" data-mini='true' >
+         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field3" >
              <div class='ui-block-a'>
                  <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
              </div>
@@ -591,7 +605,7 @@
                  <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
              </div>
          </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field4" data-mini='true' >
+         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field4">
              <div class='ui-block-a'>
                  <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
              </div>
@@ -606,7 +620,7 @@
              </div>
          </fieldset>
          <div data-bind="with: cruiseParms.field3">
-         <fieldset class='ui-grid-a ui-hide-label' data-mini='true'>
+         <fieldset class='ui-grid-a ui-hide-label'>
              <div class='ui-block-a'>
                  Min field2 for field3 (ie. min DBH for Saw)
              </div>
@@ -617,15 +631,15 @@
          </div>
          <!-- ko with: gradeKey -->
          <h2>Product Codes</h2>
-         <button data-bind='click: function(data,event) {addGrade(data,event); $root.save();}' data-mini='true' data-inline="true" data-theme="b">Add Grade</button>
-         <fieldset class='ui-grid-a'  data-mini='true' >
+         <button data-bind='click: function(data,event) {addGrade(data,event); $root.save();}' class="ui-mini" data-inline="true">Add Grade</button>
+         <fieldset class='ui-grid-a' >
              <div class='ui-block-a'>&nbsp;</div>
              <div class='ui-block-b'>Grade</div>
          </fieldset>
          <div data-bind='foreach: grades'>
-             <fieldset class='ui-grid-a'  data-mini='true' >
+             <fieldset class='ui-grid-a' >
                  <div class='ui-block-a'>
-                     <button data-mini='true' data-inline="true" data-icon="delete" data-bind="click: function(data,event) {$parent.deleteGrade(data,event); $root.save();}" data-theme="b">Delete</button>
+                     <button class="OCBtnTop ui-mini" data-inline="true" data-icon="delete" data-bind="click: function(data,event) {$parent.deleteGrade(data,event); $root.save();}">Delete</button>
                  </div>
                  <div class='ui-block-b'>
                      <input type='text' data-bind="value: key, event: { change: function(data,event) {$root.save(data,event); }}" />
@@ -635,19 +649,19 @@
          <!-- /ko -->
          <!-- ko with: speciesKey -->
          <h2>Species Codes</h2>
-         <button data-bind='click: function(data,event) {addSpecies(data,event); $root.save();}' data-mini='true' data-inline="true" data-theme="b">Add Species</button>
-         <fieldset class='ui-grid-c'  data-mini='true' >
+         <button data-bind='click: function(data,event) {addSpecies(data,event); $root.save();}' class="ui-mini" data-inline="true">Add Species</button>
+         <fieldset class='ui-grid-c'>
              <div class='ui-block-a'>&nbsp;</div>
              <div class='ui-block-b'>Voice1</div>
              <div class='ui-block-c'>Voice2</div>
              <div class='ui-block-d'>Voice3</div>
          </fieldset>
          <div data-bind='foreach: species'>
-             <fieldset class='ui-grid-c ui-hide-label'  data-mini='true' >
+             <fieldset class='ui-grid-c ui-hide-label'>
                  <div class='ui-block-a'>
                      <div class='ui-grid-a'>
                          <div class='ui-block-a' style='width:40%;'>
-                             <button data-mini='true'  data-icon="delete" data-bind="click: function(data,event) {$parent.deleteSpecies(data,event); $root.save();}" data-theme="b">&nbsp;</button>
+                             <button class="OCBtnSmall ui-mini ui-btn ui-icon-delete ui-btn-icon-left ui-corner-all"  data-bind="click: function(data,event) {$parent.deleteSpecies(data,event); $root.save();}">&nbsp;</button>
                          </div>
                          <div class='ui-block-b' style='width:60%;'>
                              <input type='text' data-bind="value: key, event: { change: function(data,event) {$root.save(data,event); }}" />
@@ -671,8 +685,8 @@
  </div><!-- /content -->
  <div data-role="footer" data-position="fixed">
     <div data-role="controlgroup"  data-type="horizontal">
-      <a href="#cruiseListPage"  data-inline="true" data-role="button" data-icon="home"   data-theme="b">Home</a>
-      <a href="#helpPage" data-inline="true" data-role="button" data-theme="b">Help</a>
+      <a href="#cruiseListPage"  class="ui-btn ui-btn-inline ui-icon-home ui-btn-icon-left">Home</a>
+      <a href="#helpPage" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-left">Help</a>
     </div>  
  </div><!-- /footer -->
 </div><!-- /page cruiseListPage -->
