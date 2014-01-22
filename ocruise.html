@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="css/theme/jquery.mobile.icons.min.css" />
     <link rel="stylesheet" href="js/libs/jquery.mobile-1.4.0/jquery.mobile.structure-1.4.0.min.css" >
     <link rel="stylesheet" href="css/ocruise.css" >
+    <script type="text/javascript">
+        var require = {
+            waitSeconds: 180,
+            urlArgs : "bust=V1.2.2"    //Change this when upgrading versions to prevent cache issues on older browsers
+        };
+    </script>
     <script type="text/javascript" data-main="js/mainmin" src="js/libs/require/require.js"></script>
     <!--script type="text/javascript" data-main="js/main" src="js/libs/require/require.js"></script-->
 </head> 
@@ -346,7 +352,7 @@
          <div data-role="collapsible">
              <h4>Installation and Browser Notes</h4>
                 <ol>
-                    <li>Visit the homepage and create a bookmark to the site.  Add the bookmark to your home screen for the best experience.</li>   
+                    <li>Visit the homepage and create a bookmark to the site.  Add the bookmark to your home screen for the best experience.   
                     </li>
                     <li>To be safe, do NOT clear browser cache before uploading the data.  All collected data is stored
                         in localstorage, which should persist regardless of cache status.  However, some older browser versions may improperly
@@ -512,6 +518,12 @@
          <div data-role="collapsible">
              <h4>Release Notes</h4>
                  <ul>
+                     <li>Version 1.2.0122.3
+                       <ul>
+                           <li>Fixed (hopefully) problem with sticky cache files.</li>
+                           <li>Add prompt for user to reload after version update.</li>
+                       </ul>
+                     </li>
                      <li>Version 1.2.0115.1
                        <ul>
                            <li>Incorporated jquery-mobile V1.4.0 for improved performance.</li>

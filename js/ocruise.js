@@ -13,6 +13,16 @@ var OCRUISE = (function (oc) {
     };
     oc.init = function() {
         $(document).ready(function() {
+            // If new version is available, prompt user for reload
+            if (window.applicationCache) {
+              window.applicationCache.addEventListener('updateready', function(e) {
+                if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                  if (confirm('A new version of OpenCruise is available. Load it now?')) {
+                    window.location.reload();
+                  }
+                } 
+              }, false);
+            }
             //setup indexedDB
             window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
             window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
