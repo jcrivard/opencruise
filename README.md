@@ -11,7 +11,7 @@ It works offline (i.e. airplane mode) in remote areas where network access is un
  down dead wood, or other plot level items.  Use of the application requires that the user have some knowledge
  of forest inventory procedures (point/plot sampling, tree identification, diameter/height measurements, etc...).
  
-The default version allows for 4 data variables to be collected per "sample unit", which in generally a tree.  
+The default version allows for 4 data variables to be collected per "sample unit", which is generally a tree.  
 Users are free to configure the field names/default values globally via the "Config" button or for each cruise/job
 via the "Flds" button.
 
@@ -25,7 +25,7 @@ Browser Support:
 * Firefox (update channel version).
 * Safari (on IOS 5+). 
 * Android Browser (on Android 4+; most older versions work as well).
-* Dolphin Browser (on IOS 5+; on Android 2.2.x+; good alternative for older Android devices).
+* Dolphin Browser (on IOS 5+; on Android 2.2.x+).
 * Internet Explorer V10+ should work, but has not been tested.
 
 Browser Configuration:
