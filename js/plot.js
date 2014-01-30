@@ -19,7 +19,7 @@ var OCRUISE = (function (oc) {
         this.plotID = ko.observable(plotnum.toString());
         this.cruiseid = cruiseid;
         this.defaultSpecies = defaultSpecies;
-        this.lastEditedTree = -1; //indicates the array element in trees for speech input
+        this.lastEditedTree = 0; //indicates the array element in trees for speech input
         this.selectedTree = ko.observable(); //tree being edited when in multiproduct mode
         this.showSaveButton = ko.observable(true);
         this.showUpdateButton = ko.observable(false);
@@ -39,6 +39,9 @@ var OCRUISE = (function (oc) {
             this.recognition.continuous = true;
             this.recognition.ocRunning = false;  //user defined property to indicate if speech input is active
             this.recognition.onresult = function(event) {thisPlot.speechInputResult(event);};
+            this.recognition.onstart = function(event) {
+                thisPlot.trees()[thisPlot.lastEditedTree].field1Focus(true);
+            };
             this.recognition.onend = function() {  //restart if error - ie long pause between entering trees
                 if (thisPlot.recognition.ocRunning) {
                     thisPlot.recognition.start();
@@ -127,34 +130,42 @@ var OCRUISE = (function (oc) {
            speechInputResult: function(event) {
                 if (this.recognition.ocRunning) {   //speech api on android chrome fires result event with cumulative values after input stops.  This ignores that last result
                     var dv = oc.defaultValues; //shorthand
-                    var treeRecord, field1Val, field2Val, field3Val, field4Val, transcript;
                     var treeArray = this.trees();
-                    //transcript should have: field1 field2 - field3 - field4; ie. Hard Maple 12 - 2 - 4
-                    transcript = event.results[event.resultIndex][0].transcript.replace(/dash/gi,'-').replace(/for/gi,'4').replace(/to/gi,'2');  //replace dash with "-" and common misinterpretations
-                    treeRecord = transcript.split('-');
-                    if (treeArray[this.lastEditedTree + 1]){ //have an empty tree to work with
-                        this.lastEditedTree ++; //point to next empty tree slot in DOM
-                        if (treeRecord[0]) { //field1, field2 have content
-                            field1Val = treeRecord[0].replace(/[0-9]+/g,''); //remove numbers 
-                            field1Val = field1Val.replace(/\s+/g,''); //remove spaces; should now have field1 without spaces
-                            field2Val = treeRecord[0].replace(/[a-zA-Z]+/g,''); //remove alpha
-                            field2Val = field2Val.replace(/\s+/g,''); //remove spaces; should now have field2
-                            field1Val = dv.speciesKey.getKey(field1Val.toLowerCase());
-                            if (field1Val) {  //lookup succeeded
-                                treeArray[this.lastEditedTree].field1(field1Val);
-                            }
-                            treeArray[this.lastEditedTree].field2(field2Val);
+                    var currentFocus = $(':focus');
+                    var currentElemID = $(':focus').attr('id');
+                    var currentTree = parseInt(currentElemID.substr(4, currentElemID.indexOf('field') - 4));  //need to get tree the user is working with
+                    var currentField = currentElemID.substr(currentElemID.indexOf('field')); //need to get field the user is working with
+                    var transcript = event.results[event.resultIndex][0].transcript.replace(/dash/gi,'-').replace(/for/gi,'4').replace(/to/gi,'2').replace(/att/gi,'8').replace(/ate/gi,'8').replace(/sex/gi,'6');  //replace dash with "-" and common misinterpretations
+                    if (transcript && currentField) { //have content and a field to work in
+                        transcript = transcript.replace(/\s+/g,''); //remove spaces; should now have field1 without spaces
+                        switch (currentField) {
+                            case 'field1':
+                                var speciesCode = dv.speciesKey.getKey(transcript.toLowerCase());
+                                if (speciesCode) {  //lookup succeeded set species code
+                                    treeArray[currentTree].field1(speciesCode);
+                                    treeArray[currentTree].field1Focus(false);
+                                    treeArray[currentTree].field2Focus(true);
+                                }
+                                break;
+                            case 'field2':
+                                treeArray[currentTree].field2(transcript);
+                                treeArray[currentTree].field2Focus(false);
+                                treeArray[currentTree].field3Focus(true);
+                                break;
+                            case 'field3':
+                                treeArray[currentTree].field3(transcript);
+                                treeArray[currentTree].field3Focus(false);
+                                treeArray[currentTree].field4Focus(true);
+                                break;
+                            case 'field4':
+                                treeArray[currentTree].field4(transcript);
+                                treeArray[currentTree].field4Focus(false);
+                                this.lastEditedTree ++; //done with this tree, point to next empty tree slot in DOM
+                                treeArray[currentTree + 1].field1Focus(true);
+                                break;
                         }
-                        if (treeRecord[1]) { //field3 has content
-                            field3Val = treeRecord[1].replace(/\s+/g,''); //remove spaces
-                            treeArray[this.lastEditedTree].field3(field3Val);
-                        }
-                        if (treeRecord[2]) { //field4 has content
-                            field4Val = treeRecord[2].replace(/\s+/g,''); //remove spaces
-                            treeArray[this.lastEditedTree].field4(field4Val);
-                        }
-                        $('#plotDetail select').selectmenu('refresh'); //need to get this moved
                     }
+                    $('#plotDetail select').selectmenu('refresh'); //need to get this moved
                 }
            },
            //insert new plot record and associated tree records into database

@@ -1,6 +1,6 @@
 <!DOCTYPE html> 
-<html lang="en" manifest="offline-min.manifest">
-<!--html lang="en" manifest="offline.manifest"-->
+<!--html lang="en" manifest="offline-min.manifest"-->
+<html lang="en" manifest="offline.manifest">
     <head> 
     <title>OpenCruise - Forest Inventory</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -17,8 +17,8 @@
             urlArgs : "bust=V1.2.2"    //Change this when upgrading versions to prevent cache issues on older browsers
         };
     </script>
-    <script type="text/javascript" data-main="js/mainmin" src="js/libs/require/require.js"></script>
-    <!--script type="text/javascript" data-main="js/main" src="js/libs/require/require.js"></script-->
+    <!--script type="text/javascript" data-main="js/mainmin" src="js/libs/require/require.js"></script-->
+    <script type="text/javascript" data-main="js/main" src="js/libs/require/require.js"></script>
 </head> 
 <body> 
 <noscript>
@@ -273,22 +273,22 @@
      </fieldset>
      <!-- ko with: selectedCruise().selectedPlot() -->
      <div id="plotDetail" data-corners='true' data-bind="foreach: trees">
-         <form><fieldset class='ui-grid-c'  data-type='horizontal'>
+         <form data-bind="attr: {'id': 'tree' + $index()}"><fieldset class='ui-grid-c'  data-type='horizontal'>
             <div class='ui-block-a ui-mini'>
-                <select  name='field1' id='field1' data-inline="true" data-bind="value: field1, options: field1Values">
+                <select  name='field1' data-inline="true" data-bind="hasFocus: field1Focus, value: field1, options: field1Values, attr: {'id': 'tree' + $index() + 'field1'}">
                 </select>
             </div>
             <div class='ui-block-b'><label for='field2' class='ui-hidden-accessible'>field2</label>
-              <input  type="number" name='field2' id='field2' data-bind="value: field2, event: { change: validateTree }">
+              <input  type="number" name='field2' data-bind="hasFocus: field2Focus, value: field2, event: { change: validateTree }, attr: {'id': 'tree' + $index() + 'field2'}">
             </div>
             <div class='ui-block-c'><label for='field3' class='ui-hidden-accessible'>field3</label>
-              <input  type="number" name='field3' id='field3' data-bind="value: field3, event: { change: validateTree }">
+              <input  type="number" name='field3' data-bind="hasFocus: field3Focus, value: field3, event: { change: validateTree }, attr: {'id': 'tree' + $index() + 'field3'}">
             </div>
             <div class='ui-block-d' data-bind="visible: $root.selectedCruise().multiProducts">                  
-              <a class="OCButtonCorners OCNoMargin ui-mini ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left" href="javascript:void(0)" data-bind="click: function(data,event) {$parent.multiProductEntry(data,$parent)}" id="multiProductBtn" data-transition="none"  data-rel="dialog">Saw</a>
+              <a class="OCButtonCorners OCNoMargin ui-mini ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left" href="javascript:void(0)" data-bind="click: function(data,event) {$parent.multiProductEntry(data,$parent)},attr: {'id': 'tree' + $index() + 'multiProductBtn'} "  data-transition="none"  data-rel="dialog">Saw</a>
             </div>
             <div class='ui-block-d' data-bind="visible: $root.selectedCruise().multiProducts() == false">
-              <input  type="number" name='field4Name' id='field4' data-bind="value: field4, event: { change: validateTree }">
+              <input  type="number" name='field4Name' data-bind="hasFocus: field4Focus, value: field4, event: { change: validateTree },attr: {'id': 'tree' + $index() + 'field4'} ">
             </div>
          </fieldset></form>
      </div>
@@ -410,6 +410,7 @@
                 <ul>
                     <li>If supported by your browser, a SPEECH button will appear on the plot screen.  As of January 2014, Chrome on Android is the only
                     browser with support.</li>
+                    <li>You may need to install the Google Search application.</li>
                     <li>To enable OFFLINE speech recognition (newer versions of Android), you need to adjust the
                     "language and input" settings.  This process will vary somewhat, but in general:
                         <ol>
@@ -425,13 +426,9 @@
                     the voice recognition varies (i.e sometimes aspen is returned as "aspirin", oak may be returned as "ok" or "okh").</li>
                     <li>To use speech input, tap the "Speech" button in the plot entry screeen and respond ALLOW to the browser prompt.</li>
                     <li>When the speech button turns red you can begin to enter trees.</li>
-                    <li>Enter tree information by speaking clearly with small pauses between words as follows:<br/><br/>
-                    &quot;HARD MAPLE 12 dash 2 dash 4&quot;.  <br/><br/>Say the species name, followed by the diameter, followed
-                    by the word &quot;dash&quot; followed by the number of sawlogs (use the word zero if there are none)
-                    followed by the word &quot;dash&quot; and finishing with the number of pulpsticks.</li>
-                    <li>You can also just enter species and diameter (ie. for multiproduct mode) and manually enter heights.  In this case
-                    just say &quot;HARD MAPLE 12&quot;. </li>
-                    <li>Wait until the tree data populates the fields, check and edit as needed, then begin speaking again to enter the next tree.</li>
+                    <li>The active input field should appear focused.  Enter tree information by speaking clearly.<br/>
+                    <li>If your speech is recognized, the field should be populated with data as the focus shifts to the next input field.</li>
+                    <li>If your speech is NOT recognized, nothing will happen and you can try again or move to another field.</li>
                     <li>To stop voice processing, press the red speech button.  When it turns green, speech processing has stopped.</li>
                 </ul>
          </div>
@@ -518,9 +515,14 @@
          <div data-role="collapsible">
              <h4>Release Notes</h4>
                  <ul>
-                     <li>Version 1.2.0122.3
+                     <li>Version 1.2.0130.1
                        <ul>
-                           <li>Fixed (hopefully) problem with sticky cache files.</li>
+                           <li>Reworked speech input routines - see help for new instructions.</li>
+                       </ul>
+                     </li>
+                     <li>Version 1.2.0122.1
+                       <ul>
+                           <li>Fixed problem with sticky cache files.</li>
                            <li>Add prompt for user to reload after version update.</li>
                        </ul>
                      </li>
