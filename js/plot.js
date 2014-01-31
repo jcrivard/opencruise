@@ -131,7 +131,6 @@ var OCRUISE = (function (oc) {
                 if (this.recognition.ocRunning) {   //speech api on android chrome fires result event with cumulative values after input stops.  This ignores that last result
                     var dv = oc.defaultValues; //shorthand
                     var treeArray = this.trees();
-                    var currentFocus = $(':focus');
                     var currentElemID = $(':focus').attr('id');
                     var currentTree = parseInt(currentElemID.substr(4, currentElemID.indexOf('field') - 4));  //need to get tree the user is working with
                     var currentField = currentElemID.substr(currentElemID.indexOf('field')); //need to get field the user is working with
@@ -143,23 +142,19 @@ var OCRUISE = (function (oc) {
                                 var speciesCode = dv.speciesKey.getKey(transcript.toLowerCase());
                                 if (speciesCode) {  //lookup succeeded set species code
                                     treeArray[currentTree].field1(speciesCode);
-                                    treeArray[currentTree].field1Focus(false);
                                     treeArray[currentTree].field2Focus(true);
                                 }
                                 break;
                             case 'field2':
                                 treeArray[currentTree].field2(transcript);
-                                treeArray[currentTree].field2Focus(false);
                                 treeArray[currentTree].field3Focus(true);
                                 break;
                             case 'field3':
                                 treeArray[currentTree].field3(transcript);
-                                treeArray[currentTree].field3Focus(false);
                                 treeArray[currentTree].field4Focus(true);
                                 break;
                             case 'field4':
                                 treeArray[currentTree].field4(transcript);
-                                treeArray[currentTree].field4Focus(false);
                                 this.lastEditedTree ++; //done with this tree, point to next empty tree slot in DOM
                                 treeArray[currentTree + 1].field1Focus(true);
                                 break;
