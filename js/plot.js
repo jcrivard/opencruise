@@ -57,7 +57,8 @@ var OCRUISE = (function (oc) {
     };
     oc.plot.prototype = {
         initPlot: function () {
-            for (var i = 0; i < 10; i++) {
+            var i;
+            for (i = 0; i < 10; i++) {
                 this.trees.push(new oc.tree(this.defaultSpecies, null, null, null, []));
             }
             this.updatePosition(); //get current geolocation information
@@ -76,10 +77,11 @@ var OCRUISE = (function (oc) {
             var whereObj = {cruiseid: this.cruiseid, plotnum: this.plotnum}; //for indexedDB
             var orderbyClause = '';
             var callbackTrees = function (transaction, results) {
-                for (var i = 0; i < results.rows.length; i++) { //populate input fields from DB       
-                    var row = results.rows.item(i);
-                    var segments = [];
-                    for (var j = 0; j < 6; j++) {
+                var i, j, row, segments;
+                for (i = 0; i < results.rows.length; i++) { //populate input fields from DB       
+                    row = results.rows.item(i);
+                    segments = [];
+                    for (j = 0; j < 6; j++) {
                         segments.push({product: row['seg' + j + 'prod'], length: row['seg' + j + 'len']});
                     }
                     thisPlot.trees.push(new oc.tree(row[dv.field1.dbName], row[dv.field2.dbName], row[dv.field3.dbName], row[dv.field4.dbName], segments));
@@ -107,7 +109,7 @@ var OCRUISE = (function (oc) {
                         thisCruise.position = position;
                     },
                     function (error) {
-                        var temp = error;//placeholder - no need for error message at this time
+                        console.log('plot.updatePosition - unable to get current position.');
                     },
                     {timeout: 50000, maximumAge: 0, enableHighAccuracy: true}
                 );
@@ -119,8 +121,7 @@ var OCRUISE = (function (oc) {
                 this.recognition.ocRunning = false;
                 $(thisBtn).css('background-color', '#088A08');
                 this.recognition.stop(thisBtn);
-            }
-            else {
+            } else {
                 this.recognition.ocRunning = true;
                 this.recognition.start(thisBtn);  //start speech input
                 $(thisBtn).css('background-color', '#FF0000');
@@ -188,7 +189,8 @@ var OCRUISE = (function (oc) {
                           dv.field1.dbName, dv.field2.dbName, dv.field3.dbName, dv.field4.dbName, 'deleted',
                           'seg0prod', 'seg0len', 'seg1prod', 'seg1len', 'seg2prod', 'seg2len', 'seg3prod', 'seg3len',
                           'seg4prod', 'seg4len', 'seg5prod', 'seg5len'];
-            for (var tree = 0; tree < treeArray.length; tree++) {
+            var tree;
+            for (tree = 0; tree < treeArray.length; tree++) {
                 if (treeArray[tree].field2() > 0) { //only insert records with field2 (DBH) > 0
                     queryArray.push([tableName, fieldNames,
                                    [this.cruiseid, this.plotID(), this.plotnum, tree,

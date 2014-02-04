@@ -6,7 +6,7 @@ http://www.gnu.org/copyleft/gpl.html
 
 var OCRUISE = (function (oc) {
 
-    oc.config = function() { 
+    oc.config = function () {
         //**************************************************************/
         //** Change this to load/save to multiple localstorage vars ***/
         //**  - only save property values and when loading, only load property values, don't overwrite methods **/
@@ -39,30 +39,30 @@ var OCRUISE = (function (oc) {
         };
         this.speciesKey = {
             species: ko.observableArray([
-             {key: 'HM', names: ['hardmaple', 'sugarmaple']},
-             {key: 'RM', names: ['redmaple', 'softmaple']},
-             {key: 'AS', names: ['aspen']},
-             {key: 'RO', names: ['redoak', 'oak','ok']},
-             {key: 'BF', names: ['balsamfir']},
-             {key: 'YB', names: ['yellowbirch']},
-             {key: 'PB', names: ['paperbirch', 'whitebirch']},
-             {key: 'BW', names: ['basswood']},
-             {key: 'WA', names: ['whiteash']},
-             {key: 'BA', names: ['blackash']},
-             {key: 'BC', names: ['blackcherry']},
-             {key: 'BP', names: ['balsampoplar']},
-             {key: 'WP', names: ['whitepine']},
-             {key: 'RP', names: ['redpine']},
-             {key: 'JP', names: ['jackpine']},
-             {key: 'WS', names: ['whitespruce']},
-             {key: 'BS', names: ['blackspruce']},
-             {key: 'TM', names: ['tamarack']},
-             {key: 'WC', names: ['whitecedar', 'cedar']},
-             {key: 'EH', names: ['hemlock']},
-             {key: 'AE', names: ['elm']},
-             {key: 'IW', names: ['ironwood']},
-             {key: 'MA', names: ['mountainash']},
-             {key: 'SNAG', names: ['snag']}
+                {key: 'HM', names: ['hardmaple', 'sugarmaple']},
+                {key: 'RM', names: ['redmaple', 'softmaple']},
+                {key: 'AS', names: ['aspen']},
+                {key: 'RO', names: ['redoak', 'oak', 'ok']},
+                {key: 'BF', names: ['balsamfir']},
+                {key: 'YB', names: ['yellowbirch']},
+                {key: 'PB', names: ['paperbirch', 'whitebirch']},
+                {key: 'BW', names: ['basswood']},
+                {key: 'WA', names: ['whiteash']},
+                {key: 'BA', names: ['blackash']},
+                {key: 'BC', names: ['blackcherry']},
+                {key: 'BP', names: ['balsampoplar']},
+                {key: 'WP', names: ['whitepine']},
+                {key: 'RP', names: ['redpine']},
+                {key: 'JP', names: ['jackpine']},
+                {key: 'WS', names: ['whitespruce']},
+                {key: 'BS', names: ['blackspruce']},
+                {key: 'TM', names: ['tamarack']},
+                {key: 'WC', names: ['whitecedar', 'cedar']},
+                {key: 'EH', names: ['hemlock']},
+                {key: 'AE', names: ['elm']},
+                {key: 'IW', names: ['ironwood']},
+                {key: 'MA', names: ['mountainash']},
+                {key: 'SNAG', names: ['snag']}
             ])
         };
         this.defaultSpecies = ko.observable("HM");
@@ -75,94 +75,94 @@ var OCRUISE = (function (oc) {
         };
         this.field3 = {
             dbName: 'sawlogs'
-        }; 
+        };
         this.field4 = {
             dbName: 'pulpsticks'
         };
         this.gradeKey = {
             grades: ko.observableArray([
-             {key: '1'},
-             {key: '2'},
-             {key: '3'},
-             {key: 'Bolt'},
-             {key: 'V'},
-             {key: 'C'},
-             {key: 'Pulp'}
+                {key: '1'},
+                {key: '2'},
+                {key: '3'},
+                {key: 'Bolt'},
+                {key: 'V'},
+                {key: 'C'},
+                {key: 'Pulp'}
             ])
         };
-        this.BAF = [10,20,40,80]; //Not currently used; edit ocruise.html to change
+        this.BAF = [10, 20, 40, 80]; //Not currently used; edit ocruise.html to change
         this.pages = {
-             cruiseListPage: '#cruiseListPage',
-             cruisePage: '#cruisePage',
-             plotPage: '#plotPage'
+            cruiseListPage: '#cruiseListPage',
+            cruisePage: '#cruisePage',
+            plotPage: '#plotPage'
         };
         //methods
-        this.speciesKey.deleteSpecies = function(spcObj, event){
-              var removed = this.species.remove(spcObj);
+        this.speciesKey.deleteSpecies = function (spcObj, event) {
+            var removed = this.species.remove(spcObj);
         };
-        this.speciesKey.addSpecies = function(spcObj, event) {
-              this.species.unshift({key: 'new', names:[]});
-              //$('#configPage ul').listview().listview('refresh');
-              $('#configPage').trigger("create");
+        this.speciesKey.addSpecies = function (spcObj, event) {
+            this.species.unshift({key: 'new', names: []});
+            //$('#configPage ul').listview().listview('refresh');
+            $('#configPage').trigger("create");
         };
-        this.speciesKey.getKey = function(value){
-              for(var i=0; i < this.species().length; i++){
-                  for (var j=0;j < this.species()[i].names.length; j++) {
-                    if(this.species()[i].names[j] == value){
-                      return this.species()[i].key;
+        this.speciesKey.getKey = function (value) {
+            for (var i = 0; i < this.species().length; i++) {
+                for (var j = 0; j < this.species()[i].names.length; j++) {
+                    if (this.species()[i].names[j] == value) {
+                        return this.species()[i].key;
                     }
-                  }
-              }
-              return null;
+                }
+            }
+            return null;
         };
-        this.speciesKey.toArray = function() {
-              var speciesArray = [];
-              for (var i=0; i < this.species().length; i++) {
+        this.speciesKey.toArray = function () {
+            var speciesArray = [];
+            for (var i = 0; i < this.species().length; i++) {
                 speciesArray.push(this.species()[i].key);
-              }
-              return speciesArray;
+            }
+            return speciesArray;
         };
-        this.gradeKey.toArray = function() {
-              var gradeArray = [];
-              for (var i=0; i < this.grades().length; i++) {
+        this.gradeKey.toArray = function () {
+            var gradeArray = [];
+            for (var i = 0; i < this.grades().length; i++) {
                 gradeArray.push(this.grades()[i].key);
-              }
-              return gradeArray;
+            }
+            return gradeArray;
         };
-        this.gradeKey.deleteGrade = function(grdObj, event){
-              var removed = this.grades.remove(grdObj);
+        this.gradeKey.deleteGrade = function (grdObj, event) {
+            var removed = this.grades.remove(grdObj);
         };
-        this.gradeKey.addGrade = function(grdObj, event) {
-              this.grades.unshift({key: 'new'});
-              //$('#configPage ul').listview().listview('refresh');
-              $('#configPage').trigger("create");
+        this.gradeKey.addGrade = function (grdObj, event) {
+            this.grades.unshift({key: 'new'});
+            //$('#configPage ul').listview().listview('refresh');
+            $('#configPage').trigger("create");
         };
-        this.save = function (data,event) {
-             if (data) {              //knockout.js converting number input to string; change back to integer
-                 if (data.max) {
-                     data.max = parseInt(data.max,10);
-                 }  
-                 if (data.min) {
-                     data.min = parseInt(data.min,10);
-                 }
-             }
-             localStorage['defaults'] = ko.toJSON(this);
+        this.save = function (data, event) {
+            if (data) {              //knockout.js converting number input to string; change back to integer
+                if (data.max) {
+                    data.max = parseInt(data.max, 10);
+                }
+                if (data.min) {
+                    data.min = parseInt(data.min, 10);
+                }
+            }
+            localStorage['defaults'] = ko.toJSON(this);
         };
-        // update this method when adding new configuration properties that need to persist (loaded from localstorage) 
-        this.load = function() {
-             var LS = JSON.parse(localStorage['defaults']);
-             this.speciesKey.species(LS.speciesKey.species);
-             if (LS.cruiseParms.hasOwnProperty('mpm')) {  //only load from localstorage if latest properties are present
-                 this.cruiseParms = LS.cruiseParms;  
-             }
-             if (LS.gradeKey) {
-                 this.gradeKey.grades(LS.gradeKey.grades); //for migration
-             }
-             this.defaultSpecies(LS.defaultSpecies);
-             //need to find a better way - loop through properties, but check for KO
+        //update this method when adding new configuration properties that need to persist (loaded from localstorage) 
+        this.load = function () {
+            var LS = JSON.parse(localStorage['defaults']);
+            this.speciesKey.species(LS.speciesKey.species);
+            if (LS.cruiseParms.hasOwnProperty('mpm')) {  //only load from localstorage if latest properties are present
+                this.cruiseParms = LS.cruiseParms;
+            }
+            if (LS.gradeKey) {
+                this.gradeKey.grades(LS.gradeKey.grades); //for migration
+            }
+            this.defaultSpecies(LS.defaultSpecies);
+            //need to find a better way - loop through properties, but check for KO
         };
     };
-    oc.webSQLConfig = function(){
+    oc.webSQLConfig = function () {
         //change to generic database definition so that it can be used elsewhere
         //ie. pull fieldnames from defaultvalues above like with field1-field4
         var dv = oc.defaultValues;
@@ -233,39 +233,31 @@ var OCRUISE = (function (oc) {
                                    {name: 'seg5len', type: 'INTEGER'}
                                   ]
                          }
-                            
                 ]
-                   
         };
         return webSQLInfo;
     };
-    oc.indexedDBConfig = function(){
+    oc.indexedDBConfig = function () {
         var indexedDBInfo = {
                 name: 'CRUISEDB',
                 version: 2,
-                stores: [{storeName: 'cruise',
-                          keyPath: 'cruiseid',
-                          autoIncrement: true,
-                          indexes: [
-                             {name: 'cruiseid', fields: 'cruiseid', unique: true}
-                          ]
-                         },
-                         {storeName: 'plots',
-                          keyPath: ["cruiseid", "plotnum"],
-                          autoIncrement: false,
-                          indexes: [
-                             {name: 'cruiseid', fields: 'cruiseid', unique: false},
-                             {name: 'cruiseidplotnum', fields: ['cruiseid', 'plotnum'], unique: true}
-                          ]
-                         },
-                         {storeName: 'trees',
-                          keyPath: ["cruiseid", "plotnum", "treenum"],
-                          autoIncrement: false,
-                          indexes: [
-                             {name: 'cruiseid', fields: 'cruiseid', unique: false},
-                             {name: 'cruiseidplotnum', fields: ['cruiseid', 'plotnum'], unique: false}
-                          ]
-                         }
+                stores: [{  storeName: 'cruise',
+                                keyPath: 'cruiseid',
+                                autoIncrement: true,
+                                indexes: [{name: 'cruiseid', fields: 'cruiseid', unique: true} ]
+                            },
+                            {  storeName: 'plots',
+                                keyPath: ["cruiseid", "plotnum"],
+                                autoIncrement: false,
+                                indexes: [{name: 'cruiseid', fields: 'cruiseid', unique: false},
+                                            {name: 'cruiseidplotnum', fields: ['cruiseid', 'plotnum'], unique: true} ]
+                            },
+                            {  storeName: 'trees',
+                                keyPath: ["cruiseid", "plotnum", "treenum"],
+                                autoIncrement: false,
+                                indexes: [{name: 'cruiseid', fields: 'cruiseid', unique: false},
+                                            {name: 'cruiseidplotnum', fields: ['cruiseid', 'plotnum'], unique: false} ]
+                            }
                 ]
         };
         return indexedDBInfo;

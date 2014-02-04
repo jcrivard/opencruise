@@ -4,8 +4,6 @@ Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */
 require.config({
-  //baseUrl: "/",  //production
-  //baseUrl: "/OpenCruiseV3", //testing
   waitSeconds: 180,
   paths: {
     'jquery': 'libs/jquery/jquery-1.9.1.min',
