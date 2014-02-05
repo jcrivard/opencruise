@@ -285,7 +285,7 @@
               <input  type="number" name='field3' data-bind="hasFocus: field3Focus, value: field3, event: { change: validateTree }, attr: {'id': 'tree' + $index() + 'field3'}">
             </div>
             <div class='ui-block-d' data-bind="visible: $root.selectedCruise().multiProducts">                  
-              <a class="OCButtonCorners OCNoMargin ui-mini ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left" href="javascript:void(0)" data-bind="click: function(data,event) {$parent.multiProductEntry(data,$parent)},attr: {'id': 'tree' + $index() + 'multiProductBtn'} "  data-transition="none"  data-rel="dialog">Saw</a>
+              <a class="OCButtonCorners OCNoMargin ui-mini ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-left" href="javascript:void(0)" data-bind="click: function(data,event) {$parent.multiProductEntry(data,$parent)},attr: {'id': 'tree' + $index() + 'multiProductBtn'} "  data-transition="none">Saw</a>
             </div>
             <div class='ui-block-d' data-bind="visible: $root.selectedCruise().multiProducts() == false">
               <input  type="number" name='field4Name' data-bind="hasFocus: field4Focus, value: field4, event: { change: validateTree },attr: {'id': 'tree' + $index() + 'field4'} ">
@@ -348,7 +348,7 @@
  </div><!-- /header -->
  <div role="main" class="ui-content">
      <div class="content-primary">
-     <div data-role="collapsible-set">
+     <div data-role="collapsibleset">
          <div data-role="collapsible">
              <h4>Installation and Browser Notes</h4>
                 <ol>
