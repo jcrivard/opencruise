@@ -46,13 +46,13 @@ var OCRUISE = (function (oc) {
             var badBG = "#FF0000";
             var thisElem = event.target;
             var thisValue = Number(thisElem.value);
-            if ((thisElem.id == 'field2') && ((thisValue < cruise.field2.min()) || (thisValue > cruise.field2.max()))) { //field 2 in range?
+            if ((thisElem.id.indexOf('field2') > -1) && ((thisValue < cruise.field2.min()) || (thisValue > cruise.field2.max()))) { //field 2 in range?
                 $(thisElem).parent().css('background-color', badBG);
-            } else if ((thisElem.id == 'field3') && (thisValue > 0) && (Number(thisObj.field2()) < cruise.field3.field2Min())) { //field2 too small for field3 value (ie. 5 inch tree with > 0 sawlogs)
+            } else if ((thisElem.id.indexOf('field3') > -1) && (thisValue > 0) && (Number(thisObj.field2()) < cruise.field3.field2Min())) { //field2 too small for field3 value (ie. 5 inch tree with > 0 sawlogs)
                 $(thisElem).parent().css('background-color', badBG);
-            } else if ((thisElem.id == 'field3') && ((thisValue < cruise.field3.min()) || (thisValue > cruise.field3.max()))) { //field 3 in range? (ie. too many sawlogs entered)
+            } else if ((thisElem.id.indexOf('field3') > -1) && ((thisValue < cruise.field3.min()) || (thisValue > cruise.field3.max()))) { //field 3 in range? (ie. too many sawlogs entered)
                 $(thisElem).parent().css('background-color', badBG);
-            } else if ((thisElem.id == 'field4') && ((thisValue < cruise.field4.min()) || (thisValue > cruise.field4.max()))) { //field 4 in range? (ie. too many pulpsticks entered)
+            } else if ((thisElem.id.indexOf('field4') > -1) && ((thisValue < cruise.field4.min()) || (thisValue > cruise.field4.max()))) { //field 4 in range? (ie. too many pulpsticks entered)
                 $(thisElem).parent().css('background-color', badBG);
             } else {
                 $(thisElem).parent().css('background-color', goodBG);
