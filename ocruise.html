@@ -574,138 +574,154 @@
 <!--*************  CONFIG PAGE  ****************************************-->
 <div data-role="page" id="configPage" class="OC-not-initialized"  data-theme='b'>
  <div data-role="header" data-position="fixed">
-        <h1>Configuration</h1>
+    <h1>Configuration</h1>
  </div><!-- /header -->
- <div role="main" class="ui-content" id="configContent" >
-    <div id="cruiseParms" class="ui-field-contain" >
-         <h2>Default Cruise Parms</h2>
-         <label for="configJobName">Job Name:</label>
-         <input id='configJobName' type='text' data-bind="value: cruiseParms.jobName, event: { change: function(data,event) {save(); }}" />
-         <label for="configCruisers">Personnel:</label>
-         <input id='configCruisers' type='text' data-bind="value: cruiseParms.cruisers, event: { change: function(data,event) {save(); }}">
-         <label for="configDefaultSpecies">Default Species:</label>
-         <input id='configDefaultSpecies' type='text' data-bind="value: defaultSpecies, event: { change: function(data,event) {save(); }}">
-         <h2>Default Fields</h2>
-         <fieldset class='ui-grid-c' >
-             <div class='ui-block-a'>Name</div>
-             <div class='ui-block-b'>Min</div>
-             <div class='ui-block-c'>Max</div>
-             <div class='ui-block-d'>Init</div>
-         </fieldset>
-
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field2">
-             <div class='ui-block-a'>
-                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
-             </div>
-             <div class='ui-block-b'>
-                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-c'>
-                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-d'>
-                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-         </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field3" >
-             <div class='ui-block-a'>
-                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
-             </div>
-             <div class='ui-block-b'>
-                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-c'>
-                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-d'>
-                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-         </fieldset>
-         <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field4">
-             <div class='ui-block-a'>
-                 <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
-             </div>
-             <div class='ui-block-b'>
-                 <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-c'>
-                 <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-             <div class='ui-block-d'>
-                 <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-         </fieldset>
-         <div data-bind="with: cruiseParms.field3">
-         <fieldset class='ui-grid-a ui-hide-label'>
-             <div class='ui-block-a'>
-                 Min field2 for field3 (ie. min DBH for Saw)
-             </div>
-             <div class='ui-block-b'>
-                 <input type='number' data-bind="value: field2Min, event: { change: function(data,event) {$parent.save(data,event); }}" />
-             </div>
-         </fieldset>
-         </div>
-         <!-- ko with: gradeKey -->
-         <h2>Product Codes</h2>
-         <button data-bind='click: function(data,event) {addGrade(data,event); $root.save();}' class="ui-mini" data-inline="true">Add Grade</button>
-         <fieldset class='ui-grid-a' >
-             <div class='ui-block-a'>&nbsp;</div>
-             <div class='ui-block-b'>Grade</div>
-         </fieldset>
-         <div data-bind='foreach: grades'>
-             <fieldset class='ui-grid-a' >
-                 <div class='ui-block-a'>
-                     <button class="OCBtnTop ui-mini" data-inline="true" data-icon="delete" data-bind="click: function(data,event) {$parent.deleteGrade(data,event); $root.save();}">Delete</button>
-                 </div>
-                 <div class='ui-block-b'>
-                     <input type='text' data-bind="value: key, event: { change: function(data,event) {$root.save(data,event); }}" />
-                 </div>
+ <!--div role="main" class="ui-content" id="configContent" -->
+    <div data-role="tabs" id="configTabs">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#cruiseParms" data-ajax="false">Cruise</a></li>
+                <li><a href="#fieldParms" data-ajax="false">Fields</a></li>
+                <li><a href="#productParms" data-ajax="false">Products</a></li>
+                <li><a href="#speciesParms" data-ajax="false">Species</a></li>
+            </ul>
+        </div>
+        <div id="cruiseParms" class="ui-field-contain">
+             <h2>Default Cruise Parms</h2>
+             <label for="configJobName">Job Name:</label>
+             <input id='configJobName' type='text' data-bind="value: cruiseParms.jobName, event: { change: function(data,event) {save(); }}" />
+             <label for="configCruisers">Personnel:</label>
+             <input id='configCruisers' type='text' data-bind="value: cruiseParms.cruisers, event: { change: function(data,event) {save(); }}">
+             <label for="configDefaultSpecies">Default Species:</label>
+             <input id='configDefaultSpecies' type='text' data-bind="value: defaultSpecies, event: { change: function(data,event) {save(); }}">
+        </div>
+        <div id="fieldParms" class="ui-field-contain">
+             <h2>Default Fields</h2>
+             <fieldset class='ui-grid-c' >
+                 <div class='ui-block-a'>Name</div>
+                 <div class='ui-block-b'>Min</div>
+                 <div class='ui-block-c'>Max</div>
+                 <div class='ui-block-d'>Init</div>
              </fieldset>
-         </div>
-         <!-- /ko -->
-         <!-- ko with: speciesKey -->
-         <h2>Species Codes</h2>
-         <button data-bind='click: function(data,event) {addSpecies(data,event); $root.save();}' class="ui-mini" data-inline="true">Add Species</button>
-         <fieldset class='ui-grid-c'>
-             <div class='ui-block-a'>&nbsp;</div>
-             <div class='ui-block-b'>Voice1</div>
-             <div class='ui-block-c'>Voice2</div>
-             <div class='ui-block-d'>Voice3</div>
-         </fieldset>
-         <div data-bind='foreach: species'>
-             <fieldset class='ui-grid-c ui-hide-label'>
+
+             <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field2">
                  <div class='ui-block-a'>
-                     <div class='ui-grid-a'>
-                         <div class='ui-block-a' style='width:40%;'>
-                             <button class="OCBtnSmall ui-mini ui-btn ui-icon-delete ui-btn-icon-left ui-corner-all"  data-bind="click: function(data,event) {$parent.deleteSpecies(data,event); $root.save();}">&nbsp;</button>
-                         </div>
-                         <div class='ui-block-b' style='width:60%;'>
-                             <input type='text' data-bind="value: key, event: { change: function(data,event) {$root.save(data,event); }}" />
-                         </div>
-                     </div>
+                     <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
                  </div>
-                 
                  <div class='ui-block-b'>
-                     <input type='text' data-bind="value: names[0], event: { change: function(data,event) {$root.save(); }}" />
+                     <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
                  </div>
                  <div class='ui-block-c'>
-                     <input type='text' data-bind="value: names[1], event: { change: function(data,event) {$root.save(); }}" />
+                     <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
                  </div>
                  <div class='ui-block-d'>
-                     <input type='text' data-bind="value: names[2], event: { change: function(data,event) {$root.save(); }}" />
+                     <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
                  </div>
              </fieldset>
-         </div>
-         <!-- /ko -->
-    </div><!-- /fieldcontain -->
- </div><!-- /content -->
+             <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field3" >
+                 <div class='ui-block-a'>
+                     <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
+                 </div>
+                 <div class='ui-block-b'>
+                     <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
+                 </div>
+                 <div class='ui-block-c'>
+                     <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
+                 </div>
+                 <div class='ui-block-d'>
+                     <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
+                 </div>
+             </fieldset>
+             <fieldset class='ui-grid-c ui-hide-label' data-bind="with: cruiseParms.field4">
+                 <div class='ui-block-a'>
+                     <input type='text' data-bind="value: name, event: { change: function(data,event) {$parent.save(); }}" />
+                 </div>
+                 <div class='ui-block-b'>
+                     <input type='number' data-bind="value: min, event: { change: function(data,event) {$parent.save(data,event); }}" />
+                 </div>
+                 <div class='ui-block-c'>
+                     <input type='number' data-bind="value: max, event: { change: function(data,event) {$parent.save(data,event); }}" />
+                 </div>
+                 <div class='ui-block-d'>
+                     <input type='number' data-bind="value: init, event: { change: function(data,event) {$parent.save(data,event); }}" />
+                 </div>
+             </fieldset>
+             <div data-bind="with: cruiseParms.field3">
+             <fieldset class='ui-grid-a ui-hide-label'>
+                 <div class='ui-block-a'>
+                     Min field2 for field3 (ie. min DBH for Saw)
+                 </div>
+                 <div class='ui-block-b'>
+                     <input type='number' data-bind="value: field2Min, event: { change: function(data,event) {$parent.save(data,event); }}" />
+                 </div>
+             </fieldset>
+             </div>
+        </div>
+        <div id="productParms" class="ui-field-contain">
+             <!-- ko with: gradeKey -->
+             <h2>Product Codes</h2>
+             <button data-bind='click: function(data,event) {addGrade(data,event); $root.save();}' class="ui-mini" data-inline="true">Add Grade</button>
+             <fieldset class='ui-grid-a' >
+                 <div class='ui-block-a'>&nbsp;</div>
+                 <div class='ui-block-b'>Grade</div>
+             </fieldset>
+             <div data-bind='foreach: grades'>
+                 <fieldset class='ui-grid-a' >
+                     <div class='ui-block-a'>
+                         <button class="OCBtnTop ui-mini" data-inline="true" data-icon="delete" data-bind="click: function(data,event) {$parent.deleteGrade(data,event); $root.save();}">Delete</button>
+                     </div>
+                     <div class='ui-block-b'>
+                         <input type='text' data-bind="value: key, event: { change: function(data,event) {$root.save(data,event); }}" />
+                     </div>
+                 </fieldset>
+             </div>
+             <!-- /ko -->
+        </div>
+        <div id="speciesParms" class="ui-field-contain">
+             <!-- ko with: speciesKey -->
+             <h2>Species Codes</h2>
+             <button data-bind='click: function(data,event) {addSpecies(data,event); $root.save();}' class="ui-mini" data-inline="true">Add Species</button>
+             <fieldset class='ui-grid-c'>
+                 <div class='ui-block-a'>&nbsp;</div>
+                 <div class='ui-block-b'>Voice1</div>
+                 <div class='ui-block-c'>Voice2</div>
+                 <div class='ui-block-d'>Voice3</div>
+             </fieldset>
+             <div data-bind='foreach: species'>
+                 <fieldset class='ui-grid-c ui-hide-label'>
+                     <div class='ui-block-a'>
+                         <div class='ui-grid-a'>
+                             <div class='ui-block-a' style='width:40%;'>
+                                 <button class="OCBtnSmall ui-mini ui-btn ui-icon-delete ui-btn-icon-left ui-corner-all"  data-bind="click: function(data,event) {$parent.deleteSpecies(data,event); $root.save();}">&nbsp;</button>
+                             </div>
+                             <div class='ui-block-b' style='width:60%;'>
+                                 <input type='text' data-bind="value: key, event: { change: function(data,event) {$root.save(data,event); }}" />
+                             </div>
+                         </div>
+                     </div>
+                     
+                     <div class='ui-block-b'>
+                         <input type='text' data-bind="value: names[0], event: { change: function(data,event) {$root.save(); }}" />
+                     </div>
+                     <div class='ui-block-c'>
+                         <input type='text' data-bind="value: names[1], event: { change: function(data,event) {$root.save(); }}" />
+                     </div>
+                     <div class='ui-block-d'>
+                         <input type='text' data-bind="value: names[2], event: { change: function(data,event) {$root.save(); }}" />
+                     </div>
+                 </fieldset>
+             </div>
+             <!-- /ko -->
+        </div>
+    </div><!-- /tabs -->
+ <!--/div--><!-- /main -->
  <div data-role="footer" data-position="fixed">
     <div data-role="controlgroup"  data-type="horizontal">
       <a href="#cruiseListPage"  class="ui-btn ui-btn-inline ui-icon-home ui-btn-icon-left">Home</a>
       <a href="#helpPage" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-left">Help</a>
     </div>  
  </div><!-- /footer -->
-</div><!-- /page cruiseListPage -->
+</div><!-- /page configPage -->
 <!--/div--> <!-- mainBody -->
 </body>
 </html>
