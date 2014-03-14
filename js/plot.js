@@ -38,6 +38,7 @@ var OCRUISE = (function (oc) {
             this.recognition = new SpeechRecognition();
             this.recognition.continuous = true;
             this.recognition.ocRunning = false;  //user defined property to indicate if speech input is active
+            this.recognition.ocSpeciesGrammar = this.buildSpeciesGrammar(oc.defaultValues.speciesKey.species());
             this.recognition.onresult = function (event) {thisPlot.speechInputResult(event); };
             this.recognition.onstart = function () {
                 thisPlot.trees()[thisPlot.lastEditedTree].field1Focus(true);
@@ -139,7 +140,8 @@ var OCRUISE = (function (oc) {
                     transcript = transcript.replace(/\s+/g, ''); //remove spaces; should now have field1 without spaces
                     switch (currentField) {
                     case 'field1':
-                        var speciesCode = dv.speciesKey.getKey(transcript.toLowerCase());
+                        var bestMatch = this.getDistanceFromArray(transcript.toLowerCase(), this.recognition.ocSpeciesGrammar, 10);
+                        var speciesCode = dv.speciesKey.getKey(bestMatch);
                         if (speciesCode) {  //lookup succeeded set species code
                             treeArray[currentTree].field1(speciesCode);
                             treeArray[currentTree].field2Focus(true);
@@ -162,6 +164,84 @@ var OCRUISE = (function (oc) {
                 }
                 $('#plotDetail select').selectmenu('refresh'); //need to get this moved
             }
+        },
+        buildSpeciesGrammar: function(speciesArray) {
+            var i, j, grammar = [];
+            for (i = 0; i < speciesArray.length; i++) {
+                for (j = 0; j < speciesArray[i].names.length; j++) {
+                    grammar.push(speciesArray[i].names[j]);
+                }
+            }
+            return grammar;
+        },
+        //for speech recognition.  Credit to Guy Levy and his code at: flippinawesome.org/2014/03/10/improving-speech-recognition-in-the-browser
+        getDistanceFromArray: function (input, grammar, validDistance) {
+            var confidenceArray = [],
+                len = grammar.length;
+            while (len--) {
+                confidenceArray[len] = this.levenshteinDistance(grammar[len], input);
+            }
+            var minDistance = Math.min.apply(Math, confidenceArray);
+            if (minDistance <= validDistance)
+                return grammar[confidenceArray.indexOf(minDistance)];
+            else
+                return null;
+        },
+         // see http://stackoverflow.com/a/11958496
+        levenshteinDistance: function (s, t){
+            var d = []; //2d matrix
+            // Step 1
+            var n = s.length;
+            var m = t.length;
+            if (n === 0) {
+                return m;
+            }
+            if (m === 0) {
+                return n;
+            }
+            var i = n;
+            //Create an array of arrays in javascript (a descending loop is quicker)
+            for (; i >= 0; i--) {
+                d[i] = [];
+            }
+            // Step 2
+            for (i = n; i >= 0; i--) {
+                d[i][0] = i;
+            }
+            var j = m;
+            for (; j >= 0; j--) {
+                d[0][j] = j;
+            }
+            // Step 3
+            for (i = 1; i <= n; i++) {
+                var s_i = s.charAt(i - 1);
+                // Step 4
+                for (j = 1; j <= m; j++) {
+                    //Check the jagged ld total so far
+                    if (i === j && d[i][j] > 4) {
+                        return n;
+                    }
+                    var t_j = t.charAt(j - 1);
+                    var cost = (s_i === t_j) ? 0 : 1; // Step 5
+                    //Calculate the minimum
+                    var mi = d[i - 1][j] + 1;
+                    var b = d[i][j - 1] + 1;
+                    var c = d[i - 1][j - 1] + cost;
+                    if (b < mi) {
+                        mi = b;
+                    }
+                    if (c < mi) {
+                        mi = c;
+                    }
+                    d[i][j] = mi; // Step 6
+                    //Damerau transposition
+                    if (i > 1 && j > 1 && s_i === t.charAt(j - 2) && s.charAt(i - 2) === t_j) {
+                        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
+                    }
+                }
+            }
+            // Step 7
+            return d[n][m];
         },
         //insert new plot record and associated tree records into database
         insertPlot: function (parent) {
