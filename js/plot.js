@@ -135,9 +135,9 @@ var OCRUISE = (function (oc) {
                 var currentElemID = $(':focus').attr('id');
                 var currentTree = parseInt(currentElemID.substr(4, currentElemID.indexOf('field') - 4), 10);  //need to get tree the user is working with
                 var currentField = currentElemID.substr(currentElemID.indexOf('field')); //need to get field the user is working with
-                var transcript = event.results[event.resultIndex][0].transcript.replace(/dash/gi, '-').replace(/for/gi, '4').replace(/to/gi, '2').replace(/att/gi, '8').replace(/ate/gi, '8').replace(/sex/gi, '6');  //replace dash with "-" and common misinterpretations
+                var transcript = event.results[event.resultIndex][0].transcript.replace(/porn/gi, '4').replace(/for/gi, '4').replace(/to/gi, '2').replace(/att/gi, '8').replace(/ate/gi, '8').replace(/sex/gi, '6');  //replace dash with "-" and common misinterpretations
                 if (transcript && currentField) { //have content and a field to work in
-                    transcript = transcript.replace(/\s+/g, ''); //remove spaces; should now have field1 without spaces
+                    //transcript = transcript.replace(/\s+/g, ''); //remove spaces; should now have field1 without spaces
                     switch (currentField) {
                     case 'field1':
                         var bestMatch = this.getDistanceFromArray(transcript.toLowerCase(), this.recognition.ocSpeciesGrammar, 10);
@@ -148,15 +148,15 @@ var OCRUISE = (function (oc) {
                         }
                         break;
                     case 'field2':
-                        treeArray[currentTree].field2(transcript);
+                        treeArray[currentTree].field2(transcript.replace(/\s+/g, '')); //remove spaces and update observable
                         treeArray[currentTree].field3Focus(true);
                         break;
                     case 'field3':
-                        treeArray[currentTree].field3(transcript);
+                        treeArray[currentTree].field3(transcript.replace(/\s+/g, '')); //remove spaces and update observable
                         treeArray[currentTree].field4Focus(true);
                         break;
                     case 'field4':
-                        treeArray[currentTree].field4(transcript);
+                        treeArray[currentTree].field4(transcript.replace(/\s+/g, '')); //remove spaces and update observable
                         this.lastEditedTree++; //done with this tree, point to next empty tree slot in DOM
                         treeArray[currentTree + 1].field1Focus(true);
                         break;
