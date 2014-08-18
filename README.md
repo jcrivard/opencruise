@@ -1,4 +1,4 @@
-Opencruise V1.2
+Opencruise V1.2.2
 ===============
 
 Forest Inventory Software for Mobile Platforms - HTML 5 Web Application
@@ -57,6 +57,7 @@ ocruise.html from mainmin.js to main.js.
 * To minify the code for production use, use the closure compiler, currently located at http://closure-compiler.appspot.com
 Select either "simple" or "whitespace only" (do not use advanced) and compile the following files:
 ocruise.js, database.js. cruiselist.js, cruise.js, plot.js, tree.js, config.js .  Copy/paste the compiled code into
-ocruise-min.js and use offline-min.manifest and mainmin.js in the html files.
+ocruise-min.js and use offline-min.manifest and mainmin.js in the html files.  Closure compiler directives are located
+in closureCompilerDirectives.txt.
   
 Opencruise is licensed under version 3 of the GNU Public License:  http://www.gnu.org/copyleft/gpl.html
