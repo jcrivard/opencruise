@@ -3,7 +3,7 @@ Opencruise V1.2.3
 
 Forest Inventory Software for Mobile Platforms - HTML 5 Web Application
 
-See https://jcrivard.github.io/opencruise  (download via email will not work from this site)
+See https://jcrivard.github.io/opencruise/index.html  (download via email will not work from this site)
 or  https://opencruise.mtu.edu for a working version.
 
 Opencruise is a forest inventory web application designed to work on IOS (Apple) and Android mobile computing platforms.  
