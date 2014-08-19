@@ -1,0 +1,195 @@
+/** Overrides for jquery mobile v1.3.0;  **/
+/* ui-controlgroup-controls 100% width for plot entry screen */
+.ui-controlgroup-controls {
+    width: 100% !important;
+}
+/*.ui-controlgroup-horizontal.ui-mini  {
+    height: 1em;
+    line-height: 1em;
+}*/
+.ui-select .ui-btn-icon-right, .ui-select .ui-li-has-count, [class*="ui-block-"] > .ui-select {
+    padding-right: 2.2em;
+    margin-left: 0.0em;
+}
+
+.ui-select, .ui-input-text {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/** The following overrides are specifically to handle small font bug on android chrome.*/
+/* It may be possible to remove them in the future.**/
+/* Taken from stackoverflow response by Rick Pfaus..... */
+/* 16px > 1em */
+.ui-mobile label,
+ div.ui-controlgroup-label, .ui-btn ,
+.ui-mini.ui-btn-icon-notext,
+.ui-mini .ui-btn-icon-notext,
+.ui-header .ui-btn-icon-notext,
+.ui-footer .ui-btn-icon-notext,
+.ui-mini .ui-controlgroup-label ,
+.ui-slider-switch .ui-slider-label {
+    font-size: 1em;
+}
+
+/* 14px > 0.875em */
+.ui-listview > .ui-li-divider,
+input.ui-slider-input,
+.ui-slider-switch.ui-mini .ui-slider-label,
+.ui-mini .ui-input-text input,
+.ui-mini .ui-input-search input,
+.ui-input-text.ui-mini input,
+.ui-input-search.ui-mini input,
+.ui-mini textarea.ui-input-text,
+textarea.ui-mini {
+    font-size: 0.875em;
+}
+
+/* 12.5px > 0.781em */
+.ui-mini ,
+.ui-header .ui-btn,
+.ui-footer .ui-btn,
+.ui-header .ui-btn-left,
+.ui-header .ui-btn-right,
+.ui-navbar li .ui-btn ,
+.ui-li-count {
+    font-size: 0.781em;
+}
+@media only screen and (min-device-width: 600px) {
+    /* increase font size on higher resolution */
+    body {
+        font-size: 22px;
+    }
+    /* increase icon size on higher resolution */
+    /* TODO .. */
+}
+
+/******************************************/
+/** CSS for entry page logo and image ****/
+/*****************************************/
+/*eliminate unformatted page flash due to require.js */
+.OC-not-initialized { 
+    display: none;
+}
+.OCCenter {
+    text-align: center;
+}
+.OCMultiProductBtn {
+    background: #333333 !important;
+	border-color: #222222 !important;
+}
+.OCBtnSmall {
+    margin-left: 0.1em !important;
+	margin-top: 0.1em !important;
+	padding-left: 1.5em !important;
+}
+.OCBtnTop {
+    margin-left: 0.1em !important;
+	margin-top: 0.1em !important;
+}
+.OCNoMargin {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.OCBAF .ui-controlgroup-controls {
+    width: auto !important;
+}
+.OCSelect {
+    font-size: 1.1em;
+    background-color: #2d2d2d;
+    color: #ffffff;
+    padding: .30em;
+    margin: 0;
+    text-align: center;
+    appearance: button;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+}
+.OCSelect:focus {
+    background-color: rgb(95, 156, 197);
+    color: #088A08;
+}
+.OCLogoDiv, .OCLoading {
+    text-align:center;
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    height: 30%;
+}
+.OCLogoDiv a {
+    text-decoration: none;
+}
+.OCMovein{
+    font-size: 3.00em;
+    color:#005100;
+    text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+    -moz-animation: grow 0.75s 1 linear;
+    -webkit-animation: grow 0.50s 1 linear;
+    animation: grow 0.75s 1 linear;
+    -moz-animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+.OCBiltmore {
+    -moz-animation: spin 0.75s 1 linear;
+    -webkit-animation: spin 0.50s 1 linear;
+    animation: spin 0.75s 1 linear;
+    -moz-animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+.OCBiltmoreInfinite {
+    -moz-animation: spin 0.75s infinite linear;
+    -webkit-animation: spin 0.50s infinite linear;
+    animation: spin 0.75s infinite linear;
+    -moz-animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+.OCButtonCorners {
+    -webkit-border-radius: 1em !important;
+    border-radius: 1em !important;
+}
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(-360deg);  }
+}
+@-moz-keyframes spin {
+    0% { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(-360deg); }
+}
+@-o-keyframes spin {
+    0% { -o-transform: rotate(0deg); }
+    100% { -o-transform: rotate(-360deg); }
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+@-webkit-keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
+@-moz-keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
+@-o-keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
+@keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
