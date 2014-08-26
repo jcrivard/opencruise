@@ -1,6 +1,6 @@
 CACHE MANIFEST
-#Version 1.2.0818.03
-#Be Sure to have bust=V1.2.3 match urlArgs in top of ocruise.html!!
+#Version 1.2.3.02
+#Be Sure to have bust=V1.2.3b match urlArgs in top of ocruise.html!!
 CACHE:
 #js/libs/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min.css
 css/ocruise.css
@@ -8,16 +8,16 @@ css/theme/opencruise.css
 css/theme/jquery.mobile.icons.min.css
 css/theme/images/ajax-loader.gif
 js/libs/jquery.mobile-1.4.0/jquery.mobile.structure-1.4.0.min.css
-js/libs/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min.js?bust=V1.2.3
+js/libs/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min.js?bust=V1.2.3b
 js/libs/require/require.js
-js/libs/knockout/knockout-3.0.0.js?bust=V1.2.3
-js/libs/jquery/jquery-1.9.1.min.js?bust=V1.2.3
+js/libs/knockout/knockout-3.0.0.js?bust=V1.2.3b
+js/libs/jquery/jquery-1.9.1.min.js?bust=V1.2.3b
 images/biltmore.png
-js/mobileinit.js?bust=V1.2.3
+js/mobileinit.js?bust=V1.2.3b
 index.html
 ocruise.html
-js/ocruise-min.js?bust=V1.2.3
-js/mainmin.js?bust=V1.2.3
+js/ocruise-min.js?bust=V1.2.3b
+js/mainmin.js?bust=V1.2.3b
 
 NETWORK:
 gmail.php

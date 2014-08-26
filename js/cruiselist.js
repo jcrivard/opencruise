@@ -33,6 +33,7 @@ var OCRUISE = (function (oc) {
         },
         newCruise: function (data, event) {
             var parms = oc.defaultValues.cruiseParms;
+            parms.date = oc.currentDate(); //use current date to start
             var thisCL = data;
             var transCallback  = function () {thisCL.logMessage('Cruise created.'); };
             var callback = function (transaction, resultSet) {
