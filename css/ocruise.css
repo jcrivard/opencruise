@@ -134,20 +134,20 @@ textarea.ui-mini {
                0 5px 10px rgba(0,0,0,.25),
                0 10px 10px rgba(0,0,0,.2),
                0 20px 20px rgba(0,0,0,.15);
-    -moz-animation: grow 0.75s 1 linear;
+    /*-moz-animation: grow 0.75s 1 linear;
     -webkit-animation: grow 0.50s 1 linear;
     animation: grow 0.75s 1 linear;
     -moz-animation-fill-mode: forwards;
     -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards;*/
 }
 .OCBiltmore {
-    -moz-animation: spin 0.75s 1 linear;
+   /* -moz-animation: spin 0.75s 1 linear;
     -webkit-animation: spin 0.50s 1 linear;
     animation: spin 0.75s 1 linear;
     -moz-animation-fill-mode: forwards;
     -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards;*/
 }
 .OCBiltmoreInfinite {
     -moz-animation: spin 0.75s infinite linear;
