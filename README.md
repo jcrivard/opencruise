@@ -18,6 +18,7 @@ The following two sites contains working versions of Opencruise:
 * Apple/IOS - downloading data to local device is not supported by Apple.  Downloads are therefore limited
 to email.
 * Windows - no testing on this platform, but IE11+, Chrome, or Firefox should work.
+* Desktop/Laptop - should work in all modern web browsers on Windows, Linux, OSX, etc...
  
 ###Email Download:
 To download via email (Gmail), the account settings for the email will need to be changed to allow  
