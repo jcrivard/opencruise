@@ -1,12 +1,13 @@
 Opencruise V1.3.0
 ===============
 
-Web Application for Forest Inventory Software for Mobile Platforms
+Mobile Web Application for Forest Inventory
 
 Opencruise is a forest inventory web application designed to work on mobile computing platforms that support a modern
 web browser.  While Android devices are the primary target,  Apple (IOS) and Windows platforms should work as well. 
 
-###Working Sites:
+###Demonstration:
+The following two sites contains working versions of Opencruise:
 * https://jcrivard.github.io/opencruise/index.html  ( no download via email).
 * https://opencruise.mtu.edu (older version, but email download supported with gmail settings change noted below).
 
@@ -23,7 +24,8 @@ To download via email (Gmail), the account settings for the email will need to b
 "less secure apps to access your account".  See: https://support.google.com/accounts/answer/6010255 for instructions.
 
 ###Offline Use:
-Opencruise works offline (i.e. airplane mode) in remote areas where network access is unavailable.  
+Opencruise works offline (i.e. airplane mode) in remote areas where network access is unavailable.  This is
+accomplished through the use of HTML5 technologies such as Appcache and Service Workers.
 
 ###Data Collected:
 The primary purpose of Opencruise is to collect forest inventory data, but the software could easily be configured
