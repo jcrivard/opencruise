@@ -1,5 +1,5 @@
 /*
-OpenCruise - Copyright (C) 2013 James C. Rivard
+OpenCruise - Copyright (C) 2016 James C. Rivard
 Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */
@@ -13,7 +13,7 @@ var OCRUISE = (function (oc) {
         //*************************************************/
         this.cruiseParms = {
             jobName: 'New Cruise',
-            cruisers: 'Michigan Tech FERM',
+            cruisers: 'Jim Rivard',
             date: oc.currentDate(),
             BAF: '10',
             mpm: false,
@@ -152,7 +152,7 @@ var OCRUISE = (function (oc) {
         this.load = function () {
             var LS = JSON.parse(localStorage['defaults']);
             this.speciesKey.species(LS.speciesKey.species);
-            if (LS.cruiseParms.hasOwnProperty('mpm')) {  //only load from localstorage if latest properties are present
+            if (LS.cruiseParms) {  //only load from localstorage if latest properties are present
                 this.cruiseParms = LS.cruiseParms;
             }
             if (LS.gradeKey) {

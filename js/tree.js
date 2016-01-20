@@ -1,5 +1,5 @@
 /*
-OpenCruise - Copyright (C) 2013 James C. Rivard
+OpenCruise - Copyright (C) 2016 James C. Rivard
 Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */

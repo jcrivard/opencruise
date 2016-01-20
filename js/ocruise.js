@@ -1,5 +1,5 @@
 /*
-OpenCruise - Copyright (C) 2013 James C. Rivard
+OpenCruise - Copyright (C) 2016 James C. Rivard
 Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */
@@ -13,7 +13,7 @@ var OCRUISE = (function (oc) {
     };
     oc.init = function () {
         $(document).ready(function () {
-            // If new version is available, prompt user for reload
+            // Appcache - If new version is available, prompt user for reload
             if (window.applicationCache) {
                 window.applicationCache.addEventListener('updateready', function (e) {
                     if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
@@ -22,6 +22,13 @@ var OCRUISE = (function (oc) {
                         }
                     }
                 }, false);
+            }
+            // Service Worker - used if supported; appcache should be ignored if used
+            if ('serviceWorker' in window.navigator) {
+                console.log('Service Workers Enabled');
+                window.navigator.serviceWorker.register('service-worker.js').catch(function (error) {
+                    console.error(error);
+                });
             }
             //setup indexedDB
             window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;

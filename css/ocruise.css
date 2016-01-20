@@ -55,6 +55,15 @@ textarea.ui-mini {
 .ui-li-count {
     font-size: 0.781em;
 }
+.ui-mini {
+    margin: 0 0 0 0;
+}
+.ui-controlgroup-label {
+    float: left;
+}
+.ui-field-contain {
+    padding: .3em 0;
+}
 @media only screen and (min-device-width: 600px) {
     /* increase font size on higher resolution */
     body {
@@ -142,7 +151,8 @@ textarea.ui-mini {
     animation-fill-mode: forwards;*/
 }
 .OCBiltmore {
-   /* -moz-animation: spin 0.75s 1 linear;
+<<<<<<< HEAD
+ /* -moz-animation: spin 0.75s 1 linear;
     -webkit-animation: spin 0.50s 1 linear;
     animation: spin 0.75s 1 linear;
     -moz-animation-fill-mode: forwards;
