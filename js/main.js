@@ -1,5 +1,5 @@
 /*
-OpenCruise - Copyright (C) 2013 James C. Rivard
+OpenCruise - Copyright (C) 2016 James C. Rivard
 Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 */
@@ -8,8 +8,8 @@ require.config({
   paths: {
     'jquery': 'libs/jquery/jquery-1.9.1.min',
     'mobileinit': 'mobileinit',
-    'jquery.mobile': 'libs/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min',
-    'knockout': 'libs/knockout/knockout-3.0.0',
+    'jquery.mobile': 'libs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min',
+    'knockout': 'libs/knockout/knockout-3.4.0',
     'database' : 'database',
     'ocruise' : 'ocruise',
     'cruiselist' : 'cruiselist',

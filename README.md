@@ -1,13 +1,19 @@
-Opencruise V1.2.3b
+Opencruise V1.3.0
 ===============
 
 Forest Inventory Software for Mobile Platforms - HTML 5 Web Application
 
 See https://jcrivard.github.io/opencruise/index.html  (download via email will not work from this site)
-or  https://opencruise.mtu.edu for a working version.
+    https://opencruise.mtu.edu (older version, but email download will work with gmail settings change below)
 
-Opencruise is a forest inventory web application designed to work on IOS (Apple) and Android mobile computing platforms.  
-It works offline (i.e. airplane mode) in remote areas where network access is unavailable.  The primary purpose of Opencruise
+Opencruise is a forest inventory web application designed to work on Android mobile computing platforms.  Apple (IOS) 
+mobile devices will also work, but downloading of data is limited to sending an email since Apple does not allow files 
+to be saved on the device.  
+
+To download via email, the account settings for the email will need to be changed to allow  
+"less secure apps to access your account".  See: https://support.google.com/accounts/answer/6010255 for instructions.
+
+Opencruise works offline (i.e. airplane mode) in remote areas where network access is unavailable.  It's primary purpose
  is to collect forest inventory data, but the software could easily be configured to collect regeneration,
  down dead wood, or other plot level items.  Use of the application requires that the user have some knowledge
  of forest inventory procedures (point/plot sampling, tree identification, diameter/height measurements, etc...).
@@ -26,8 +32,7 @@ Browser Support:
 * Firefox (update channel version).
 * Safari (on IOS 5+). 
 * Android Browser (on Android 4+; most older versions work as well).
-* Dolphin Browser (on IOS 5+; on Android 2.2.x+).
-* Internet Explorer V10+ should work, but has not been tested.
+* Internet Explorer V11+ (limited testing).
 
 Browser Configuration:
 * Most default browser configurations will work.
@@ -38,11 +43,16 @@ Browser Configuration:
 and others have more specific options.  To be safe, be sure to upload data before clearing the cache.  Users 
 should thoroughly test the software with their preferred browser before using in production. 
 
-Installation Tips (for those wanting to run their own version of the software): 
+Installation: 
 * Click "Releases" towards the top of the page and download the source code zip file.
-* Unzip the file to a directory (ie. opencruise) on your web server.  If you don't need to use email to upload data, and can
-tolerate a little slower load time (initially and when the software changes), this is all you need to do.
-Just point your web browser to the directory (i.e your.domain.com/opencruise) and run the software.
+* Unzip the file to a directory (ie. opencruise) on your web server (or a folder on your mobile device).
+  If you don't need to use email to upload data, this is all you need to do.  See below for email support.
+* If using a web server: Point your web browser to the directory (i.e https://your.domain.com/opencruise ).
+* If installed directly on a mobile device: Point your web browser to the "index.html" file. (ie. in the address
+bar of your web browser, enter: file:///FOLDER_YOU_UNZIPPED_TO/index.html ).  FOLDER_YOU_UNZIPPED_TO will vary
+depending on your mobile device, but file:///sdcard/opencruise/index.html is a good place to start and will
+work on most Android devices. If you get "ACCESS TO THE FILE WAS DENIED", the pathname used for
+ "FOLDER_YOU_UNZIPPED_TO" is incorrect.
 
 Additional Installation Tips
 * To use the email upload feature:  Check if your web hosting company has "php" installed and if there
