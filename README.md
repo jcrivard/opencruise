@@ -1,13 +1,16 @@
 Opencruise V1.3.0
 ===============
 
-Forest Inventory Software for Mobile Platforms - Web Application
-
-See https://jcrivard.github.io/opencruise/index.html  ( no download via email).
-    https://opencruise.mtu.edu (older version, but email download supported with gmail settings change noted below).
+Web Application for Forest Inventory Software for Mobile Platforms
 
 Opencruise is a forest inventory web application designed to work on mobile computing platforms that support a modern
-web browser.  While Android devices are the primary target,  Apple (IOS) and Windows platforms should work as well.  
+web browser.  While Android devices are the primary target,  Apple (IOS) and Windows platforms should work as well. 
+
+###Working Sites:
+* https://jcrivard.github.io/opencruise/index.html  ( no download via email).
+* https://opencruise.mtu.edu (older version, but email download supported with gmail settings change noted below).
+
+ 
 
 ###Platform Notes:
 * Android - V4.4.x or higher recommended.
@@ -16,17 +19,17 @@ to email.
 * Windows - no testing on this platform, but IE11+, Chrome, or Firefox should work.
  
 ###Email Download:
-To download via email, the account settings for the email will need to be changed to allow  
+To download via email (Gmail), the account settings for the email will need to be changed to allow  
 "less secure apps to access your account".  See: https://support.google.com/accounts/answer/6010255 for instructions.
 
 ###Offline Use:
-Opencruise works offline (i.e. airplane mode) in remote areas where network access is unavailable.  It's primary purpose
- is to collect forest inventory data, but the software could easily be configured to collect regeneration,
- down dead wood, or other plot level items.  Use of the application requires that the user have some knowledge
- of forest inventory procedures (point/plot sampling, tree identification, diameter/height measurements, etc...).
+Opencruise works offline (i.e. airplane mode) in remote areas where network access is unavailable.  
 
-###Data Collected: 
-The default version allows for 4 data variables to be collected per "sample unit", which is generally a tree.  
+###Data Collected:
+The primary purpose of Opencruise is to collect forest inventory data, but the software could easily be configured
+to collect regeneration, down dead wood, or other plot level items.  Use of the application requires that the user
+have some knowledge of forest inventory procedures (point/plot sampling, tree identification, diameter/height measurements,
+etc...).  The default version allows for 4 data variables to be collected per "sample unit", which is generally a tree.  
 Users are free to configure the field names/default values globally via the "Config" button or for each cruise/job
 via the "Flds" button.
 
@@ -34,7 +37,7 @@ Multi product mode allows for up to six products per tree to be recorded.
 
 ###HTML5: 
 The application makes heavy use of HTML5 technologies, including:  offline use,
- local storage, local database, geolocation and speech input.  
+local storage, local database, geolocation and speech input.  
 
 ###Browser Support: 
 * Chrome (update channel version).
@@ -55,7 +58,7 @@ should thoroughly test the software with their preferred browser before using in
 ###Installation: 
 * Click "Releases" towards the top of the page and download the source code zip file.
 * Unzip the file to a directory (ie. opencruise) on your web server (or a folder on your mobile device).
-  If you don't need to use email to upload data, this is all you need to do.  See below for email support.
+  If you don't need to use email to upload data, this is all you need to do.  See "Additional Installation Tips" below for email support.
 * If using a web server: Point your web browser to the directory (i.e https://your.domain.com/opencruise ).
 * If installed directly on a mobile device: Point your web browser to the "index.html" file. (ie. in the address
 bar of your web browser, enter: file:///FOLDER_YOU_UNZIPPED_TO/index.html ).  FOLDER_YOU_UNZIPPED_TO will vary
@@ -70,10 +73,12 @@ is anything you need to do to utilize it.
 This is often an option that must be turned on.  The option may be referred to as "mod_deflate" for apache web servers.
 
 ###For those who want to modify the software (technical information for your programmer)
-* offline-min.manifest, /js/mainmin.js and /js/ocruise-min.js are for production use.
+* offline-min.manifest, /js/mainmin.js and /js/ocruise-min.js utilize minified code intended for production use.
 * offline.manifest, /js/main.js, ocruise.js, cruise.js, etc... are for development.  To use the development
 files, change the manifest file name in index.html and ocruise.html; change the data-main parameter in 
 ocruise.html from mainmin.js to main.js.
+* service-worker.js (in the root folder) will need to be modified similar to the manifest files to enable development files
+to be used.
 * To minify the code for production use, use the closure compiler, currently located at http://closure-compiler.appspot.com
 Select either "simple" or "whitespace only" (do not use advanced) and compile the following files:
 ocruise.js, database.js. cruiselist.js, cruise.js, plot.js, tree.js, config.js .  Copy/paste the compiled code into
