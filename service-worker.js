@@ -4,7 +4,7 @@ Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 credit to https://ole.michelsen.dk/blog/making-an-offline-webapp-with-service-workers.html
 */
-var CACHE_VERSION = 'v9';
+var CACHE_VERSION = 'v1';
 
 this.addEventListener('install', function (event) {
     event.waitUntil(
@@ -21,14 +21,15 @@ this.addEventListener('install', function (event) {
                 'js/libs/jquery/jquery-1.9.1.min.js?bust=V1.3.1',
                 'images/biltmore.png',
                 'js/mobileinit.js?bust=V1.3.1',
-                'js/database.js?bust=V1.3.1',
                 'js/main.js?bust=V1.3.1',
-                'js/ocruise.js?bust=V1.3.1',
-                'js/cruise.js?bust=V1.3.1',
-                'js/plot.js?bust=V1.3.1',
-                'js/tree.js?bust=V1.3.1',
-                'js/cruiselist.js?bust=V1.3.1',
-                'js/config.js?bust=V1.3.1',
+                'js/ocruise-min.js?bust=V1.3.1',
+            //    'js/database.js?bust=V1.3.1',
+            //    'js/ocruise.js?bust=V1.3.1',
+            //    'js/cruise.js?bust=V1.3.1',
+            //    'js/plot.js?bust=V1.3.1',
+            //    'js/tree.js?bust=V1.3.1',
+            //    'js/cruiselist.js?bust=V1.3.1',
+            //    'js/config.js?bust=V1.3.1',
                 'index.html',
                 'ocruise.html',
                 'apple-touch-icon.png'
