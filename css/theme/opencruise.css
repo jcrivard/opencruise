@@ -87,8 +87,8 @@ label.ui-btn {
 -----------------------------------------------------------------------------------------------------------*/
 /* Class ui-btn-corner-all deprecated in 1.4 */
 .ui-corner-all {
-	-webkit-border-radius: 1em /*{global-radii-blocks}*/;
-	border-radius: 1em /*{global-radii-blocks}*/;
+	-webkit-border-radius: .3125em /*{global-radii-blocks}*/;
+	border-radius: .3125em /*{global-radii-blocks}*/;
 }
 /* Buttons */
 .ui-btn-corner-all,
@@ -105,8 +105,8 @@ label.ui-btn {
 /* Icon-only buttons */
 .ui-btn-icon-notext.ui-btn-corner-all,
 .ui-btn-icon-notext.ui-corner-all {
-	-webkit-border-radius: 1em;
-	border-radius: 1em;
+	-webkit-border-radius: .3125em;
+	border-radius: .3125em;
 }
 /* Radius clip workaround for cleaning up corner trapping */
 .ui-btn-corner-all,
@@ -149,8 +149,8 @@ label.ui-btn {
 	background-color: rgba(0,0,0,0.3) /*{global-icon-disc}*/;
 	background-position: center center;
 	background-repeat: no-repeat;
-	-webkit-border-radius: 1em;
-	border-radius: 1em;
+	-webkit-border-radius: .3125em;
+	border-radius: .3125em;
 }
 /* Alt icons */
 .ui-alt-icon.ui-btn:after,

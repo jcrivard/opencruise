@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" manifest="offline-min.manifest">
-<!--html lang="en" manifest="offline.manifest"-->
+<!--html lang="en" manifest="offline-min.manifest"-->
+<html lang="en" manifest="offline.manifest">
     <head> 
     <title>OpenCruise - Forest Inventory</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,8 +18,8 @@
             urlArgs : "bust=V1.3.1"    //Change this when upgrading versions to prevent cache issues on older browsers
         };
     </script>
-    <script type="text/javascript" data-main="js/mainmin" src="js/libs/require/require.js"></script>
-    <!--script type="text/javascript" data-main="js/main" src="js/libs/require/require.js"></script-->
+    <!--script type="text/javascript" data-main="js/mainmin" src="js/libs/require/require.js"></script-->
+    <script type="text/javascript" data-main="js/main" src="js/libs/require/require.js"></script>
 </head> 
 <body> 
 <noscript>
@@ -91,8 +91,8 @@
     <label  for="cruiseName">Project Name:</label>
     <input type="text" name="cruiseName" id="cruiseName" data-bind="value: cruiseName, event: { change: updateCruise }"/>
     <div class="ui-field-contain">
-        <label style="display: inline-block;" for='defaultSpecies' class='select'>Default Species:</label>
-        <select class="ui-mini" data-inline='true' name='defaultSpecies' id='defaultSpecies' data-bind='value: defaultSpecies, options: field1Values'>
+        <label style="display: inline-block;" for='defaultSpecies'>Default Species:</label>
+        <select data-mini="true" data-inline='true' name='defaultSpecies' id='defaultSpecies' data-bind='value: defaultSpecies, options: field1Values'>
         </select>
     </div>
     <div class="ui-field-contain">

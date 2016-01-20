@@ -9,7 +9,11 @@ define(['jquery'], function ($) {
         $.mobile.defaultPageTransition = "none";
         $.mobile.defaultDialogTransition = "none";
         $.mobile.autoInitializePage = false;
-        $.mobile.pushStateEnabled = false; //needed to load site from file URL
+        if (window.location.protocol === "file:" ) {
+            $.mobile.changePage.defaults.changeHash = false; //needed to load site from file URL
+            $.mobile.hashListeningEnabled = false; //needed to load site from file URL
+            $.mobile.pushStateEnabled = false; //needed to load site from file URL
+        }
         //$.mobile.selectmenu.prototype.options.nativeMenu = false;
     });
 });
