@@ -1,4 +1,4 @@
-Opencruise V1.3.1
+Opencruise V1.3.2
 ===============
 
 Mobile Web Application for Forest Inventory
