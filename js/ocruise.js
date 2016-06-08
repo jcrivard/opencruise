@@ -11,6 +11,35 @@ var OCRUISE = (function (oc) {
         var cdate = new Date();
         return cdate.getMonth() + 1 + "/" + cdate.getDate() + "/" + cdate.getFullYear();
     };
+    /*** Credid for stdDeviation: derickbailey.com ***/
+    oc.stdDeviation = function (values, N){
+        function average(data, N){
+          var sum = data.reduce(function(sum, value){
+            return sum + value;
+          }, 0);
+
+          var avg = sum / N;
+          return avg;
+        };
+        /** Function to add zero values for plots with no trees **/
+        function addZeroElements (values, N){
+          for (var i=values.length; i < N; i++) {
+              values[i] = 0;
+          }
+          return values;
+        };
+        values = addZeroElements(values, N);
+        var avg = average(values, N);  
+        var squareDiffs = values.map(function(value){
+          var diff = value - avg;
+          var sqrDiff = diff * diff;
+          return sqrDiff;
+        });     
+        var avgSquareDiff = average(squareDiffs, N);
+        var stdDev = Math.sqrt(avgSquareDiff);
+        var stdDev = stdDev * Math.sqrt(N / (N - 1)); //convert to unbiased stddev J.Rivard
+        return stdDev;
+    };
     oc.init = function () {
         $(document).ready(function () {
             // Appcache - If new version is available, prompt user for reload

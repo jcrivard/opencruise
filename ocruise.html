@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="css/theme/jquery.mobile.icons.min.css" />
     <link rel="stylesheet" href="js/libs/jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css" >
     <link rel="stylesheet" href="css/ocruise.css" >
-    <link rel="icon" sizes="128x128" href="apple-touch-icon.png" />
+    <link rel="icon" sizes="128x128" href="icon.png" />
     <script type="text/javascript">
         var require = {
             waitSeconds: 180,
-            urlArgs : "bust=V1.3.1"    //Change this when upgrading versions to prevent cache issues on older browsers
+            urlArgs : "bust=V1.3.1c"    //Change this when upgrading versions to prevent cache issues on older browsers
         };
     </script>
     <script type="text/javascript" data-main="js/mainmin" src="js/libs/require/require.js"></script>
@@ -78,9 +78,18 @@
 
 <!--*************  CRUISE PAGE  ****************************************-->
 <div data-role="page" id="cruisePage" class="OC-not-initialized"  data-theme='b'>
- <div data-role="header" data-position="fixed">
-     <a href="#cruiseListPage"  class="ui-btn ui-btn-inline ui-icon-home ui-btn-icon-left ui-corner-all">Home</a>
-     <h1>Cruise Info</h1>
+ <div data-role="header" data-position="fixed" data-bind="with: selectedCruise">
+   <div class="ui-grid-b">
+      <div class="ui-block-a">
+           <a href="#cruiseListPage"  class="ui-btn ui-btn-inline ui-icon-home ui-btn-icon-left ui-corner-all">Home</a>
+      </div>
+      <div class="ui-block-b">
+           <h2 style="text-align: center; font-size: 1em;">Cruise Info</h2>
+      </div>
+      <div class="ui-block-c">
+          <a href="#statsPopup" data-rel="popup" data-position-to="window" data-bind="click: getStats"  class="ui-btn ui-btn-right ui-btn-inline ui-icon-info ui-btn-icon-left ui-corner-all">Stats</a>
+      </div>
+  </div>     
  </div><!-- /header -->
  <div id="cruisePageContent" role="main" class="ui-content ui-body ui-body-b" >   
  <form>
@@ -127,13 +136,23 @@
  <!-- POPUP to show list of plots for this cruise -->
  <div data-role="popup" id="selectPlotPopup" data-theme="a" data-bind="with: selectedCruise">
         <a href="#cruisePage" class="ui-btn ui-btn-right ui-icon-delete ui-btn-icon-notext ui-corner-all">Close</a>
-       
         <ul data-role="listview" data-inset="true">
             <li data-role="divider">Select Plot</li>
             <!-- ko foreach: plots -->
                <li class="plotLI" ><a href="#" data-plotnum="0" data-bind="attr: {'data-plotnum': plotNum}, text: 'Plot#: ' + plotNum + ', PlotID: ' + plotID"></a></li>
             <!-- /ko -->
         </ul>
+</div>
+ <!-- POPUP to show stats for this cruise -->
+ <div data-role="popup" id="statsPopup" data-bind="with: selectedCruise">
+    <a href="#cruisePage" class="ui-btn ui-btn-right ui-icon-delete ui-btn-icon-notext ui-corner-all">Close</a>
+    <div data-role="header">
+        <h1>Plot Stats</h1>
+    </div>
+    <span data-bind="text: 'Current Plots: ' + numPlots()"></span>
+    <span data-bind="text: 'Avg BA/Acre: ' + avgBA()"></span>
+    <span data-bind="text: 'Plots for +/- 20% BA at 95%: ' + numPlots20Percent()"></span>
+    <span data-bind="text: 'Plots for +/- 10% BA at 95%: ' + numPlots10Percent()"></span> 
 </div>
 </div><!-- /page cruisePage-->
 
@@ -528,6 +547,13 @@
          <div data-role="collapsible">
              <h4>Release Notes</h4>
                  <ul>
+                     <li>Version 1.3.1
+                       <ul>
+                           <li>Added statistics popup on cruise screen.</li>
+                           <li>Renamed apple-touch-icon.png to icon.png.</li>
+                           <li>Added manifest.json for better homescreen experience.</li>
+                       </ul>
+                     </li>
                      <li>Version 1.3.0
                        <ul>
                            <li>Disabled init parameter for field configuration since it is not implemented.</li>
@@ -580,7 +606,7 @@
          <div data-role="collapsible">
              <h4>About</h4>
                  <ol>
-                     <li>Version: 1.3.0</li>
+                     <li>Version: 1.3.1</li>
                      <li>OpenCruise is open source and licensed under the : 
                          <a href="http://www.gnu.org/copyleft/gpl.html">GNU Public License Version 3.</a></li>
                      <li>Developed by <a href="mailto:jcrivard@mtu.edu">Jim Rivard.</a></li>

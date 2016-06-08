@@ -1,6 +1,6 @@
 CACHE MANIFEST
-#Version 1.2.3.141
-#Be Sure to have bust=V1.3.1 match urlArgs in top of ocruise.html!!
+#Version 1.3.1.22
+#Be Sure to have bust=V1.3.1c match urlArgs in top of ocruise.html!!
 CACHE:
 #js/libs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css
 css/ocruise.css
@@ -8,25 +8,26 @@ css/theme/opencruise.css
 css/theme/jquery.mobile.icons.min.css
 css/theme/images/ajax-loader.gif
 js/libs/jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css
-js/libs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js?bust=V1.3.1
+js/libs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js?bust=V1.3.1c
 js/libs/require/require.js
-js/libs/knockout/knockout-3.4.0.js?bust=V1.3.1
-js/libs/jquery/jquery-1.9.1.min.js?bust=V1.3.1
+js/libs/knockout/knockout-3.4.0.js?bust=V1.3.1c
+js/libs/jquery/jquery-1.9.1.min.js?bust=V1.3.1c
 images/biltmore.png
-js/mobileinit.js?bust=V1.3.1
-js/database.js?bust=V1.3.1
-js/main.js?bust=V1.3.1
-js/ocruise.js?bust=V1.3.1
-js/cruise.js?bust=V1.3.1
-js/plot.js?bust=V1.3.1
-js/tree.js?bust=V1.3.1
-js/cruiselist.js?bust=V1.3.1
-js/config.js?bust=V1.3.1
+js/mobileinit.js?bust=V1.3.1c
+js/database.js?bust=V1.3.1c
+js/main.js?bust=V1.3.1c
+js/ocruise.js?bust=V1.3.1c
+js/cruise.js?bust=V1.3.1c
+js/plot.js?bust=V1.3.1c
+js/tree.js?bust=V1.3.1c
+js/cruiselist.js?bust=V1.3.1c
+js/config.js?bust=V1.3.1c
 index.html
 ocruise.html
-apple-touch-icon.png
-#js/ocruise-min.js?bust=V1.3.1
-#js/mainmin.js?bust=V1.3.1
+icon.png
+manifest.json
+#js/ocruise-min.js?bust=V1.3.1c
+#js/mainmin.js?bust=V1.3.1c
 
 NETWORK:
 gmail.php

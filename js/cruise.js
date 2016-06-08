@@ -36,6 +36,14 @@ var OCRUISE = (function (oc) {
         this.plots = ko.observableArray([]);
         this.cruiseID = id;
         this.defaultSpecies = dv.defaultSpecies;
+        this.numPlots = ko.observable(0); //total plots for this cruise, updated when getStats runs
+        this.numTrees = ko.observable(0); //total trees for this cruise, updated when getStats runs
+        this.numTreesByPlot = ko.observableArray([]); //total trees for each plot, updated when getStats runs
+        this.avgBA = ko.computed(function() {
+            return Math.round((this.numTrees() * this.BAF()) / this.numPlots());
+        }, this);
+        this.numPlots10Percent = ko.observable(0); 
+        this.numPlots20Percent = ko.observable(0);
         this.loadPlots(); //load current plotlist into plots array
         this.field1Values = ko.observableArray(dv.speciesKey.toArray()); //need to fix to update with changes
         this.showDownloadFileBtn = ko.observable(false);
@@ -82,6 +90,35 @@ var OCRUISE = (function (oc) {
             };
             var whereObj = {cruiseid: thisCruise.cruiseID};
             oc.DB.update('cruise', fieldObj, whereObj);
+        },
+        getStats: function (data, event) {
+            function numPlotsRequired(CI) {
+                var t = 2; //degrees of freedom from Measurements Book
+                var stdDev = oc.stdDeviation(thisCruise.numTreesByPlot(), thisCruise.numPlots()) * thisCruise.BAF();  //get stddev in expressed as BA/acre
+                var E = CI * ((thisCruise.numTrees() * thisCruise.BAF()) / thisCruise.numPlots());
+                var requiredPlots = Math.pow(((t * stdDev)/E),2);
+                return Math.round(requiredPlots);
+            };
+            var thisCruise = this;
+            var whereObj = {cruiseid: thisCruise.cruiseID};
+            var callbackTrees = function (transaction, results) {
+                var total = 0, i = 0, totalArray = [];
+                for (i = 0; i < results.rows.length; i++) {
+                    total = total + results.rows[i].CNT;
+                    totalArray[i] = results.rows[i].CNT;
+                }
+                thisCruise.numTrees(total);
+                thisCruise.numTreesByPlot(totalArray);
+                thisCruise.numPlots10Percent(numPlotsRequired(.10));
+                thisCruise.numPlots20Percent(numPlotsRequired(.20));
+                
+            };
+            var callbackPlots = function (transaction, results) {
+                thisCruise.numPlots(results.rows[0].CNT);  //should be only one element
+                oc.DB.count('trees', 'treenum', callbackTrees, whereObj, 'plotnum'); //now get number of trees for each plot
+            };
+            oc.DB.count('plots', 'plotnum', callbackPlots, whereObj, 'cruiseid');
+            return true; //for knockout to allow default action which in this case is opening popup anchor
         },
         loadPlots: function () {
             var thisCruise = this;

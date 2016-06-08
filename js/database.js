@@ -61,6 +61,28 @@ var OCRUISE = (function (oc) {
                }
             );
         },
+        count: function(table, field, callback, whereObj, groupBy){
+            var thisOBJ = this;
+            var query = 'SELECT COUNT(' + field + ') AS CNT FROM ' + table;
+            if (whereObj) {
+                query += ' WHERE ';
+                for (var prop in whereObj){
+                    query += prop + '=' + whereObj[prop] + ' AND ';
+                }
+                query = query.substring(0,query.length - 5 ); //remove last ' AND '
+            }
+            if (groupBy) {
+                query += ' GROUP BY ' + groupBy;
+            }
+            query += ';'
+            this.DB.transaction(
+               function (transaction) {
+                 transaction.executeSql(query, [], callback,
+                       function(transaction, error) {thisOBJ.errorHandler(transaction, error);}
+                 );
+               }
+            );
+        },
         update: function(table, fieldObj, whereObj){
             var thisOBJ = this;
             var values = [];
@@ -314,6 +336,48 @@ var OCRUISE = (function (oc) {
                         resultset.rows.contents[0][maxField] = 0;
                         resultset.rows.length = 1;
                     }
+                    callback('',resultset);
+                  }
+            };
+        },
+        count: function(table, field, callback, whereObj, groupBy){
+            //resultset is "same" format as webSQL output; used by callback function in parms
+            var counterArray = []; //for returned counts by groupBy field (ie. number of trees by plot)
+            var resultset = {rows: {
+                length:0,
+                contents: [],
+                item: function(i){
+                   return this.contents[i];
+                }
+            }};  
+            var transaction = this.DB.transaction(table, "readonly");
+            var objectStore = transaction.objectStore(table);
+            var indexObj = {indexName: objectStore.indexNames[0], indexRange: null}; //default index parms
+            if (whereObj) {  //have selection criteria in object form
+                indexObj = this.buildKeyRange(whereObj);
+            }
+            var index = objectStore.index(indexObj.indexName);
+            index.openCursor(indexObj.indexRange).onsuccess = function(event) {
+                  var cursor = event.target.result;
+                  if (cursor) {
+                    resultset.rows.length ++;
+                    resultset.rows.contents.push(cursor.value);
+                    cursor['continue']();
+                  }
+                  else {
+                    resultset.rows.contents.forEach(function(item, index) {
+                        var i = index;
+                        var element = item[groupBy];
+                        if (typeof counterArray[element] === 'object') {
+                            counterArray[element].CNT = (counterArray[element].CNT + 1);
+                        }
+                        else {
+                            counterArray[element] = {CNT:1};
+                        }
+                        
+                    });
+                    counterArray = counterArray.filter(function(n){ return n != undefined });  //remove empty elements
+                    resultset = {rows: counterArray};
                     callback('',resultset);
                   }
             };
