@@ -1,0 +1,18 @@
+{
+  "name": "OpenCruise",
+  "short_name": "OpenCruise",
+  "start_url": "./index.html",
+  "background_color": "#006600",
+  "theme_color": "#006600",
+  "display": "standalone",
+  "icons": [{
+    "src": "static/images/icon.png",
+    "sizes": "128x128",
+    "type": "image/png"
+  },{
+    "src": "static/images/icon-144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }
+  ]
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!--base href="/opencruise-vue/"-->
+        <title>OpenCruise - Forest Inventory Software</title>
+        <meta name="description" content="Free, open source software for forest inventory and timber cruising.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="theme-color" content="#006600">
+        <!--link rel="stylesheet" href="static/css/material.min.css"-->
+        <!--link rel="stylesheet" href="static/css/selectfield.css"-->
+        <!--link rel="stylesheet" href="static/css/dialog-polyfill.css"-->
+        <!--script src="static/js/material.min.js"></script-->
+        <!--script src="static/js/dialog-polyfill.js"></script-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="apple-touch-icon" href="static/images/icon.png" />
+        <link rel="icon" type="image/x-icon" sizes="128x128" href="static/images/icon.png" />
+        <link rel="manifest" href="manifest.json">
+        <script type="text/javascript">
+            if ('serviceWorker' in window.navigator) {
+                console.log('Service Workers: Enabled');
+                window.navigator.serviceWorker.register('service-worker.js').catch(function (error) {
+                    console.log(error);
+                });
+                Notification.requestPermission(function(result) {
+                    if (result === 'granted') {
+                        navigator.serviceWorker.addEventListener('message', event => {
+                            navigator.serviceWorker.ready.then(function(registration) {
+                                registration.showNotification('Opencruise', {
+                                    body: event.data,
+                                    icon: 'static/images/icon.png',
+                                    tag: 'software update'
+                                });
+                            })
+                        });
+                    }
+                });
+            } else {
+                alert('WARNING - NO Service Worker Support!');
+            }
+        </script>
+    </head>
+    <body>
+        <noscript>
+            <h3>
+                You must enable javascript in your browser settings to use this application.
+            </h3>
+        </noscript>
+        <div id="app">
+        </div>
+    </body>
+</html>

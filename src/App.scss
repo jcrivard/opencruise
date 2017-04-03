@@ -1,0 +1,390 @@
+@import 'variables';
+/******** Credit to: http://stackoverflow.com/questions/35243443/pre-bootstrap-loading-screen-for-angular2 */
+#app {
+    height: 100vh;
+}
+a {
+    text-decoration: none !important;
+}
+a * {
+    vertical-align: middle;
+}
+/*.md-input-container.md-input-focused label, .md-input-container.md-has-value label {
+    font-size: 1.5rem !important;
+}
+.md-theme-default.md-select-content .md-menu-item.md-selected, .md-theme-default.md-select-content .md-menu-item.md-checked {
+    color: $opencruise-radio-active !important;
+    font-weight: bold;
+}*/
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.app-button {
+    background-color: $opencruise-accent !important;
+    color: black !important;
+    text-transform: none;
+}
+.md-sidenav-content {
+    width: 150px !important;
+    bottom: initial !important;
+    top: 44px !important;
+}
+ .md-backdrop {
+    height: 100vh !important;
+    left: -100vw !important;
+}
+ body, label, input, select, p {
+    font-size: $opencruise-font-size !important;
+}
+.md-button--fab {
+    height: 40px;
+    width: 40px;
+    min-width: initial;
+}
+.md-dialog {
+    width: fit-content;
+}
+.mdl-textfield, .mdlext-selectfield, .mdl-textfield__input, label {
+    width: initial;
+    color: black;
+}
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: #3f51b5;
+    font-size: 1.5rem;
+    top: 4px;
+    visibility: visible
+}
+.mdlext-selectfield--floating-label > label {
+    font-size: 1.5rem !important;
+    color: #3f51b5;
+}
+app-root:empty + .loading { /* .loading screen is visible when app is not bootstraped yet, .app-root is empty */
+    opacity: 1;
+    z-index: 100;
+}
+/****************** end of credit ***********/
+@keyframes rotate{
+    100%{
+        transform: rotate(360deg);
+}}
+.page {
+  background-color: $opencruise-app-background;
+  border-color: $opencruise-app-border;
+  height: calc(100vh - 52px);
+  position: relative;
+  /*top: 44px;*/
+  /** next 3 props compensate for toolbar **/
+  padding-bottom: 15px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.page-will-change {
+    will-change: opacity;
+}
+.toolbar {
+  background-color: $opencruise-toolbar-background !important;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  height:40px !important;
+  min-height: 40px !important;
+  width:100vw;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}
+.page-footer-fixed {
+    text-align: center;
+    position: sticky;
+    bottom: 0px;
+    height: 40px;
+    width: 100%;
+    background-color: $opencruise-app-primary;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+html {
+  font-size: $opencruise-base-font-size;
+}
+body {
+    background-color: $opencruise-app-background !important;
+    font-family: $opencruise-font-family !important;
+    line-height: $opencruise-line-height;
+    color: #000000;
+    margin:0;
+    height: 100%;
+}
+ul, ol {
+    font-size: $opencruise-font-size;
+    line-height: $opencruise-line-height;
+}
+input {
+  font-size: $opencruise-font-size;
+}
+h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 15px;
+    text-align: center;
+    font-family: inherit;
+    font-weight: bold;
+}
+h3 {
+    font-size: 3rem !important;
+}
+[md-fab], [md-mini-fab] {
+  transform: none !important;
+}
+[md-mini-fab] {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2) !important;
+}
+.cm-justify div {  /***** this should be in the cruisement component, but problems with dynamically injected elements not getting proper style ****/
+    justify-content: flex-end;
+}
+md-option, md-input-container, md-select, md-tab-body, .mat-slide-toggle-content, .md-list-item, .btn-text, label, input, select {
+    font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif !important;
+}
+md-button-toggle-group {
+    background-color: $opencruise-radio-inactive;
+}
+.mat-button-toggle-checked {
+    background-color: $opencruise-radio-active;
+}
+.md-select-value {
+    top: 0 !important;
+}
+.mat-select-placeholder, .mat-select-value, .mat-slide-toggle-content, {
+    font-size: $opencruise-font-size !important;
+    //font-weight: bold;
+}
+md-slide-toggle > label {
+    justify-content: center;
+}
+.md-input-ripple, .md-input-underline {
+    left: 0;
+}
+.btn-text {
+    display: inline;
+    font-size: $opencruise-font-size;
+    vertical-align: middle;
+}
+.hidden {
+    display: none;
+}
+@media (min-device-width: 800px) {
+
+    .bigScreenHide {
+        display: none !important;
+    }
+    .smallScreenHide {
+        display: initial !important;
+    }
+}
+@media (max-device-width: 500px) {
+    .btn-text {
+        display: none;
+    }
+    button {
+        padding-top:5px;
+        padding-bottom: 5px;
+    }
+}
+
+/**** end of scss ****/
+
+.list-group {
+    text-align: center;
+    list-style-type: none;
+}
+
+
+.list-group-item > ul, .list-group-item > ol {
+    text-align: left;
+    background-color: #FFFFB3;
+}
+
+.list-group-item > a {
+  color: #000;
+}
+
+
+/******************************************/
+/** CSS for entry page logo and image ****/
+/*****************************************/
+
+.OCBiltmore {
+ /* -moz-animation: spin 0.75s 1 linear;
+    -webkit-animation: spin 0.50s 1 linear;
+    animation: spin 0.75s 1 linear;
+    -moz-animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;*/
+}
+
+.gridContainer5 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+
+.gridContainer {
+    display: grid;
+    justify-content: stretch;
+    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
+    grid-template-rows: auto;
+    grid-auto-columns: 1.2fr 0.8fr;
+    grid-auto-flow: column;
+    justify-items: center;
+}
+.gridContainer3 {
+    display: grid !important;
+    justify-content: stretch;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.gridContainer3Equal {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.gridContainer4 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+}
+.gridContainer2 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 0.75fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.gridContainer1 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.gridContainer-split {
+    grid-template-columns: auto auto .1fr;
+}
+.gridItem {
+    align-self: center;
+    text-align:center;
+    text-align-last:center; /* for select */
+    max-width: 50vw;
+}
+
+.gridItemLeft {
+    justify-self: start;
+    max-width: 40vw;
+}
+.gridInputItem {
+    max-width: 20vw;
+    align-self: center;
+    text-align: center;
+}
+.gridItemCenter {
+    text-align: center;
+}
+.gridItemRight {
+    justify-self: end;
+    margin-right: 15px;
+    text-align: end;
+    align-self: center;
+}
+.content-main {
+    background-color: #FFF;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 15px 15px 15px 15px;
+}
+.content-nopad {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.mat-tab-labels {
+    justify-content: center !important;
+}
+.smallScreenHide {
+        display: none;
+}
+input[type="radio"] {
+    height: 0.0rem;
+}
+.fade-in-out {
+    opacity: 1;
+    animation: fade .3s ease-in-out;
+}
+@keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(-360deg);  }
+}
+@-moz-keyframes spin {
+    0% { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(-360deg); }
+}
+@-o-keyframes spin {
+    0% { -o-transform: rotate(0deg); }
+    100% { -o-transform: rotate(-360deg); }
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+@-webkit-keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
+@-moz-keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
+@-o-keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
+@keyframes grow {
+    0% { font-size: 0.25em; }
+    100% {  font-size: 3em; }
+}
+@media (min-device-width: 800px) {
+   /* .gridContainer {
+        grid-template-columns: 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr;
+        /*grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+        justify-content: stretch;
+    }*/
+    .bigScreenHide {
+        display: none;
+    }
+    .smallScreenHide {
+        display: initial;
+    }
+    /*.btn, input {
+        height: 6rem;
+    }*/
+}
+@media (max-device-width: 500px) {
+    .btn-text {
+        display: none;
+    }
+}
+
