@@ -1,43 +1,42 @@
 <template>
-    <div id="app-toolbar">
-        <md-toolbar class="toolbar">
-            <md-button ref="appMenuButton" id="app-menu-button" class="md-raised app-button md-icon-button" @click.native="toggleNavMenu">
-                <md-icon>menu</md-icon>
-            </md-button>
-        </md-toolbar>
-        <md-sidenav id="app-menu" class="md-left" ref="navMenu">
-            <ul>
-                <li>
-                    <router-link to="/cruiselist"  class="navbarItem navbarItemLeft" ><md-icon>home</md-icon><span> Home</span></router-link>
-                </li>
-                <li v-if="cruiseid">
-                    <router-link v-bind:to="{name: 'cruise', params: {cruiseid: cruiseid}}"  class="navbarItem navbarItemLeft" ><md-icon>work</md-icon><span> Cruise Info</span></router-link>
-                </li>
-                <li>
-                    <a  ref="fullscreenElement" id="fullscreenElem" class="navbarItem navbarItemLeft"  @click="toggleFullscreen()"><md-icon>fullscreen</md-icon><span> Full Screen</span></a>
-                </li>
-                <li>
-                    <a class="navbarItem navbarItemLeft"  v-on:click="newCruise()"><md-icon>add_box</md-icon><span> New Cruise</span></a>
-                </li>
-                <li>
-                    <router-link to="/config"  class="navbarItem navbarItemLeft" ><md-icon>settings</md-icon><span> Config</span></router-link>
-                </li>
-                <li>
-                    <router-link to="/help"  class="navbarItem navbarItemLeft" ><md-icon>help</md-icon><span> Help</span></router-link>
-                </li>
-                <li>
-                    <router-link to="/about"  class="navbarItem navbarItemLeft" ><md-icon>info</md-icon><span> About</span></router-link>
-                </li>
-            </ul>
-        </md-sidenav>
+    <div id="app-toolbar" class="toolbar">
+
+            <input type="checkbox" id="navMenu" ref="navMenu" class="nav--super-vertical-responsive">
+            <label class="app-button" for="navMenu"><i class="material-icons">menu</i></label>
+            <div class="nav--super-vertical  no-margin-vertical">
+                <ul>
+                    <li>
+                        <router-link to="/cruiselist" @click.native="toggleNavMenu" class="navbarItem navbarItemLeft" ><i class="material-icons">home</i><span> Home</span></router-link>
+                    </li>
+                    <li v-if="cruiseid">
+                        <router-link @click.native="toggleNavMenu" v-bind:to="{name: 'cruise', params: {cruiseid: cruiseid}}"  class="navbarItem navbarItemLeft" ><i class="material-icons">work</i><span> Cruise Info</span></router-link>
+                    </li>
+                    <li>
+                        <a ref="fullscreenElement" id="fullscreenElem" class="navbarItem navbarItemLeft"  @click="toggleFullscreen()"><i class="material-icons">fullscreen</i><span> Full Screen</span></a>
+                    </li>
+                    <li>
+                        <a class="navbarItem navbarItemLeft"  v-on:click="newCruise()"><i class="material-icons">add_box</i><span> New Cruise</span></a>
+                    </li>
+                    <li>
+                        <router-link to="/config" @click.native="toggleNavMenu" class="navbarItem navbarItemLeft" ><i class="material-icons">settings</i><span> Config</span></router-link>
+                    </li>
+                    <li>
+                        <router-link to="/help" @click.native="toggleNavMenu" class="navbarItem navbarItemLeft" ><i class="material-icons">help</i><span> Help</span></router-link>
+                    </li>
+                    <li>
+                        <router-link to="/about" @click.native="toggleNavMenu" class="navbarItem navbarItemLeft" ><i class="material-icons">info</i><span> About</span></router-link>
+                    </li>
+                </ul>
+            </div>
 
     </div>
 </template>
 
 <script>
-import { cruiseStore } from '../store/cruisestore'
+
 export default {
     name: 'app-toolbar',
+    inject: ['cruiseStore'],
     data () {
         return {
             cruiseid: null
@@ -50,11 +49,13 @@ export default {
     },
     methods: {
         newCruise(event) {
-            cruiseStore.newCruise().then(results => {
+            this.toggleNavMenu();
+            this.cruiseStore.newCruise().then(results => {
                 let jim = '';
             });
         },
         toggleFullscreen() {
+            this.toggleNavMenu();
             function exitFullscreen() {
                 document.exitFullscreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen;
                 if(document.exitFullscreen) {
@@ -78,19 +79,33 @@ export default {
             }
         },
         toggleNavMenu() {
-            this.$refs.navMenu.toggle();
+            this.$refs.navMenu.checked = false;
         }
     }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@import '../variables';
+.toolbar {
+  background-color: $opencruise-toolbar-background !important;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  height: 40px !important;
+  min-height: 40px !important;
+  width: 100vw;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}
 a {
     color: black !important;
 }
 ul {
     list-style: none;
-    padding-left: 10px;
+    margin-left: 0;
 }
 </style>

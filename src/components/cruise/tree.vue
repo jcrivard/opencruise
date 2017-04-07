@@ -8,7 +8,7 @@
             </select>
             <input  v-model.number="tree.field2" class="gridItem tree-input" type="number" name="field2" v-bind:class="{ 'field-invalid': field2Invalid }" @change="validateTree('field2')" >
             <input v-if="!multiProducts" v-model.number="tree.field3" class="gridItem tree-input" type="number" name='field3' v-bind:class="{ 'field-invalid': field3Invalid }" @change="validateTree('field3')">
-            <md-button class="bigScreenHide md-raised" @click="openSegmentDialog()" v-if="multiProducts" ><md-icon>format_list_numbered</md-icon></md-button>
+            <button class="bigScreenHide btn--raised app-button" @click="toggleSegmentsDialog" v-if="multiProducts" ><i class="material-icons">format_list_numbered</i></button>
             <input v-if="!multiProducts" v-model.number="tree.field4" class="gridItem tree-input" type="number" name='field4Name' v-bind:class="{ 'field-invalid': field4Invalid }" @change="validateTree('field4')">
             <template v-for="segment in tree.segments">
                 <select v-if="multiProducts" v-model="segment.product" class="smallScreenHide gridItem tree-input">
@@ -20,29 +20,25 @@
             </template>
         </div>
         <!-- **** DIALOG for SEGMENT ENTRY **** -->
-        <dialog class="fade-in-out mdl-dialog" ref="segmentDialogRef" v-if="tree">
-            <h3 class="mdl-dialog__title">Tree Segments</h3>
-            <div class="mdl-dialog__content">
+        <app-dialog v-bind="{showDialog: showSegmentsDialog}" @closeDialog="toggleSegmentsDialog"  ref="segmentDialogRef" v-if="tree">
+            <h3 slot="header">Tree Segments</h3>
+            <div slot="content">
                 <div class="gridContainer3Equal" >
                     <label class="gridItem">Seg</label>
                     <label class="gridItem">Grade</label>
                     <label class="gridItem">Len</label>
                 </div>
-
                 <div v-for="segment in tree.segments" class="gridContainer3Equal">
                     <span class="grid-Item">{{segment.id}}</span>
-                    <select class='gridItem tree-input' v-model="segment.product">
+                    <select class='gridItem app-select segment-input' v-model="segment.product">
                         <option v-for="grade in gradeKey.grades" v-bind:value="grade.name">
                             {{grade.name}}
                         </option>
                     </select>
-                    <input class="gridItem tree-input" type="number" v-model.number="segment.length">
-                </div>
-                <div class="mdl-dialog__actions">
-                    <md-button class="md-raised" @click="closeSegmentDialog"><md-icon>done</md-icon><span class="btn-text"> Done</span></md-button>
+                    <input required class="gridItem segment-input" type="number" v-model.number="segment.length">
                 </div>
             </div>
-        </dialog>
+        </app-dialog>
     </div>
 </template>
 
@@ -56,7 +52,7 @@ export default {
             speciesKey: null,
             gradeKey: null,
             cruise: null,
-            showSegmentDialog: false,
+            showSegmentsDialog: false,
             field2Invalid: false,
             field3Invalid: false,
             field4Invalid: false
@@ -76,11 +72,8 @@ export default {
         //window.dialogPolyfill.registerDialog(this.$refs.segmentDialogRef); //polyfill for html dialog element
     },
     methods: {
-        openSegmentDialog () {
-            this.$refs.segmentDialogRef.showModal();
-        },
-        closeSegmentDialog () {
-            this.$refs.segmentDialogRef.close();
+        toggleSegmentsDialog () {
+            this.showSegmentsDialog = !this.showSegmentsDialog;
         },
         validateTree (fieldName) {
             if (this.tree[fieldName] !== null) { //don't bother with new/empty trees/fields
@@ -118,7 +111,18 @@ div > select, div > input {
     height:100%;
 }
 div > button {
-    margin-bottom: 5px;
+    margin: 0 0 5px 0;
+    padding: 0 0 0 0;
+    justify-self: center;
+}
+.segment-input {
+    /*font-size: inherit;*/
+    width: 80%;
+    box-sizing: border-box;
+    padding-bottom: 0px;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    margin-top: 5px;
 }
 .tree-input {
     /*font-size: inherit;*/
@@ -127,12 +131,24 @@ div > button {
     border: 1px solid #ccc;
     box-sizing: border-box;
     padding-bottom: 0px;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
 
 }
 .field-invalid {
     background-color: #F00;
 }
-dialog {
+.tree-dialog {
     max-width: 80%;
+    min-height: 450px;
+}
+.app-button {
+    min-width: 50px;
+}
+.gridContainer3Equal {
+    align-items: flex-end;
+}
+h4 {
+    padding-top: 0;
 }
 </style>

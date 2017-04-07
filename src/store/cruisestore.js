@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Plot } from '../models/plot';
 import { DatabaseService }  from './database';
-import { ConfigParms } from '../models/config';
+import { ConfigParms, Cruise } from '../models/config';
 
 /******************************************************************** */
 /** CRUISESTORE SERVICE                                                */
@@ -35,11 +35,11 @@ class CruiseStore  {
     }
     newCruise() {
         return new Promise((resolve, reject) => {
-            var parms = this.state.config.cruiseParms;
+            var parms = Object.assign({}, this.state.config.cruiseParms);
             var self = this;
             var processCruise = function (results) { //resultSet is array, should only be one item
-                var createdCruise = parms;
-                parms.cruiseid = results[0].insertId;
+                var createdCruise = new Cruise();
+                createdCruise.cruiseid = results[0].insertId;
                 self.state.cruiseList.unshift(createdCruise);
                 console.log('Cruise created.');
                 resolve(results);

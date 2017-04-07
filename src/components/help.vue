@@ -3,7 +3,7 @@
     <h3>Help</h3>
     <div class="content-main">
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group1')">
-            <md-icon>format_list_numbered</md-icon>
+            <i class="material-icons">format_list_numbered</i>
             <span>Support and Installation</span>
         </div>
         <div class="help-collapsible-container">
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class=" mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group2')">
-            <md-icon>build</md-icon>
+            <i class="material-icons">build</i>
             <span>Configuration</span>
         </div>
         <div class="help-collapsible-container">
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group3')">
-            <md-icon>dashboard</md-icon>
+            <i class="material-icons">dashboard</i>
             <span>Cruise</span>
         </div>
         <div class="help-collapsible-container">
@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group4')">
-            <md-icon>gps_fixed</md-icon>
+            <i class="material-icons">gps_fixed</i>
             <span>Plot Entry</span>
         </div>
         <div class="help-collapsible-container">
@@ -107,7 +107,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group5')">
-            <md-icon>view_headline</md-icon>
+            <i class="material-icons">view_headline</i>
             <span>Segments</span>
         </div>
         <div class="help-collapsible-container">
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group6')">
-            <md-icon>gps_not_fixed</md-icon>
+            <i class="material-icons">gps_not_fixed</i>
             <span>Edit Plots</span>
         </div>
         <div class="help-collapsible-container">
@@ -136,7 +136,7 @@
             </div>
         </div>
         <div class=" mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group7')">
-            <md-icon>build</md-icon>
+            <i class="material-icons">build</i>
             <span>Statistics</span>
         </div>
         <div class="help-collapsible-container">
@@ -164,7 +164,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group8')">
-            <md-icon>file_download</md-icon>
+            <i class="material-icons">file_download</i>
             <span>Download</span>
         </div>
         <div class="help-collapsible-container">
@@ -175,7 +175,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group9')">
-            <md-icon>airplanemode_active</md-icon>
+            <i class="material-icons">airplanemode_active</i>
             <span>Offline Use</span>
         </div>
         <div class="help-collapsible-container">
@@ -188,7 +188,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group10')">
-            <md-icon>note</md-icon>
+            <i class="material-icons">note</i>
             <span>Output File Format</span>
         </div>
         <div class="help-collapsible-container">
@@ -213,7 +213,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group11')">
-            <md-icon>attachment</md-icon>
+            <i class="material-icons">attachment</i>
             <span>Release Notes</span>
         </div>
         <div class="help-collapsible-container">
@@ -277,7 +277,7 @@
             </div>
         </div>
         <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group12')">
-            <md-icon>nature_people</md-icon>
+            <i class="material-icons">nature_people</i>
             <span>About</span>
         </div>
         <div class="help-collapsible-container">

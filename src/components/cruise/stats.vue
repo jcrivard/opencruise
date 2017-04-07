@@ -1,7 +1,5 @@
 <template>
-    <dialog mdl class="fade-in-out mdl-dialog" ref="statsRef"  v-if="cruise">
-    <h2 class="mdl-dialog__title">Statistics</h2>
-    <div class="mdl-dialog__content">
+    <div>
         <div class="stats-container" style="flex-direction:row">
             <span class="stats-Item">Total Plots:  {{stats.totalPlots}}</span>
             <span class="stats-Item">Total Trees:  {{stats.totalTrees}}</span>
@@ -9,43 +7,39 @@
         </div>
         <div class="gridContainer2">
             <div class="stats-container" style="text-align: center">
-                <div class="mdlext-selectfield mdlext-js-selectfield mdlext-selectfield--floating-label" style="width:100%">
-                    <label>Include Species</label>
-                    <select multiple class="mdlext-selectfield__select" v-model="includedSpecies" placeholder="Include" @change="computeStats('INCLUDE-SPECIES')">
-                        <option v-for="species in allSpecies"  :key="species.key" v-bind:value="species.key">
-                            {{species.key}}
-                        </option>
-                    </select>
-                </div>
+                <label>Include Species</label>
+                <select multiple v-model="includedSpecies" placeholder="Include" v-on:change="computeStats('INCLUDE-SPECIES')">
+                    <option v-for="species in allSpecies"  :key="species.key" v-bind:value="species.key">
+                        {{species.key}}
+                    </option>
+                </select>
             </div>
             <div class="stats-container" style="text-align: center">
-                <div class="mdlext-selectfield mdlext-js-selectfield mdlext-selectfield--floating-label" style="width:100%">
-                    <label>Exclude Species</label>
-                    <select multiple class="mdlext-selectfield__select" v-model="excludedSpecies" placeholder="Include" @change="computeStats('EXCLUDE-SPECIES')">
-                        <option v-for="species in allSpecies"  :key="species.key" v-bind:value="species.key">
-                            {{species.key}}
-                        </option>
-                    </select>
-                </div>
+                <label>Exclude Species</label>
+                <select multiple v-model="excludedSpecies" placeholder="Include" v-on:change="computeStats('EXCLUDE-SPECIES')">
+                    <option v-for="species in allSpecies"  :key="species.key" v-bind:value="species.key">
+                        {{species.key}}
+                    </option>
+                </select>
             </div>
         </div>
         <div class="gridContainer2">
             <div class="stats-container" v-for="(val, itemNum) in confidenceVals">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" v-bind:id="'Interval' + itemNum++" type='number' v-model="val.CI" @change="computeStats()" />
-                    <label class="mdl-textfield__label" v-bind:for="'Interval' + itemNum++">Interval {{itemNum}}</label>
+                <div class="stats-input-container">
+                    <input class="stats-input" required v-bind:id="'Interval' + itemNum" type="number" v-model="val.CI" v-on:change="computeStats()"/>
+                    <label class="app-input-label" v-bind:for="'Interval' + itemNum">Interval {{itemNum + 1}}</label>
                 </div>
-                <div class="mdlext-selectfield mdlext-js-selectfield mdlext-selectfield--floating-label">
-                    <label>Level {{itemNum}}</label>
-                    <select class="mdlext-selectfield__select" v-model="val.CL" @change="computeStats()">
-                        <option v-for="cl in validCLs" v-bind:value="cl.CL">
+                <div class="stats-input-container">
+
+                    <select class="app-select" v-bind:id="'Level' + itemNum" v-model="val.CL" v-on:change="computeStats()">
+                        <option v-for="cl in validCLs" v-bind:value="cl.CL" :key="val.CI">
                             {{cl.CL}}%
                         </option>
                     </select>
+                    <label class="app-select-label" v-bind:for="'Level' + itemNum">Level {{itemNum + 1}}</label>
                 </div>
             </div>
         </div>
-        <br/>
         <div class="gridContainer2">
             <div class="stats-container" style="text-align: center" v-for="cv in stats.confidenceValues">
                 <div >
@@ -55,10 +49,6 @@
             </div>
         </div>
     </div>
-    <div class="mdl-dialog__actions">
-        <md-button @click="sendCloseStatsEvent" class="md-raised">Close</md-button>
-    </div>
-</dialog>
 </template>
 
 <script>
@@ -74,7 +64,6 @@
                 excludedSpecies: [],
                 includedSpecies: [],
                 fullSpeciesList: [],
-                lastWatcher: '',  //to prevent watchers from firing infinitely
                 validCLs: [ //valid probabilities (confidence limits) along with T-Value for infinite population
                     {CL: 99, T: 2.576},
                     {CL: 95, T: 1.960},
@@ -84,21 +73,12 @@
                 ]
             }
         },
-        watch: {
-            showStats: function(val) { //opening/closing of the dialog is controlled by the parent
-                if (val === true) {
-                    this.computeStats();
-                    this.$refs.statsRef.showModal();
-                } else {
-                    this.closeDialog(); //toggle dialog when parent updates visibility
-                }
-            }
-        },
         created() {
             for (let species of this.allSpecies) { //populate species array with all species to start; user can turn off species as needed
                 this.includedSpecies.push(species.key);
             }
             this.fullSpeciesList = this.includedSpecies.slice(0); //make a copy to have all species for use below
+            this.computeStats();
         },
         mounted() {
             //window.dialogPolyfill.registerDialog(this.$refs.statsRef); //polyfill for html dialog element
@@ -204,8 +184,9 @@
         align-items: center;
         justify-content: center;
         /*min-width: 20vw;*/
-        font-size: 1.5rem;
+        font-size: 2.0rem;
         width: 100%;
+        padding-bottom: 15px;
     }
     .stats-Item {
         margin-left: 15px;
@@ -214,36 +195,28 @@
     .gridContainer2 {
         grid-template-columns: 0.75fr .75fr;
     }
-    .mdl-textfield__input, .mdlext-selectfield {
+    .stats-input-container {
+        width: 100px;
+        position: relative;
+    }
+    .stats-label {
+        color: rgba(0, 0, 0, 0.541176);
+        position: absolute;
+        top: 0;
+    }
+    .app-select, .stats-input {
         width: 100px;
     }
-    .mdlext-selectfield {
-        padding-bottom: 0;
+    .app-select {
+        margin-bottom: 0;
     }
-    .mdlext-selectfield::after {
-        content:none;
-    }
-    label, .mdl-textfield__input, .mdlext-selectfield {
-        text-align: center;
-        text-align-last: center;
-    }
-    .mdlext-selectfield__select {
-        padding-left: 30px;
-    }
-    .mdl-dialog__content {
-        color: black;
-        padding-top: 10px;
-    }
-    dialog {
-        padding: 0 0 0 0;
-        width: 600px;
-    }
+
     @media (max-device-width: 700px) {
-        dialog {
-            width: 90%;
-        }
         .stats-summary {
             font-size: 1.8rem; /*need a little more room*/
+        }
+        .stats-container {
+            font-size: 1.5rem;
         }
     }
 

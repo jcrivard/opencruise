@@ -9,15 +9,81 @@ a {
 a * {
     vertical-align: middle;
 }
-/*.md-input-container.md-input-focused label, .md-input-container.md-has-value label {
-    font-size: 1.5rem !important;
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(../static/fonts/materialicons-regular.woff2) format('woff2');
 }
-.md-theme-default.md-select-content .md-menu-item.md-selected, .md-theme-default.md-select-content .md-menu-item.md-checked {
-    color: $opencruise-radio-active !important;
-    font-weight: bold;
-}*/
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: middle;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
 input[type=number] {
     -moz-appearance: textfield;
+}
+.app-select-label {
+    position: absolute;
+    top: 0;
+    color: $opencruise-label;
+    font-size: 14px;
+}
+.app-select {
+    width: 200px;
+    margin-top: 15px;
+    background-color: transparent;
+    margin-bottom: 20px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 1px #3f51b5;
+    will-change: background-position;
+    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #3f51b5 96%);
+    background-position: -200px 0;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+}
+.app-select:focus {
+    background-position: 0 0;
+    outline: none;
+}
+input[type="text"] ~ .app-input-label, input[type="number"] ~ .app-input-label {
+    position: absolute;
+    top: 14px;
+    font-size: $opencruise-font-size;
+    color: rgba(0,0,0,0.541176);
+    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+}
+input[type="text"]:focus ~ .app-input-label, input[type="text"]:valid ~ .app-input-label,
+input[type="number"]:focus ~ .app-input-label, input[type="number"]:valid ~ .app-input-label {
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    color: $opencruise-label;
 }
 .app-button {
     background-color: $opencruise-accent !important;
@@ -33,7 +99,7 @@ input[type=number] {
     height: 100vh !important;
     left: -100vw !important;
 }
- body, label, input, select, p {
+ body, input, select, p {
     font-size: $opencruise-font-size !important;
 }
 .md-button--fab {
@@ -43,6 +109,14 @@ input[type=number] {
 }
 .md-dialog {
     width: fit-content;
+    position: absolute !important;
+    top: 20px;
+}
+.md-theme-default.md-switch.md-checked.md-primary .md-switch-thumb {
+    background-color: $opencruise-radio-active !important;
+}
+.md-theme-default.md-switch.md-checked.md-primary .md-switch-container {
+    background-color:$opencruise-switch-container !important;
 }
 .mdl-textfield, .mdlext-selectfield, .mdl-textfield__input, label {
     width: initial;
@@ -57,6 +131,12 @@ input[type=number] {
 .mdlext-selectfield--floating-label > label {
     font-size: 1.5rem !important;
     color: #3f51b5;
+}
+.pl-item > div {
+    justify-content: center !important;
+}
+.fields-dialog > div {
+    max-height: 90%;
 }
 app-root:empty + .loading { /* .loading screen is visible when app is not bootstraped yet, .app-root is empty */
     opacity: 1;
@@ -80,20 +160,6 @@ app-root:empty + .loading { /* .loading screen is visible when app is not bootst
 }
 .page-will-change {
     will-change: opacity;
-}
-.toolbar {
-  background-color: $opencruise-toolbar-background !important;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
-  height:40px !important;
-  min-height: 40px !important;
-  width:100vw;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 2;
 }
 .page-footer-fixed {
     text-align: center;
@@ -143,7 +209,7 @@ h3 {
 .cm-justify div {  /***** this should be in the cruisement component, but problems with dynamically injected elements not getting proper style ****/
     justify-content: flex-end;
 }
-md-option, md-input-container, md-select, md-tab-body, .mat-slide-toggle-content, .md-list-item, .btn-text, label, input, select {
+md-option, md-input-container, md-select, md-tab-body, .mat-slide-toggle-content, .md-list-item, .app-button-text, label, input, select {
     font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif !important;
 }
 md-button-toggle-group {
@@ -165,7 +231,7 @@ md-slide-toggle > label {
 .md-input-ripple, .md-input-underline {
     left: 0;
 }
-.btn-text {
+.app-button-text {
     display: inline;
     font-size: $opencruise-font-size;
     vertical-align: middle;
@@ -173,22 +239,18 @@ md-slide-toggle > label {
 .hidden {
     display: none;
 }
-@media (min-device-width: 800px) {
-
-    .bigScreenHide {
-        display: none !important;
-    }
-    .smallScreenHide {
-        display: initial !important;
-    }
-}
 @media (max-device-width: 500px) {
-    .btn-text {
+    .app-button-text {
         display: none;
     }
     button {
         padding-top:5px;
         padding-bottom: 5px;
+    }
+    .stats-dialog > .md-dialog {
+        min-width: 90% !important;
+        max-width: 90% !important;
+        width: 90% !important;
     }
 }
 
@@ -297,6 +359,7 @@ md-slide-toggle > label {
     max-width: 20vw;
     align-self: center;
     text-align: center;
+    position: relative;
 }
 .gridItemCenter {
     text-align: center;
@@ -319,9 +382,6 @@ md-slide-toggle > label {
 }
 .mat-tab-labels {
     justify-content: center !important;
-}
-.smallScreenHide {
-        display: none;
 }
 input[type="radio"] {
     height: 0.0rem;
@@ -366,25 +426,22 @@ input[type="radio"] {
     0% { font-size: 0.25em; }
     100% {  font-size: 3em; }
 }
-@media (min-device-width: 800px) {
-   /* .gridContainer {
-        grid-template-columns: 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr 1.3fr 0.7fr;
-        /*grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
-        justify-content: stretch;
-    }*/
-    .bigScreenHide {
+
+@media (max-device-width: 500px) {
+    .app-button-text {
         display: none;
+    }
+}
+.smallScreenHide {
+        display: none !important;
+}
+@media (min-device-width: 800px) {
+
+    .bigScreenHide {
+        display: none !important;
     }
     .smallScreenHide {
-        display: initial;
-    }
-    /*.btn, input {
-        height: 6rem;
-    }*/
-}
-@media (max-device-width: 500px) {
-    .btn-text {
-        display: none;
+        display: initial !important;
     }
 }
 

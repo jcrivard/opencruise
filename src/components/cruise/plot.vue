@@ -2,9 +2,9 @@
 <!--*************  PLOT PAGE  ****************************************-->
 <div id="plotPage" class="page" v-if="plot">
     <div class="fade-in-out" >
-        <div class="gridContainer3 gridContainer-split">
-            <h3 class="gridItemRight" for="plotPlotID">PlotID:</h3>
-            <input v-model=plot.plotID class="gridItem gridItemLeft" type="text" id="plotPlotID">
+        <div class="plot-header">
+            <h3 class="plot-item-right" for="plotPlotID">PlotID:</h3>
+            <input v-model=plot.plotID class="plot-item-left" type="text" id="plotPlotID">
         </div>
         <div class="content-main plot-content">
             <div class="gridContainer" >
@@ -31,9 +31,9 @@
             </div>
         </div>
         <div class="page-footer-fixed gridContainer2">
-            <md-button class="md-raised" @click.native="addTree()"><md-icon>add</md-icon><span class="btn-text"> Tree</span></md-button>
+            <button class="btn--raised" @click="addTree()"><i class="material-icons">add</i><span class="app-button-text"> Tree</span></button>
             <router-link :to="{ name: 'cruise', params: { cruiseid: cruiseid }}">
-                <md-button class="md-raised" @click.native="onSavePlot()"><md-icon>save</md-icon><span class="btn-text"> Save</span></md-button>
+                <button class="btn--raised" @click="onSavePlot()"><i class="material-icons">save</i><span class="app-button-text"> Save</span></button>
             </router-link>
         </div>
     </div>
@@ -60,9 +60,9 @@ export default {
         this.cruiseid = parseInt(this.$route.params.cruiseid); //for use in toolbar navigation
         this.plotnum = parseInt(this.$route.params.plotnum);
         this.getPlot();
-    },
-    updated() {
-        //window.componentHandler.upgradeDom(); //for mdl lite
+        this.getPosition().then(position => {
+            this.plot.position = position;
+        });
     },
     methods: {
         getPlot () {
@@ -94,6 +94,27 @@ export default {
             this.cruiseStore.getCruise(this.cruiseid).then(cruise => {
                 this.plot.trees.push(new Tree(cruise.defaultSpecies));
             });
+        },
+        getPosition() {
+            return new Promise((resolve, reject) => {
+                var newPosition = {coords: { accuracy: null, latitude: null, longitude: null }};
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        newPosition.coords.accuracy = position.coords.accuracy;
+                        newPosition.coords.latitude = position.coords.latitude;
+                        newPosition.coords.longitude = position.coords.longitude;
+                        console.log('plot.updatePosition - lat: ' + position.coords.latitude + ', long: ' + position.coords.longitude);
+                        resolve(newPosition);
+                    }, error => {
+                        console.log('plot.updatePosition - unable to get current position.');
+                        resolve(newPosition);
+                    },
+                        {timeout: 50000, maximumAge: 0, enableHighAccuracy: true}
+                    );
+                } else {
+                    resolve(newPosition);
+                }
+            });
         }
     }
 }
@@ -103,12 +124,23 @@ export default {
 .content-main {
     padding-top: 0px;
 }
-.plot-microphone {
-    font-size: 3rem;
-    color: black;
+.plot-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .plot-content {
     margin-top: 0px;
+}
+.plot-item-right {
+    margin-right: 10px;
+}
+.plot-item-left {
+    text-align: center;
+    background-color: white;
+    margin-bottom: 0;
+    padding: 0;
+    border-bottom: none;
 }
 h3 {
     padding-top: 0px;

@@ -1,5 +1,5 @@
 /* eslint-disable */
-class CruiseParms {
+class Cruise {
     constructor () {
         this.cruiseid = null;
         this.cruiseName = 'New Cruise';
@@ -100,10 +100,10 @@ class BAFArray {
 }
 const ConfigParms = {
     configid: 1,
-    cruiseParms: new CruiseParms(),
+    cruiseParms: new Cruise(),
     speciesKey: new SpeciesKey(),
     gradeKey: new GradeKey(),
-    bafArray: new BAFArray()
+    bafArray: new BAFArray(),
 }
 const DBPARMS = {
     name: 'CRUISEDB',
@@ -123,4 +123,4 @@ const DBPARMS = {
         }
     ]
 }
-export { Species, Grade, BAF, ConfigParms, DBPARMS};
+export { Species, Grade, BAF, ConfigParms, DBPARMS, Cruise};

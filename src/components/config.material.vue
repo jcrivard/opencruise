@@ -73,14 +73,14 @@
                     <!--**************  SPECIES TAB ***************** -->
                      <md-tab md-label="Species" md-icon="nature">
                         <div class="gridContainer5 config-margin">
-                            <md-button class="md-raised" @click="addSpecies()"><md-icon>add</md-icon><span class="btn-text"> Add</span></md-button>
+                            <md-button class="md-raised" @click="addSpecies()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></md-button>
                             <label class="gridItem">Species</label>
                             <label class="gridItem">Voice</label>
                             <label class="gridItem">Voice</label>
                             <label class="gridItem">Voice</label>
                         </div>
                         <div v-for="species in speciesKey.species" class="gridContainer5 config-margin" >
-                            <md-button class="md-raised"  @click= "deleteSpecies(species)"><md-icon>delete</md-icon><span class="btn-text"> Delete</span></md-button>
+                            <md-button class="md-raised"  @click= "deleteSpecies(species)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></md-button>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label config-inputs">
                                 <input class="mdl-textfield__input gridInputItem" type='text' v-model="species.key" @change="updateConfig($event.target.value)"  />
                                 <label class="mdl-textfield__label"></label>
@@ -103,11 +103,11 @@
                     <!--**************  GRADES TAB ***************** -->
                     <md-tab md-label="Grades" md-icon="format_list_numbered">
                         <div class="gridContainer2 config-margin">
-                           <md-button class="md-raised" @click="addGrade()"><md-icon>add</md-icon><span class="btn-text"> Add</span></md-button>
+                           <md-button class="md-raised" @click="addGrade()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></md-button>
                             <label class='gridItem'>Grade</label>
                         </div>
                         <div v-for="grade in gradeKey.grades" class="gridContainer2" >
-                           <md-button class="md-raised"  @click="deleteGrade(grade)"><md-icon>delete</md-icon><span class="btn-text"> Delete</span></md-button>
+                           <md-button class="md-raised"  @click="deleteGrade(grade)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></md-button>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label config-inputs">
                                 <input class="mdl-textfield__input gridItemLeft gridInputItem" type='text' v-model="grade.name" @change="updateConfig()" />
                                 <label class="mdl-textfield__label"></label>
@@ -117,11 +117,11 @@
                     <!--**************  BAF TAB ***************** -->
                     <md-tab md-label="BAF" md-icon="crop_5_4">
                         <div class="gridContainer2 config-margin">
-                           <md-button class="md-raised" @click="addBAF()"><md-icon>add</md-icon><span class="btn-text"> Add</span></md-button>
+                           <md-button class="md-raised" @click="addBAF()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></md-button>
                             <label class='gridItem'>BAF</label>
                         </div>
                         <div v-for="bafVal in bafArray.values" class="gridContainer2" >
-                           <md-button class="md-raised"  @click="deleteBAF(bafVal)"><md-icon>delete</md-icon><span class="btn-text"> Delete</span></md-button>
+                           <md-button class="md-raised"  @click="deleteBAF(bafVal)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></md-button>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label config-inputs">
                                 <input class="mdl-textfield__input gridItemLeft gridInputItem" type='text' v-model="bafVal.value"  @change="updateConfig()" />
                                 <label class="mdl-textfield__label"></label>
@@ -271,7 +271,7 @@ export default {
         padding: 0px 8px;
         min-width: 30px;
     }
-    .btn-text {
+    .app-button-text {
         font-size: 1.5rem;
     }
     @media (max-device-width: 500px) {

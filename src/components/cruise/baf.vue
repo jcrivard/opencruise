@@ -1,8 +1,8 @@
 <template>
     <div class="baf-radio">
-        <label  class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" v-for="bafVal in bafArray.values">
-            <input class="mdl-icon-toggle__input" type="radio" name="BAF-Radio" v-bind:id="'BAF' + bafVal.value" v-model="cruiseBAF" v-on:change="sendUpdateCruiseEvent($event)"  v-bind:value="bafVal.value"/>
-            <label v-bind:id="'BAF' + bafVal.value">{{bafVal.value}}</label>
+        <label v-for="bafVal in bafArray.values">
+            <input  type="radio" name="BAF-Radio" v-bind:id="'BAF' + bafVal.value" v-model="cruiseBAF" v-on:change="sendUpdateCruiseEvent($event)"  v-bind:value="bafVal.value"/>
+            <label :for="'BAF' + bafVal.value">{{bafVal.value}}</label>
         </label>
     </div>
 </template>
@@ -34,7 +34,10 @@
 <style scoped lang="scss">
 @import '../../variables';
 input[type="radio"] {
-    height: 0.0rem;
+    height: 0;
+    width: 0;
+    position: absolute;
+    margin: 0;
 }
 input[type="radio"] ~ label {
   background-color: $opencruise-radio-inactive;
@@ -56,6 +59,7 @@ input[type="radio"]:checked ~ label, {
 .baf-radio {
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     border-radius: 5px;
+    display: flex;
 }
 .mdl-icon-toggle {
     line-height: 32px;

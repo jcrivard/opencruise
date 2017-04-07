@@ -11,15 +11,15 @@
                                 <span>{{cruise.date}}</span>
                             </div>
                             <router-link :to="{ name: 'cruise', params: { cruiseid: cruise.cruiseid, cruise: cruise }}">
-                                <md-button class="md-raised app-button gridItem">
-                                    <md-icon>edit</md-icon>
-                                    <span class="btn-text">Edit</span>
-                                </md-button>
+                                <button class="btn--raised">
+                                    <i class="material-icons">edit</i>
+                                    <span class="app-button-text">Edit</span>
+                                </button>
                             </router-link>
-                            <md-button class="md-raised app-button gridItem" @click.native="openDeleteDialog(cruise.cruiseid)">
-                                <md-icon>delete</md-icon>
-                                <span class="btn-text"> Delete</span>
-                            </md-button>
+                            <button class="btn--raised" @click="openDeleteDialog(cruise.cruiseid)">
+                                <i class="material-icons">delete</i>
+                                <span class="app-button-text"> Delete</span>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -33,8 +33,8 @@
                 Press "OK" to confirm cruise deletion of cruiseid: {{cruiseToDelete}}.
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button class="md-raised md-primary" @click.native="deleteCruise()" >OK</md-button>
-            <md-button class="md-raised md-primary" @click.native="closeDeleteDialog()" >Cancel</md-button>
+            <md-button class="btn--raised app-button" @click.native="deleteCruise()" >OK</md-button>
+            <md-button class="btn--raised app-button" @click.native="closeDeleteDialog()" >Cancel</md-button>
         </md-dialog-actions>
     </md-dialog>
    </div>
