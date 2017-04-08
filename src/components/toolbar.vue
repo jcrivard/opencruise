@@ -1,5 +1,5 @@
 <template>
-    <div id="app-toolbar" class="toolbar">
+    <div id="app-toolbar" class="toolbar" v-if="showToolbar">
             <input type="checkbox" id="navMenu" ref="navMenu" class="nav--super-vertical-responsive">
             <label class="app-button" for="navMenu"><i class="material-icons">menu</i></label>
             <div class="nav--super-vertical  no-margin-vertical">
@@ -7,7 +7,7 @@
                     <li>
                         <router-link to="/cruiselist" @click.native="toggleNavMenu" class="navbarItem navbarItemLeft" ><i class="material-icons">home</i><span> Home</span></router-link>
                     </li>
-                    <li v-if="cruiseid">
+                    <li v-if="showCruise">
                         <router-link @click.native="toggleNavMenu" v-bind:to="{name: 'cruise', params: {cruiseid: cruiseid}}"  class="navbarItem navbarItemLeft" ><i class="material-icons">work</i><span> Cruise Info</span></router-link>
                     </li>
                     <li>
@@ -41,9 +41,21 @@ export default {
             cruiseid: null
         }
     },
-    updated() {
-        if(this.$route.params.hasOwnProperty('cruiseid')) {
-             this.cruiseid = this.$route.params.cruiseid;
+    computed: {
+        showCruise: function() {
+            if(this.$route.params.hasOwnProperty('cruiseid')) {
+                this.cruiseid = this.$route.params.cruiseid;
+                return true;
+            } else {
+                return false;
+            }
+        },
+        showToolbar: function() {
+            if(this.$route.fullPath === '/') {
+                return false;
+            } else {
+                return true;
+            }
         }
     },
     methods: {
