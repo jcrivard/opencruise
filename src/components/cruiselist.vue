@@ -27,16 +27,16 @@
             <!--app-delete-dialog [cruiseid]="cruiseToDelete" (deleteCruiseEvent)="onDeleteCruiseEvent($event)"></app-delete-dialog>
             <app-welcome-dialog></app-welcome-dialog-->
         </div>
-    <md-dialog ref="deleteDialog">
-        <md-dialog-title>Delete Cruise</md-dialog-title>
-        <md-dialog-content>
+    <app-dialog ref="deleteDialog" v-bind="{showDialog: showDeleteDialog}">
+        <h3 slot="header">Delete Cruise</h3>
+        <div slot="content">
                 Press "OK" to confirm cruise deletion of cruiseid: {{cruiseToDelete}}.
-        </md-dialog-content>
-        <md-dialog-actions>
-            <md-button class="btn--raised app-button" @click.native="deleteCruise()" >OK</md-button>
-            <md-button class="btn--raised app-button" @click.native="closeDeleteDialog()" >Cancel</md-button>
-        </md-dialog-actions>
-    </md-dialog>
+        </div>
+        <div slot="footer">
+            <button class="btn--raised app-button" @click="deleteCruise" >OK</button>
+            <button class="btn--raised app-button" @click="toggleDeleteDialog" >Cancel</button>
+        </div>
+    </app-dialog>
    </div>
 </template>
 
@@ -48,7 +48,8 @@ export default {
     data () {
         return {
             state: {},
-            cruiseToDelete: null
+            cruiseToDelete: null,
+            showDeleteDialog: false
         }
     },
     mounted () {
@@ -59,10 +60,13 @@ export default {
     methods: {
         openDeleteDialog (cruiseid) {
             this.cruiseToDelete = cruiseid;
-            this.$refs.deleteDialog.open();
+            this.toggleDeleteDialog();
+        },
+        toggleDeleteDialog () {
+            this.showDeleteDialog = !this.showDeleteDialog;
         },
         deleteCruise () {
-            this.closeDeleteDialog();
+            this.toggleDeleteDialog();
             if (this.cruiseToDelete) {
                 this.cruiseStore.deleteCruise(this.cruiseToDelete).then(result => {
                     this.cruiseToDelete = null;

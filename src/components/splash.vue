@@ -6,8 +6,8 @@
                 <img src="static/images/biltmore.png" alt="Biltmore Stick"/>
             </router-link>
             <p>Tap the Biltmore stick to start.</p>
-            <md-button href="https://github.com/jcrivard/opencruise" class="md-raised app-button">Source Code</md-button>
-            <md-button href="https://www.gnu.org/copyleft/gpl.html" class="md-raised app-button">License Info</md-button>
+            <button href="https://github.com/jcrivard/opencruise" class="btn--raised app-button">Source Code</button>
+            <button href="https://www.gnu.org/copyleft/gpl.html" class="btn--raised app-button">License Info</button>
             <p style="font-size: .5em">Copyright (C) 2017 James C. Rivard<br/>
                 This program is free software and comes with ABSOLUTELY NO WARRANTY.<br/>
                 You are welcome to redistribute it under certain conditions.<br/>

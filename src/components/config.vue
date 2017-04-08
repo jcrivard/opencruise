@@ -4,22 +4,22 @@
             <h3>Defaults</h3>
             <div class="content-main" v-if="cruiseParms">
                 <div class="config-header">
-                    <div class="gridItem config-header-item">
+                    <button ref="cruiseTab" @click="setFocus('cruiseTab')" class="gridItem config-header-item">
                         <input type="radio" name="tabs" id="cruise-tab" value="cruise" v-model="activeTab">
                         <label for="cruise-tab">Cruise</label>
-                    </div>
-                    <div class="gridItem config-header-item">
+                    </button>
+                    <button ref="speciesTab" @click="setFocus('speciesTab')" class="gridItem config-header-item">
                         <input type="radio" name="tabs" id="species-tab" value="species" v-model="activeTab">
                         <label for="species-tab">Species</label>
-                    </div>
-                    <div class="gridItem config-header-item">
+                    </button>
+                    <button ref="gradesTab" @click="setFocus('gradesTab')" class="gridItem config-header-item">
                         <input type="radio" name="tabs" id="grades-tab" value="grades" v-model="activeTab">
                         <label for="grades-tab">Grades</label>
-                    </div>
-                    <div class="gridItem config-header-item">
+                    </button>
+                    <button ref="bafTab" @click="setFocus('bafTab')" class="gridItem config-header-item">
                         <input type="radio" name="tabs" id="baf-tab" value="baf" v-model="activeTab">
                         <label for="baf-tab">BAF</label>
-                    </div>
+                    </button>
                 </div>
                 <div class="config-content">
                     <!--**************  CRUISE TAB ***************** -->
@@ -27,12 +27,12 @@
                             <div class="tab-content" id="cruise-panel" ref="cruise-panel" v-if="activeTab=='cruise'">
                                 <div class="gridContainer1 config-margin">
                                     <div class="config-input-fixed">
-                                        <input required type='text' v-model="cruiseParms.cruiseName" @change="updateConfig()" />
-                                        <label class="app-input-label">Project Name</label>
-                                    </div>
-                                    <div class="config-input-fixed">
                                         <input required type='text' id="config-people" v-model="cruiseParms.people" @change="updateConfig()"/>
                                         <label class="app-input-label" for="config-people">Forester Name</label>
+                                    </div>
+                                    <div class="config-input-fixed">
+                                        <input required type='text' v-model="cruiseParms.cruiseName" @change="updateConfig()" />
+                                        <label class="app-input-label">Project Name</label>
                                     </div>
                                     <div class="config-input-fixed">
                                         <label class="app-select-label" for="config-defSpecies">Default Species</label>
@@ -45,47 +45,47 @@
                                 </div>
                                 <h4>Data Fields</h4>
                                 <div class="gridContainer3Equal">
-                                    <div class="config-field-center config-input-fixed">
+                                    <div class="config-input-short config-input-fixed">
                                         <input required type='text' v-model="cruiseParms.field2.name" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Name</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
-                                        <input required type='number' v-model="cruiseParms.field2.min" @change="updateConfig($event.target.value)" />
+                                    <div class="config-input-short config-input-fixed">
+                                        <input required type='number' v-model.number="cruiseParms.field2.min" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Min</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
-                                        <input required type='number' v-model="cruiseParms.field2.max" @change="updateConfig($event.target.value)" />
+                                    <div class="config-input-short config-input-fixed">
+                                        <input required type='number' v-model.number="cruiseParms.field2.max" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Max</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
+                                    <div class="config-input-short config-input-fixed">
                                         <input required type='text'  v-model="cruiseParms.field3.name" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Name</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
-                                        <input required type='number' v-model="cruiseParms.field3.min" @change="updateConfig($event.target.value)" />
+                                    <div class="config-input-short config-input-fixed">
+                                        <input required type='number' v-model.number="cruiseParms.field3.min" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Min</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
-                                        <input required type='number' v-model="cruiseParms.field3.max" @change="updateConfig($event.target.value)" />
+                                    <div class="config-input-short config-input-fixed">
+                                        <input required type='number' v-model.number="cruiseParms.field3.max" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Max</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
+                                    <div class="config-input-short config-input-fixed">
                                         <input required type='text' v-model="cruiseParms.field4.name" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Name</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
-                                        <input required  type='number' v-model="cruiseParms.field4.min" @change="updateConfig($event.target.value)" />
+                                    <div class="config-input-short config-input-fixed">
+                                        <input required  type='number' v-model.number="cruiseParms.field4.min" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Min</label>
                                     </div>
-                                    <div class="config-field-center config-input-fixed">
-                                        <input required  type='number' v-model="cruiseParms.field4.max" @change="updateConfig($event.target.value)" />
+                                    <div class="config-input-short config-input-fixed">
+                                        <input required  type='number' v-model.number="cruiseParms.field4.max" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Max</label>
                                     </div>
                                 </div>
-                                <div class="gridContainer1">
+                                <div class="gridContainer1" style="margin-top:10px;">
                                     <div class="gridItem config-input-fixed">
                                         <label class="app-input-label">Min {{cruiseParms.field2.name}} for {{cruiseParms.field3.name}}:</label>
-                                        <input required type='number' v-model="cruiseParms.field3.field2Min" @change="updateConfig($event.target.value)" />
+                                        <input required type='number' v-model.number="cruiseParms.field3.field2Min" @change="updateConfig($event.target.value)" />
                                     </div>
                                 </div>
 
@@ -94,28 +94,13 @@
                         <!--**************  SPECIES TAB ***************** -->
                     <transition name="fade">
                         <div class="tab-content" id="species-panel" ref="species-panel" v-if="activeTab=='species'">
-                            <div class="gridContainer5 config-margin">
+                            <div class="gridContainer2 config-margin">
                                 <button class="btn--raised" @click="addSpecies()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></button>
                                 <label class="gridItem">Species</label>
-                                <label class="gridItem">Voice</label>
-                                <label class="gridItem">Voice</label>
-                                <label class="gridItem">Voice</label>
                                 <template v-for="species in speciesKey.species" class="gridContainer5 config-margin" >
                                     <button class="btn--raised"  @click= "deleteSpecies(species)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></button>
                                     <div class="config-inputs">
                                         <input required class="gridInputItem" type='text' v-model="species.key" @change="updateConfig($event.target.value)"  />
-
-                                    </div>
-                                    <div class="config-inputs">
-                                        <input required class="gridInputItem" type='text' v-model="species.names[0]" @change="updateConfig($event.target.value)"  />
-
-                                    </div>
-                                    <div class="config-inputs">
-                                        <input required class="gridInputItem" type='text' v-model="species.names[1]" @change="updateConfig($event.target.value)"  />
-
-                                    </div>
-                                    <div class="config-inputs">
-                                        <input required class="gridInputItem" type='text' v-model="species.names[2]" @change="updateConfig($event.target.value)" />
 
                                     </div>
                                 </template>
@@ -148,7 +133,7 @@
                             <div v-for="bafVal in bafArray.values" class="gridContainer2" >
                             <button class="btn--raised"  @click="deleteBAF(bafVal)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></button>
                                 <div class="config-inputs">
-                                    <input required class="gridItemLeft gridInputItem" type='text' v-model="bafVal.value"  @change="updateConfig()" />
+                                    <input required class="gridItemLeft gridInputItem" type='text' v-model.number="bafVal.value"  @change="updateConfig()" />
                                 </div>
                             </div>
                         </div>
@@ -177,6 +162,11 @@ export default {
         this.loadConfig();
     },
     methods: {
+        setFocus(tab) {
+            setTimeout(() => {
+                this.$refs[tab].focus();
+            }, 100);
+        },
         loadConfig () {
             if (this.cruiseStore.isOpen) {
                 this.speciesKey = this.cruiseStore.state.config.speciesKey;
@@ -264,26 +254,63 @@ export default {
         left: 0;
         width: 100%;
         background-color: white;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        overflow-x: hidden;
     }
     .config-input-fixed {
         position: relative;
     }
     .config-header-item {
-        padding-top: 15px;
-        padding-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: inherit;
+        background-color: inherit;
+        padding:0;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        will-change: background-position;
+        transition: all .3s cubic-bezier(0.64, 0.09, 0.08, 1);
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #3f51b5 96%);
+        background-position: -100px 0;
+        background-size: 100px 100%;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        outline: none;
+
     }
-    .config-field-center {
-        text-align-last:center;
-        text-align:center;
+    .config-header-item:focus, .config-header-item:hover, .config-header-item:active  {
+        background-color:#ddd;
+        background-position: 0 0;
+        border-bottom-color: #3f51b5;
+    }
+    .config-header-item > label {
+        width: 100%;
+        height: 100%;
+        padding: 10px 10px 5px 10px;
+    }
+    .config-input-short {
+        max-width: 30vw;
+        width: 100px;
+        overflow: hidden;
     }
     .gridContainer2 {
         justify-content: center;
         grid-template-columns: .15fr .25fr;
     }
+    .gridContainer3Equal {
+        max-width: 400px;
+        margin: auto;
+    }
     .gridContainer5 {
         justify-items: center;
         padding-left: 5px;
 
+    }
+    .config-inputs > input {
+        margin: auto;
+        width: 100px;
     }
     .gridContainer5::first-line {
         border-bottom: 1px solid #ddd;
@@ -291,15 +318,33 @@ export default {
     .config-input-fixed > input {
         max-width: 30vw;
     }
+    .config-input-short > input {
+        width: 100px;
+        margin: 0 10px 5px 10px;
+    }
+    .config-input-short > label {
+        left: 10px;
+    }
     input[type="radio"] {
         width: 0;
+        margin: 0;
     }
     @media (max-device-width: 500px) {
-        .config-input-fixed {
-            width: 80%;
+        .config-input-fixed > input {
+            max-width: 80%;
         }
         .gridContainer2 {
             grid-template-columns: .25fr .35fr;
+        }
+        .config-inputs  {
+            max-width: 100%;
+        }
+    }
+    @media (max-device-width: 350px) {
+        .config-header-item > label {
+            width: 100%;
+            height: 100%;
+            padding: 10px 5px 5px 5px;
         }
     }
 </style>

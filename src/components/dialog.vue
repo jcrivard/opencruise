@@ -14,7 +14,6 @@
                         Dialog Content
                     </slot>
                 </div>
-                <slot name="footer">
                 <div class="footer">
                     <slot name="footer">
                         <button @click="sendCloseDialogEvent" class="btn--raised app-button">
@@ -57,7 +56,7 @@ export default {
         padding-left: 10px;
         padding-right: 10px;
         padding-bottom: 15px;
-        max-height: 60vh;
+        max-height: 70vh;
         overflow-y: scroll;
         height: auto;
     }
@@ -96,7 +95,7 @@ export default {
         background-color: white;
         min-width: 280px;
         max-width: 80%;
-        max-height: 80%;
+        max-height: 85%;
         min-height: 140px;
         display: flex;
         -ms-flex-flow: column;

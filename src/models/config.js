@@ -1,5 +1,34 @@
 /* eslint-disable */
 class Cruise {
+    constructor (parms) {
+        this.cruiseid = null;
+        this.cruiseName = parms.cruiseName;
+        this.people = parms.people;
+        this.date = new Date().toJSON().slice(0, 10);
+        this.BAF = parms.BAF;
+        this.multiProducts = false;
+        this.defaultSpecies = parms.defaultSpecies;
+        this.field2 = {
+            name: parms.field2.name,
+            min: parms.field2.min,
+            max: parms.field2.max
+        };
+        this.field3 = {
+            name: parms.field3.name,
+            min: parms.field3.min,
+            max: parms.field3.max,
+            field2Min: parms.field3.field2Min  //field2min - min value for field2 for field3 to be > 0; ie. min DBH of 11 for sawlogs
+        };
+        this.field4 = {
+            name: parms.field4.name,
+            min: parms.field4.min,
+            max: parms.field4.max
+        };
+        this.plots = [];
+    }
+}
+
+class DefaultCruise {
     constructor () {
         this.cruiseid = null;
         this.cruiseName = 'New Cruise';
@@ -100,7 +129,7 @@ class BAFArray {
 }
 const ConfigParms = {
     configid: 1,
-    cruiseParms: new Cruise(),
+    cruiseParms: new DefaultCruise(),
     speciesKey: new SpeciesKey(),
     gradeKey: new GradeKey(),
     bafArray: new BAFArray(),

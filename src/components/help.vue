@@ -2,12 +2,12 @@
 <div id="helpPage" class="page">
     <h3>Help</h3>
     <div class="content-main">
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group1')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group1')">
             <i class="material-icons">format_list_numbered</i>
             <span>Support and Installation</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group slide-up" role="group" ref="group1">
+            <div class="help-collapsible-group slide-up" role="group" ref="group1">
                 <div>
                     <h4>Mobile Support</h4>
                     <ul>
@@ -34,12 +34,12 @@
                 </div>
             </div>
         </div>
-        <div class=" mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group2')">
+        <div class=" help-collapsible" role="button" @click="getAnimation('group2')">
             <i class="material-icons">build</i>
             <span>Configuration</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group slide-up" role="group" ref="group2">
+            <div class="help-collapsible-group slide-up" role="group" ref="group2">
                 <div>
                     <h4>Cruise Paramaters</h4>
                     <ul id="helpConfig" class="collapse help-left">
@@ -62,12 +62,12 @@
                 </div>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group3')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group3')">
             <i class="material-icons">dashboard</i>
             <span>Cruise</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group  slide-up" role="group" ref="group3">
+            <div class="help-collapsible-group  slide-up" role="group" ref="group3">
                 <div>
                     <h4>General</h4>
                     <ul id="helpCreate" class="collapse help-left">
@@ -90,12 +90,12 @@
                 </div>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group4')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group4')">
             <i class="material-icons">gps_fixed</i>
             <span>Plot Entry</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group  slide-up" role="group" ref="group4">
+            <div class="help-collapsible-group  slide-up" role="group" ref="group4">
                 <ul id="helpPlot" class="collapse">
                     <li>Tap "New Plot"</li>
                     <li>Update plotid or use as comments field.  This field can be used to record any amount of
@@ -106,12 +106,12 @@
                 </ul>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group5')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group5')">
             <i class="material-icons">view_headline</i>
             <span>Segments</span>
         </div>
         <div class="help-collapsible-container">
-                <div class="mdlext-collapsible-group  slide-up" role="group" ref="group5">
+                <div class="help-collapsible-group  slide-up" role="group" ref="group5">
                 <ul id="helpProduct" class="collapse">
                     <li>Click "Fld" on the cruise page and change the 2nd field to "Pulp" if you want to
                     record pulp trees without using the segment entry.</li>
@@ -120,12 +120,12 @@
                 </ul>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group6')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group6')">
             <i class="material-icons">gps_not_fixed</i>
             <span>Edit Plots</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group  slide-up" role="group" ref="group6">
+            <div class="help-collapsible-group  slide-up" role="group" ref="group6">
                 <ul id="helpEditPlot" class="collapse">
                     <li>Tap "Edit Plots".</li>
                     <li>Choose Plot to edit from popup.</li>
@@ -135,12 +135,12 @@
                 </ul>
             </div>
         </div>
-        <div class=" mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group7')">
+        <div class=" help-collapsible" role="button" @click="getAnimation('group7')">
             <i class="material-icons">build</i>
             <span>Statistics</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group slide-up" role="group" ref="group7">
+            <div class="help-collapsible-group slide-up" role="group" ref="group7">
                 <div>
                     <h4>Statisticss</h4>
                     <ul id="helpConfig" class="collapse help-left">
@@ -163,23 +163,23 @@
                 </div>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group8')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group8')">
             <i class="material-icons">file_download</i>
             <span>Download</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group  slide-up" role="group" ref="group8">
+            <div class="help-collapsible-group  slide-up" role="group" ref="group8">
                 <ul id="helpDownload" class="collapse">
                     <li>Tap "Download" in the pullout menu.</li>
                 </ul>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group9')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group9')">
             <i class="material-icons">airplanemode_active</i>
             <span>Offline Use</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group  slide-up" role="group" ref="group9">
+            <div class="help-collapsible-group  slide-up" role="group" ref="group9">
                 <ul id="helpOffline" class="collapse">
                     <li>Visit website, or open application from home screen (see Browser Notes) when you have network access.</li>
                     <li>Go into "Airplane Mode" to save battery.</li>
@@ -187,12 +187,12 @@
                 </ul>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group10')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group10')">
             <i class="material-icons">note</i>
             <span>Output File Format</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group slide-up" role="group" ref="group10">
+            <div class="help-collapsible-group slide-up" role="group" ref="group10">
                 <ul id="helpFileFormat" class="collapse">
                     <li>The output file is a comma delimited file that should be directly readable by Excel, LibreOffice, OpenOffice or similar products.</li>
                     <li>When opening the file, you may need to set the delimeter (Separator) to a comma only.  Uncheck options for separating by Tab, Semicolon, etc...</li>
@@ -212,12 +212,12 @@
                 </ul>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group11')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group11')">
             <i class="material-icons">attachment</i>
             <span>Release Notes</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group  slide-up" role="group" ref="group11">
+            <div class="help-collapsible-group  slide-up" role="group" ref="group11">
                 <ul id="helpRelease" class="collapse">
                     <li>Version 1.3.2
                         <ul>
@@ -276,12 +276,12 @@
                 </ul>
             </div>
         </div>
-        <div class="mdlext-js-collapsible mdlext-collapsible" role="button" @click="getAnimation('group12')">
+        <div class="help-collapsible" role="button" @click="getAnimation('group12')">
             <i class="material-icons">nature_people</i>
             <span>About</span>
         </div>
         <div class="help-collapsible-container">
-            <div class="mdlext-collapsible-group  slide-up" role="group" ref="group12">
+            <div class="help-collapsible-group  slide-up" role="group" ref="group12">
                 <ul id="helpAbout" class="collapse">
                     <li>Version: 1.3.1</li>
                     <li>OpenCruise is open source and licensed under the :
@@ -353,7 +353,8 @@ export default {
     .help-left > li {
         text-align: left;
     }
-    @mixin mdlext-visually-hidden() {
+    /* credit to https://github.com/leifoolsen/mdl-ext */
+    @mixin help-visually-hidden() {
         border: 0;
         clip: rect(0 0 0 0);
         height: 1px;
@@ -363,7 +364,7 @@ export default {
         position: absolute;
         width: 1px;
     }
-    .mdlext-collapsible {
+    .help-collapsible {
         box-sizing: border-box;
         cursor: pointer;
         display: flex;
@@ -371,11 +372,11 @@ export default {
         justify-content: center;
         padding-bottom: 10px;
     }
-    .mdlext-collapsible-group,
-    .mdlext-collapsible-region {
+    .help-collapsible-group,
+    .help-collapsible-region {
         box-sizing: border-box;
         &[hidden] {
-            @include mdlext-visually-hidden;
+            @include help-visually-hidden;
             pointer-events: none;
         }
     }

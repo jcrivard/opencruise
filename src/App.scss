@@ -38,12 +38,51 @@ a * {
 
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
+}
+html {
+  font-size: $opencruise-base-font-size;
+}
+body, input, select, ul, ol {
+    font-size: $opencruise-font-size !important;
+}
+body {
+    background-color: $opencruise-app-background !important;
+    font-family: $opencruise-font-family !important;
+    line-height: $opencruise-line-height;
+    color: #000000;
+    margin:0;
+    height: 100%;
+}
+ul, ol {
+    line-height: $opencruise-line-height;
+}
+h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 15px;
+    text-align: center;
+    font-family: inherit;
+    font-weight: bold;
+}
+h3 {
+    font-size: 3rem !important;
 }
 input[type=number] {
     -moz-appearance: textfield;
+}
+input[type="text"] ~ .app-input-label, input[type="number"] ~ .app-input-label {
+    position: absolute;
+    top: 14px;
+    font-size: $opencruise-font-size;
+    color: rgba(0,0,0,0.541176);
+    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+}
+input[type="text"]:focus ~ .app-input-label, input[type="text"]:valid ~ .app-input-label,
+input[type="number"]:focus ~ .app-input-label, input[type="number"]:valid ~ .app-input-label {
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    color: $opencruise-label;
 }
 .app-select-label {
     position: absolute;
@@ -71,72 +110,11 @@ input[type=number] {
     background-position: 0 0;
     outline: none;
 }
-input[type="text"] ~ .app-input-label, input[type="number"] ~ .app-input-label {
-    position: absolute;
-    top: 14px;
-    font-size: $opencruise-font-size;
-    color: rgba(0,0,0,0.541176);
-    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
-}
-input[type="text"]:focus ~ .app-input-label, input[type="text"]:valid ~ .app-input-label,
-input[type="number"]:focus ~ .app-input-label, input[type="number"]:valid ~ .app-input-label {
-    position: absolute;
-    top: 0;
-    font-size: 14px;
-    color: $opencruise-label;
-}
+
 .app-button {
     background-color: $opencruise-accent !important;
     color: black !important;
     text-transform: none;
-}
-.md-sidenav-content {
-    width: 150px !important;
-    bottom: initial !important;
-    top: 44px !important;
-}
- .md-backdrop {
-    height: 100vh !important;
-    left: -100vw !important;
-}
- body, input, select, p {
-    font-size: $opencruise-font-size !important;
-}
-.md-button--fab {
-    height: 40px;
-    width: 40px;
-    min-width: initial;
-}
-.md-dialog {
-    width: fit-content;
-    position: absolute !important;
-    top: 20px;
-}
-.md-theme-default.md-switch.md-checked.md-primary .md-switch-thumb {
-    background-color: $opencruise-radio-active !important;
-}
-.md-theme-default.md-switch.md-checked.md-primary .md-switch-container {
-    background-color:$opencruise-switch-container !important;
-}
-.mdl-textfield, .mdlext-selectfield, .mdl-textfield__input, label {
-    width: initial;
-    color: black;
-}
-.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
-    color: #3f51b5;
-    font-size: 1.5rem;
-    top: 4px;
-    visibility: visible
-}
-.mdlext-selectfield--floating-label > label {
-    font-size: 1.5rem !important;
-    color: #3f51b5;
-}
-.pl-item > div {
-    justify-content: center !important;
-}
-.fields-dialog > div {
-    max-height: 90%;
 }
 app-root:empty + .loading { /* .loading screen is visible when app is not bootstraped yet, .app-root is empty */
     opacity: 1;
@@ -171,35 +149,7 @@ app-root:empty + .loading { /* .loading screen is visible when app is not bootst
     padding-top: 2px;
     padding-bottom: 2px;
 }
-html {
-  font-size: $opencruise-base-font-size;
-}
-body {
-    background-color: $opencruise-app-background !important;
-    font-family: $opencruise-font-family !important;
-    line-height: $opencruise-line-height;
-    color: #000000;
-    margin:0;
-    height: 100%;
-}
-ul, ol {
-    font-size: $opencruise-font-size;
-    line-height: $opencruise-line-height;
-}
-input {
-  font-size: $opencruise-font-size;
-}
-h1, h2, h3, h4 {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 15px;
-    text-align: center;
-    font-family: inherit;
-    font-weight: bold;
-}
-h3 {
-    font-size: 3rem !important;
-}
+
 [md-fab], [md-mini-fab] {
   transform: none !important;
 }

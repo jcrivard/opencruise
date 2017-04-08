@@ -38,6 +38,12 @@
                     <input required class="gridItem segment-input" type="number" v-model.number="segment.length">
                 </div>
             </div>
+            <div slot="footer">
+                <button @click="toggleSegmentsDialog" class="btn--raised app-button tree-button-done">
+                    <i class="material-icons">done</i>
+                    <span class="app-button-text">Done</span>
+                </button>
+            </div>
         </app-dialog>
     </div>
 </template>
@@ -114,6 +120,9 @@ div > button {
     margin: 0 0 5px 0;
     padding: 0 0 0 0;
     justify-self: center;
+}
+.tree-button-done {
+    padding: 5px;
 }
 .segment-input {
     /*font-size: inherit;*/

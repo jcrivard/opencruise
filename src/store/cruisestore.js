@@ -38,7 +38,7 @@ class CruiseStore  {
             var parms = Object.assign({}, this.state.config.cruiseParms);
             var self = this;
             var processCruise = function (results) { //resultSet is array, should only be one item
-                var createdCruise = new Cruise();
+                var createdCruise = new Cruise(parms);
                 createdCruise.cruiseid = results[0].insertId;
                 self.state.cruiseList.unshift(createdCruise);
                 console.log('Cruise created.');

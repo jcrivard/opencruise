@@ -1,6 +1,5 @@
 <template>
     <div id="app-toolbar" class="toolbar">
-
             <input type="checkbox" id="navMenu" ref="navMenu" class="nav--super-vertical-responsive">
             <label class="app-button" for="navMenu"><i class="material-icons">menu</i></label>
             <div class="nav--super-vertical  no-margin-vertical">
@@ -42,7 +41,7 @@ export default {
             cruiseid: null
         }
     },
-    mounted() {
+    updated() {
         if(this.$route.params.hasOwnProperty('cruiseid')) {
              this.cruiseid = this.$route.params.cruiseid;
         }
