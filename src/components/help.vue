@@ -43,11 +43,11 @@
                 <div>
                     <h4>Cruise Paramaters</h4>
                     <ul id="helpConfig" class="collapse help-left">
-                        <li><span class="help-item">Main Parameters -</span> The first tab on the config page allows you to enter the defaults used creating a new cruise.</li>
+                        <li><span class="help-item">Main Parameters -</span> The first tab on the config page allows you to enter the defaults used to create a new cruise.</li>
                         <li><span class="help-item">Default Data Fields -</span> these are the global defaults and can be changed later for each cruise.
                             The field names are the title(s) on the plot entry screen.
-                            Min and max values are used during plot entry to control field colors (red is out of range, green
-                            is in range).  Min field2 for field3 is intended to be a limit check for sawtimber.  Assuming field2
+                            Min and max values are used during plot entry to control field colors (red is out of range).  Min field2 for field3
+                             is intended to be a limit check for sawtimber.  Assuming field2
                             is DBH and field3 is a measure of Sawtimber, this value indicates the minimum diameter that a tree
                             can be to have sawtimber.  If a tree with a smaller diameter is entered and the user enters a value
                             greater than zero for sawtimber, the sawtimber field will turn red.</li>
@@ -70,7 +70,7 @@
             <div class="help-collapsible-group  slide-up" role="group" ref="group3">
                 <div>
                     <h4>General</h4>
-                    <ul id="helpCreate" class="collapse help-left">
+                    <ul class="collapse help-left">
                         <li><span class="help-item">New Cruise -</span> to create a new cruise, select "New Cruise" from the
                         navigation menu.  The new cruise will be added to the "Home" page (where you see a list of cruises).  If you
                         create a new cruise from any page other than the "Home" page, you will need to navigate to Home to open it.
@@ -78,14 +78,13 @@
                         <li><span class="help-item">Main parameters -</span> should be self explanatory with the exception of default species.  Default species
                         is used to prepopulate the species field when entering plot data.  This is especially handy if your cruising a stand dominated
                         by one species.</li>
+                        <li><span class="help-item">Segments -</span> by default each plot only has four fields for entering data.  By turning "Segments"
+                        on, you will have 14 fields available.  This is primarily intended for recording multiple products/grades for each tree, but
+                        you can use it in other ways as well. </li>
                         <li><span class="help-item">Cruise Menu -</span> in the upper right of the screen, the three dot menu will allow you to
                         perform actions specific to the active cruise.</li>
-                    </ul>
-                    <h4>Fields</h4>
-                    <ul class="help-left">
-                        <li>
-
-                        </li>
+                        <li><span class="help-item">Fields -</span> select "Fields" from the cruise menu to change field names along with minimum and maximum
+                        values for each field.</li>
                     </ul>
                 </div>
             </div>
@@ -96,28 +95,18 @@
         </div>
         <div class="help-collapsible-container">
             <div class="help-collapsible-group  slide-up" role="group" ref="group4">
-                <ul id="helpPlot" class="collapse">
-                    <li>Tap "New Plot"</li>
-                    <li>Update plotid or use as comments field.  This field can be used to record any amount of
-                    text as long as it does not contain a comma.  Covertype, habitat type, notes, etc...</li>
-                    <li>Add trees by tapping plus sign</li>
-                    <li>Tap "Save" when done</li>
-                    <li>Delete a tree by changing the 2nd field (ie. DBH) to blank or zero.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="help-collapsible" role="button" @click="getAnimation('group5')">
-            <i class="material-icons">view_headline</i>
-            <span>Segments</span>
-        </div>
-        <div class="help-collapsible-container">
-                <div class="help-collapsible-group  slide-up" role="group" ref="group5">
-                <ul id="helpProduct" class="collapse">
-                    <li>Click "Fld" on the cruise page and change the 2nd field to "Pulp" if you want to
-                    record pulp trees without using the segment entry.</li>
-                    <li>Segments for sawlog trees can be entered using the "Saw" button.</li>
-                    <li>Products/Grades are global and can be modified in the config screen.</li>
-                </ul>
+                <ul class="collapse help-left">
+                        <li><span class="help-item">New Plot -</span> select "New Plot" from the cruise menu to begin plot entry.
+                        </li>
+                        <li><span class="help-item">PlotID -</span> a generic text field that can be used to record cover type, unique features, or
+                        anything else notable about the plot.  The contents of this field, along with the plot number, are displayed in the plot
+                        list screen.</li>
+                        <li><span class="help-item">Data Entry -</span> use the on screen keyboard to enter data.  You can generally use the "Next"
+                        key to tab to the next field.  All non dropdown fields are numeric only. </li>
+                        <li><span class="help-item">More trees -</span> press the "+ Tree" button to add more trees.</li>
+                        <li><span class="help-item">Save -</span> you <span style="color: red">MUST press SAVE</span> to save the plot data.  If
+                        you fail to do this the plot WILL NOT be saved to the database!!!.</li>
+                    </ul>
             </div>
         </div>
         <div class="help-collapsible" role="button" @click="getAnimation('group6')">
@@ -126,12 +115,8 @@
         </div>
         <div class="help-collapsible-container">
             <div class="help-collapsible-group  slide-up" role="group" ref="group6">
-                <ul id="helpEditPlot" class="collapse">
-                    <li>Tap "Edit Plots".</li>
-                    <li>Choose Plot to edit from popup.</li>
-                    <li>Change tree records and add new trees as needed.</li>
-                    <li>To delete a tree record, change 2nd field (ie. DBH) to zero.</li>
-                    <li>Tap "Update" when done.</li>
+                <ul class="collapse">
+                    Tap "Plot List" in the cruise menu then tap the plot you want to edit. Make sure to press SAVE when done!
                 </ul>
             </div>
         </div>
