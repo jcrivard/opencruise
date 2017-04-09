@@ -120,13 +120,17 @@
 		transform: translateX(0);
 	}
 	.nav--super-vertical-responsive + label {
-		display: block;
+		display: flex;
+        justify-content: center;
+        align-items: center;
 		position: fixed;
 		z-index: 8;
 		top: 2px;
 		left: 5px;
 		padding: $space-small;
 		border-radius: 50%;
+        height: 36px;
+        width: 36px;
 		box-shadow: $box-shadow-card;
 		cursor: pointer;
 		transition: background 0.3s $cubic, color 0.3s $cubic;

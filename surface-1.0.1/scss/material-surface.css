@@ -306,13 +306,17 @@ header {
   .nav--super-vertical-right {
     transform: translateX(0); }
   .nav--super-vertical-responsive + label {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     z-index: 8;
     top: 2px;
     left: 5px;
     padding: 5px;
     border-radius: 50%;
+    height: 36px;
+    width: 36px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.09);
     cursor: pointer;
     transition: background 0.3s cubic-bezier(0.64, 0.09, 0.08, 1), color 0.3s cubic-bezier(0.64, 0.09, 0.08, 1); }
