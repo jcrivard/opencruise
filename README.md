@@ -7,7 +7,7 @@ Installation instructions coming soon...
 ## Major/Breaking Changes
 
 1. Dropped support for IOS.<sup>1</sup>
-2. Chrome 57+ or Firefox 52+ required. <sup>2</sup>
+2. Chrome 57+ or Firefox 53+ required. <sup>2</sup>
 3. Removed speech input support. <sup>3</sup>
 
 ## Enhancements
