@@ -12,7 +12,7 @@ Installation instructions coming soon...
 
 ## Enhancements
 
-1. Completely rewritten, fully responsive user interface.
+1. Completely rewritten, fully responsive user interface.<sup>4</sup>
 2. Enhanced statistics section with more options to include/exclude species and adjust confidence levels/intervals.
 3. Grading of segments section enhanced for screens > 800 pixels wide (ie. tablets).
 4. User customizable BAF values in config section.
@@ -24,6 +24,7 @@ into the woods.
 2. Due to support for CSS grid.
 3. I was hoping that browser support for custom grammars would have been usable by now, but that is not the case.  I may
 add this feature back in if the situation changes.
+4. Replaced jquery mobile with custom css, including a modified version of surface from: [https://github.com/mildrenben/surface](https://github.com/mildrenben/surface); removed jquery and knockout.js; added vue.js.
 
 ## Build Setup
 
