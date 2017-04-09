@@ -1,40 +1,40 @@
 <template>
     <div>
-        <div class="gridContainer3Equal">
+        <div class="app-grid-3-equal">
             <label>Name</label>
             <label>Min</label>
             <label>Max</label>
             <div>
-                <input required type="text" required class="gridInputItem" ref='field2Name' v-model="cruise.field2.name" @change="sendUpdateFieldsEvent()" />
+                <input required type="text" required class="app-grid-item-input" ref='field2Name' v-model="cruise.field2.name" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="number" v-model.number="cruise.field2.min" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="number" v-model.number="cruise.field2.min" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="number" v-model.number="cruise.field2.max" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="number" v-model.number="cruise.field2.max" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="text" ref='field3Name' v-model="cruise.field3.name" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="text" ref='field3Name' v-model="cruise.field3.name" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="number" v-model.number="cruise.field3.min" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="number" v-model.number="cruise.field3.min" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="number" v-model.number="cruise.field3.max" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="number" v-model.number="cruise.field3.max" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="text" v-model="cruise.field4.name" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="text" v-model="cruise.field4.name" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="number" v-model.number="cruise.field4.min" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="number" v-model.number="cruise.field4.min" @change="sendUpdateFieldsEvent()" />
             </div>
             <div>
-                <input required class="gridInputItem" type="number" v-model.number="cruise.field4.max" @change="sendUpdateFieldsEvent()" />
+                <input required class="app-grid-item-input" type="number" v-model.number="cruise.field4.max" @change="sendUpdateFieldsEvent()" />
             </div>
         </div>
         <div class="field-container">
             <label>Min {{cruise.field2.name}} for {{cruise.field3.name}}:</label>
-            <input class="gridInputItem" type="number" v-model.number="cruise.field3.field2Min" @change="sendUpdateFieldsEvent()" />
+            <input class="app-grid-item-input" type="number" v-model.number="cruise.field3.field2Min" @change="sendUpdateFieldsEvent()" />
         </div>
     </div>
 </template>
@@ -56,7 +56,7 @@ export default {
         display: flex;
         align-items: center;
     }
-    .gridInputItem {
+    .app-grid-item-input {
         width: 100px;
         margin-bottom: 0;
         padding-top: 10px;

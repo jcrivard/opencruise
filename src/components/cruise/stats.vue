@@ -5,7 +5,7 @@
             <span class="stats-Item">Total Trees:  {{stats.totalTrees}}</span>
             <span class="stats-Item">Avg BA/Acre: {{stats.avgBA}}</span>
         </div>
-        <div class="gridContainer2">
+        <div class="app-grid-2">
             <div class="stats-container" style="text-align: center">
                 <label>Include Species</label>
                 <select multiple v-model="includedSpecies" placeholder="Include" v-on:change="computeStats('INCLUDE-SPECIES')">
@@ -23,7 +23,7 @@
                 </select>
             </div>
         </div>
-        <div class="gridContainer2">
+        <div class="app-grid-2">
             <div class="stats-container" v-for="(val, itemNum) in confidenceVals">
                 <div class="stats-input-container">
                     <input class="stats-input" required v-bind:id="'Interval' + itemNum" type="number" v-model="val.CI" v-on:change="computeStats()"/>
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="gridContainer2">
+        <div class="app-grid-2">
             <div class="stats-container" style="text-align: center" v-for="cv in stats.confidenceValues">
                 <div >
                     <div> {{cv.plotsRequired}} plots required for</div>
@@ -192,7 +192,7 @@
         margin-left: 15px;
         margin-right: 15px;
     }
-    .gridContainer2 {
+    .app-grid-2 {
         grid-template-columns: 0.75fr .75fr;
     }
     .stats-input-container {

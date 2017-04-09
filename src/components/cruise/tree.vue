@@ -1,41 +1,41 @@
 <template>
     <div v-if="tree">
         <div class="tree-content">
-            <select v-model="tree.field1" class="gridItem tree-input" name="field1" >
+            <select v-model="tree.field1" class="app-grid-item tree-input" name="field1" >
                 <option v-for="species in speciesKey.species" v-bind:value="species.key">
                     {{species.key}}
                 </option>
             </select>
-            <input  v-model.number="tree.field2" class="gridItem tree-input" type="number" name="field2" v-bind:class="{ 'field-invalid': field2Invalid }" @change="validateTree('field2')" >
-            <input v-if="!multiProducts" v-model.number="tree.field3" class="gridItem tree-input" type="number" name='field3' v-bind:class="{ 'field-invalid': field3Invalid }" @change="validateTree('field3')">
-            <button class="bigScreenHide btn--raised app-button" @click="toggleSegmentsDialog" v-if="multiProducts" ><i class="material-icons">format_list_numbered</i></button>
-            <input v-if="!multiProducts" v-model.number="tree.field4" class="gridItem tree-input" type="number" name='field4Name' v-bind:class="{ 'field-invalid': field4Invalid }" @change="validateTree('field4')">
+            <input  v-model.number="tree.field2" class="app-grid-item tree-input" type="number" name="field2" v-bind:class="{ 'field-invalid': field2Invalid }" @change="validateTree('field2')" >
+            <input v-if="!multiProducts" v-model.number="tree.field3" class="app-grid-item tree-input" type="number" name='field3' v-bind:class="{ 'field-invalid': field3Invalid }" @change="validateTree('field3')">
+            <button class="app-hide-big-screen btn--raised app-button" @click="toggleSegmentsDialog" v-if="multiProducts" ><i class="material-icons">format_list_numbered</i></button>
+            <input v-if="!multiProducts" v-model.number="tree.field4" class="app-grid-item tree-input" type="number" name='field4Name' v-bind:class="{ 'field-invalid': field4Invalid }" @change="validateTree('field4')">
             <template v-for="segment in tree.segments">
-                <select v-if="multiProducts" v-model="segment.product" class="smallScreenHide gridItem tree-input">
+                <select v-if="multiProducts" v-model="segment.product" class="app-hide-small-screen app-grid-item tree-input">
                     <option v-for="grade in gradeKey.grades" v-bind:value="grade.name">
                         {{grade.name}}
                     </option>
                 </select>
-                <input v-if="multiProducts" v-model.number="segment.length" class="smallScreenHide gridItem tree-input" type="number" >
+                <input v-if="multiProducts" v-model.number="segment.length" class="app-hide-small-screen app-grid-item tree-input" type="number" >
             </template>
         </div>
         <!-- **** DIALOG for SEGMENT ENTRY **** -->
         <app-dialog v-bind="{showDialog: showSegmentsDialog}" @closeDialog="toggleSegmentsDialog"  ref="segmentDialogRef" v-if="tree">
             <h3 slot="header">Tree Segments</h3>
             <div slot="content">
-                <div class="gridContainer3Equal" >
-                    <label class="gridItem">Seg</label>
-                    <label class="gridItem">Grade</label>
-                    <label class="gridItem">Len</label>
+                <div class="app-grid-3-equal" >
+                    <label class="app-grid-item">Seg</label>
+                    <label class="app-grid-item">Grade</label>
+                    <label class="app-grid-item">Len</label>
                 </div>
-                <div v-for="segment in tree.segments" class="gridContainer3Equal">
+                <div v-for="segment in tree.segments" class="app-grid-3-equal">
                     <span class="grid-Item">{{segment.id}}</span>
-                    <select class='gridItem app-select segment-input' v-model="segment.product">
+                    <select class='app-grid-item app-select segment-input' v-model="segment.product">
                         <option v-for="grade in gradeKey.grades" v-bind:value="grade.name">
                             {{grade.name}}
                         </option>
                     </select>
-                    <input required class="gridItem segment-input" type="number" v-model.number="segment.length">
+                    <input required class="app-grid-item segment-input" type="number" v-model.number="segment.length">
                 </div>
             </div>
             <div slot="footer">
@@ -154,7 +154,7 @@ div > button {
 .app-button {
     min-width: 50px;
 }
-.gridContainer3Equal {
+.app-grid-3-equal {
     align-items: flex-end;
 }
 h4 {

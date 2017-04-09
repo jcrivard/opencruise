@@ -1,7 +1,7 @@
 <template>
 <div id="helpPage" class="page">
     <h3>Help</h3>
-    <div class="content-main">
+    <div class="app-content">
         <div class="help-collapsible" role="button" @click="getAnimation('group1')">
             <i class="material-icons">format_list_numbered</i>
             <span>Support and Installation</span>
@@ -338,7 +338,7 @@ export default {
     ul {
         list-style-type: none;
     }
-    .content-main {
+    .app-content {
         text-align: center;
         overflow: hidden;
     }

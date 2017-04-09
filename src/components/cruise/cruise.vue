@@ -2,23 +2,23 @@
 <!--*************  CRUISE CONTENT  ************************************-->
     <div id="cruisePage" class="page" v-if="cruise">
         <cruise-menu v-bind:cruise="cruise" v-on:actionEvent="onActionEvent($event)" ></cruise-menu>
-        <div class="fade-in-out">
+        <div class="app-fade">
             <h3 >Cruise Info</h3>
-            <div id="cruisePageContent" class="content-main">
-                <div class="gridContainer1" id="cruiseDetail">
-                    <div class="gridInputItem">
+            <div id="cruisePageContent" class="app-content">
+                <div class="app-grid-1" id="cruiseDetail">
+                    <div class="app-grid-item-input">
                         <input class="app-select" v-model="cruise.date" v-on:change="updateCruise({date: $event.target.value})" size="15" type="date" id="cruiseDate"/>
                         <label class="app-select-label">Date</label>
                     </div>
-                    <div class="gridInputItem">
+                    <div class="app-grid-item-input">
                         <input required  v-model="cruise.people" v-on:change="updateCruise({people: $event.target.value})" size="15" type="text" ref="foresterName" id="foresterName"/>
                         <label class="app-input-label">Forester Name</label>
                     </div>
-                    <div class="gridInputItem">
+                    <div class="app-grid-item-input">
                         <input  v-model="cruise.cruiseName" v-on:change="updateCruise({cruiseName: $event.target.value})" size="15" type="text" ref="projectName" id="projectName"/>
                         <label class="app-input-label">Project Name</label>
                     </div>
-                    <div class="gridInputItem">
+                    <div class="app-grid-item-input">
                         <label class="app-select-label" for="defaultSpecies">Default Species</label>
                         <select class="app-select" v-model="cruise.defaultSpecies" v-on:change="updateCruise({defaultSpecies: $event.target.value})" ref='defaultSpecies' id='defaultSpecies'>
                             <option v-for="species in speciesKey.species" :key="species.key" v-bind:value="species.key">
@@ -166,15 +166,15 @@ export default {
     margin-top: 15px;
     display: flex;
 }
-.gridItem {
+.app-grid-item {
     margin-right: 30px;
 }
-.gridInputItem {
+.app-grid-item-input {
     text-align: initial;
     max-width: 50%;
 }
 @media (max-device-width: 500px) {
-    .gridInputItem {
+    .app-grid-item-input {
         max-width: 70%;
     }
 }

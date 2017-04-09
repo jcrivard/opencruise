@@ -1,13 +1,6 @@
 @import 'variables';
-/******** Credit to: http://stackoverflow.com/questions/35243443/pre-bootstrap-loading-screen-for-angular2 */
 #app {
     height: 100vh;
-}
-a {
-    text-decoration: none !important;
-}
-a * {
-    vertical-align: middle;
 }
 @font-face {
   font-family: 'Material Icons';
@@ -30,12 +23,10 @@ a * {
   white-space: nowrap;
   direction: ltr;
   vertical-align: middle;
-
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
-
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
 }
@@ -67,6 +58,12 @@ h1, h2, h3, h4 {
 h3 {
     font-size: 3rem !important;
 }
+a {
+    text-decoration: none !important;
+}
+a * {
+    vertical-align: middle;
+}
 input[type=number] {
     -moz-appearance: textfield;
 }
@@ -83,6 +80,12 @@ input[type="number"]:focus ~ .app-input-label, input[type="number"]:valid ~ .app
     top: 0;
     font-size: 14px;
     color: $opencruise-label;
+}
+input[type="radio"] {
+    height: 0.0rem;
+}
+input, label, select, option {
+    font-family: $opencruise-font-family;
 }
 .app-select-label {
     position: absolute;
@@ -116,21 +119,102 @@ input[type="number"]:focus ~ .app-input-label, input[type="number"]:valid ~ .app
     color: black !important;
     text-transform: none;
 }
-app-root:empty + .loading { /* .loading screen is visible when app is not bootstraped yet, .app-root is empty */
-    opacity: 1;
-    z-index: 100;
+.app-button-text {
+    display: inline;
+    font-size: $opencruise-font-size;
+    vertical-align: middle;
 }
-/****************** end of credit ***********/
-@keyframes rotate{
-    100%{
-        transform: rotate(360deg);
-}}
+.app-grid-5 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+
+.app-grid {
+    display: grid;
+    justify-content: stretch;
+    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
+    grid-template-rows: auto;
+    grid-auto-columns: 1.2fr 0.8fr;
+    grid-auto-flow: column;
+    justify-items: center;
+}
+.app-grid-3 {
+    display: grid !important;
+    justify-content: stretch;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.app-grid-3-equal {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.app-grid4 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+}
+.app-grid-2 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 0.75fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.app-grid-1 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.app-grid-item {
+    align-self: center;
+    text-align:center;
+    text-align-last:center; /* for select */
+    max-width: 50vw;
+}
+
+.app-grid-itemLeft {
+    justify-self: start;
+    max-width: 40vw;
+}
+.app-grid-item-input {
+    max-width: 20vw;
+    align-self: center;
+    text-align: center;
+    position: relative;
+}
+.app-content {
+    background-color: #FFF;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 15px 15px 15px 15px;
+}
+.app-hide-small-screen {
+        display: none !important;
+}
+.app-fade {
+    opacity: 1;
+    animation: fade .3s ease-in-out;
+}
 .page {
   background-color: $opencruise-app-background;
   border-color: $opencruise-app-border;
   height: calc(100vh - 52px);
   position: relative;
-  /*top: 44px;*/
   /** next 3 props compensate for toolbar **/
   padding-bottom: 15px;
   box-sizing: border-box;
@@ -149,45 +233,12 @@ app-root:empty + .loading { /* .loading screen is visible when app is not bootst
     padding-top: 2px;
     padding-bottom: 2px;
 }
-
-[md-fab], [md-mini-fab] {
-  transform: none !important;
-}
-[md-mini-fab] {
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2) !important;
-}
-.cm-justify div {  /***** this should be in the cruisement component, but problems with dynamically injected elements not getting proper style ****/
-    justify-content: flex-end;
-}
-md-option, md-input-container, md-select, md-tab-body, .mat-slide-toggle-content, .md-list-item, .app-button-text, label, input, select {
-    font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif !important;
-}
-md-button-toggle-group {
-    background-color: $opencruise-radio-inactive;
-}
-.mat-button-toggle-checked {
-    background-color: $opencruise-radio-active;
-}
-.md-select-value {
-    top: 0 !important;
-}
-.mat-select-placeholder, .mat-select-value, .mat-slide-toggle-content, {
-    font-size: $opencruise-font-size !important;
-    //font-weight: bold;
-}
-md-slide-toggle > label {
-    justify-content: center;
-}
-.md-input-ripple, .md-input-underline {
-    left: 0;
-}
-.app-button-text {
-    display: inline;
-    font-size: $opencruise-font-size;
-    vertical-align: middle;
-}
 .hidden {
     display: none;
+}
+@keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
 }
 @media (max-device-width: 500px) {
     .app-button-text {
@@ -197,200 +248,12 @@ md-slide-toggle > label {
         padding-top:5px;
         padding-bottom: 5px;
     }
-    .stats-dialog > .md-dialog {
-        min-width: 90% !important;
-        max-width: 90% !important;
-        width: 90% !important;
-    }
-}
-
-/**** end of scss ****/
-
-.list-group {
-    text-align: center;
-    list-style-type: none;
-}
-
-
-.list-group-item > ul, .list-group-item > ol {
-    text-align: left;
-    background-color: #FFFFB3;
-}
-
-.list-group-item > a {
-  color: #000;
-}
-
-
-/******************************************/
-/** CSS for entry page logo and image ****/
-/*****************************************/
-
-.OCBiltmore {
- /* -moz-animation: spin 0.75s 1 linear;
-    -webkit-animation: spin 0.50s 1 linear;
-    animation: spin 0.75s 1 linear;
-    -moz-animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;*/
-}
-
-.gridContainer5 {
-    display: grid;
-    justify-content: stretch;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-}
-
-.gridContainer {
-    display: grid;
-    justify-content: stretch;
-    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
-    grid-template-rows: auto;
-    grid-auto-columns: 1.2fr 0.8fr;
-    grid-auto-flow: column;
-    justify-items: center;
-}
-.gridContainer3 {
-    display: grid !important;
-    justify-content: stretch;
-    grid-template-columns: 3fr 1fr 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-    align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-.gridContainer3Equal {
-    display: grid;
-    justify-content: stretch;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-}
-.gridContainer4 {
-    display: grid;
-    justify-content: stretch;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-    align-items: center;
-}
-.gridContainer2 {
-    display: grid;
-    justify-content: stretch;
-    grid-template-columns: 0.75fr 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-}
-.gridContainer1 {
-    display: grid;
-    justify-content: stretch;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    justify-items: center;
-}
-.gridContainer-split {
-    grid-template-columns: auto auto .1fr;
-}
-.gridItem {
-    align-self: center;
-    text-align:center;
-    text-align-last:center; /* for select */
-    max-width: 50vw;
-}
-
-.gridItemLeft {
-    justify-self: start;
-    max-width: 40vw;
-}
-.gridInputItem {
-    max-width: 20vw;
-    align-self: center;
-    text-align: center;
-    position: relative;
-}
-.gridItemCenter {
-    text-align: center;
-}
-.gridItemRight {
-    justify-self: end;
-    margin-right: 15px;
-    text-align: end;
-    align-self: center;
-}
-.content-main {
-    background-color: #FFF;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin: 15px 15px 15px 15px;
-}
-.content-nopad {
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-.mat-tab-labels {
-    justify-content: center !important;
-}
-input[type="radio"] {
-    height: 0.0rem;
-}
-.fade-in-out {
-    opacity: 1;
-    animation: fade .3s ease-in-out;
-}
-@keyframes fade {
-    0% { opacity: 0 }
-    100% { opacity: 1 }
-}
-@-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(-360deg);  }
-}
-@-moz-keyframes spin {
-    0% { -moz-transform: rotate(0deg); }
-    100% { -moz-transform: rotate(-360deg); }
-}
-@-o-keyframes spin {
-    0% { -o-transform: rotate(0deg); }
-    100% { -o-transform: rotate(-360deg); }
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(-360deg); }
-}
-@-webkit-keyframes grow {
-    0% { font-size: 0.25em; }
-    100% {  font-size: 3em; }
-}
-@-moz-keyframes grow {
-    0% { font-size: 0.25em; }
-    100% {  font-size: 3em; }
-}
-@-o-keyframes grow {
-    0% { font-size: 0.25em; }
-    100% {  font-size: 3em; }
-}
-@keyframes grow {
-    0% { font-size: 0.25em; }
-    100% {  font-size: 3em; }
-}
-
-@media (max-device-width: 500px) {
-    .app-button-text {
-        display: none;
-    }
-}
-.smallScreenHide {
-        display: none !important;
 }
 @media (min-device-width: 800px) {
-
-    .bigScreenHide {
+    .app-hide-big-screen {
         display: none !important;
     }
-    .smallScreenHide {
+    .app-hide-small-screen {
         display: initial !important;
     }
 }

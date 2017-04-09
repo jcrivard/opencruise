@@ -1,12 +1,12 @@
 <template>
    <div id="app-cruiselist">
         <div id="cruiseListPage" class="page">
-            <div class="fade-in-out">
+            <div class="app-fade">
                 <h3>Timber Cruises</h3>
-                <div class="content-main" id="cruiseListContent" >
-                    <ul class="list-group" id="cruiseListContainer">
-                        <li v-for="cruise in state.cruiseList" class="gridContainer3 list-group-item">
-                            <div class="gridItem">
+                <div class="app-content" id="cruiseListContent" >
+                    <ul id="cruiseListContainer">
+                        <li v-for="cruise in state.cruiseList" class="app-grid-3">
+                            <div class="app-grid-item">
                                 <span>{{cruise.cruiseName}}</span><br>
                                 <span>{{cruise.date}}</span>
                             </div>
@@ -81,10 +81,6 @@ export default {
 </script>
 
 <style scoped>
-    .list-group {
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
     @media (max-width: 600px) {
         button {
             min-width: 30px;

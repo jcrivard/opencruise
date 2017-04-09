@@ -1,22 +1,22 @@
 <template>
     <div id="configPage" class="page page-will-change">
-        <div class="fade-in-out" >
+        <div class="app-fade" >
             <h3>Defaults</h3>
-            <div class="content-main" v-if="cruiseParms">
+            <div class="app-content" v-if="cruiseParms">
                 <div class="config-header">
-                    <button ref="cruiseTab" @click="setFocus('cruiseTab')" class="gridItem config-header-item">
+                    <button ref="cruiseTab" @click="setFocus('cruiseTab')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="cruise-tab" value="cruise" v-model="activeTab">
                         <label for="cruise-tab">Cruise</label>
                     </button>
-                    <button ref="speciesTab" @click="setFocus('speciesTab')" class="gridItem config-header-item">
+                    <button ref="speciesTab" @click="setFocus('speciesTab')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="species-tab" value="species" v-model="activeTab">
                         <label for="species-tab">Species</label>
                     </button>
-                    <button ref="gradesTab" @click="setFocus('gradesTab')" class="gridItem config-header-item">
+                    <button ref="gradesTab" @click="setFocus('gradesTab')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="grades-tab" value="grades" v-model="activeTab">
                         <label for="grades-tab">Grades</label>
                     </button>
-                    <button ref="bafTab" @click="setFocus('bafTab')" class="gridItem config-header-item">
+                    <button ref="bafTab" @click="setFocus('bafTab')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="baf-tab" value="baf" v-model="activeTab">
                         <label for="baf-tab">BAF</label>
                     </button>
@@ -25,7 +25,7 @@
                     <!--**************  CRUISE TAB ***************** -->
                     <transition name="fade">
                             <div class="tab-content" id="cruise-panel" ref="cruise-panel" v-if="activeTab=='cruise'">
-                                <div class="gridContainer1 config-margin">
+                                <div class="app-grid-1 config-margin">
                                     <div class="config-input-fixed">
                                         <input required type='text' id="config-people" v-model="cruiseParms.people" @change="updateConfig()"/>
                                         <label class="app-input-label" for="config-people">Forester Name</label>
@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 <h4>Data Fields</h4>
-                                <div class="gridContainer3Equal">
+                                <div class="app-grid-3-equal">
                                     <div class="config-input-short config-input-fixed">
                                         <input required type='text' v-model="cruiseParms.field2.name" @change="updateConfig($event.target.value)" />
                                         <label class="app-input-label">Name</label>
@@ -82,8 +82,8 @@
                                         <label class="app-input-label">Max</label>
                                     </div>
                                 </div>
-                                <div class="gridContainer1" style="margin-top:10px;">
-                                    <div class="gridItem config-input-fixed">
+                                <div class="app-grid-1" style="margin-top:10px;">
+                                    <div class="app-grid-item config-input-fixed">
                                         <label class="app-input-label">Min {{cruiseParms.field2.name}} for {{cruiseParms.field3.name}}:</label>
                                         <input required type='number' v-model.number="cruiseParms.field3.field2Min" @change="updateConfig($event.target.value)" />
                                     </div>
@@ -94,13 +94,13 @@
                         <!--**************  SPECIES TAB ***************** -->
                     <transition name="fade">
                         <div class="tab-content" id="species-panel" ref="species-panel" v-if="activeTab=='species'">
-                            <div class="gridContainer2 config-margin">
+                            <div class="app-grid-2 config-margin">
                                 <button class="btn--raised" @click="addSpecies()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></button>
-                                <label class="gridItem">Species</label>
-                                <template v-for="species in speciesKey.species" class="gridContainer5 config-margin" >
+                                <label class="app-grid-item">Species</label>
+                                <template v-for="species in speciesKey.species" class="app-grid-5 config-margin" >
                                     <button class="btn--raised"  @click= "deleteSpecies(species)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></button>
                                     <div class="config-inputs">
-                                        <input required class="gridInputItem" type='text' v-model="species.key" @change="updateConfig($event.target.value)"  />
+                                        <input required class="app-grid-item-input" type='text' v-model="species.key" @change="updateConfig($event.target.value)"  />
 
                                     </div>
                                 </template>
@@ -110,14 +110,14 @@
                         <!--**************  GRADES TAB ***************** -->
                     <transition name="fade">
                         <div class="tab-content" id="grades-panel" ref="grades-panel" v-if="activeTab=='grades'">
-                            <div class="gridContainer2 config-margin">
+                            <div class="app-grid-2 config-margin">
                                 <button class="btn--raised" @click="addGrade()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></button>
-                                <label class='gridItem'>Grade</label>
+                                <label class='app-grid-item'>Grade</label>
                             </div>
-                            <div v-for="grade in gradeKey.grades" class="gridContainer2" >
+                            <div v-for="grade in gradeKey.grades" class="app-grid-2" >
                             <button class="btn--raised"  @click="deleteGrade(grade)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></button>
                                 <div class="config-inputs">
-                                    <input required class="gridItemLeft gridInputItem" type='text' v-model="grade.name" @change="updateConfig()" />
+                                    <input required class="app-grid-itemLeft app-grid-item-input" type='text' v-model="grade.name" @change="updateConfig()" />
 
                                 </div>
                             </div>
@@ -126,14 +126,14 @@
                         <!--**************  BAF TAB ***************** -->
                     <transition name="fade">
                         <div class="tab-content" id="baf-panel" ref="baf-panel" v-if="activeTab=='baf'">
-                            <div class="gridContainer2 config-margin">
+                            <div class="app-grid-2 config-margin">
                             <button class="btn--raised" @click="addBAF()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></button>
-                                <label class='gridItem'>BAF</label>
+                                <label class='app-grid-item'>BAF</label>
                             </div>
-                            <div v-for="bafVal in bafArray.values" class="gridContainer2" >
+                            <div v-for="bafVal in bafArray.values" class="app-grid-2" >
                             <button class="btn--raised"  @click="deleteBAF(bafVal)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></button>
                                 <div class="config-inputs">
-                                    <input required class="gridItemLeft gridInputItem" type='text' v-model.number="bafVal.value"  @change="updateConfig()" />
+                                    <input required class="app-grid-itemLeft app-grid-item-input" type='text' v-model.number="bafVal.value"  @change="updateConfig()" />
                                 </div>
                             </div>
                         </div>
@@ -295,15 +295,15 @@ export default {
         width: 100px;
         overflow: hidden;
     }
-    .gridContainer2 {
+    .app-grid-2 {
         justify-content: center;
         grid-template-columns: .15fr .25fr;
     }
-    .gridContainer3Equal {
+    .app-grid-3-equal {
         max-width: 400px;
         margin: auto;
     }
-    .gridContainer5 {
+    .app-grid-5 {
         justify-items: center;
         padding-left: 5px;
 
@@ -312,7 +312,7 @@ export default {
         margin: auto;
         width: 100px;
     }
-    .gridContainer5::first-line {
+    .app-grid-5::first-line {
         border-bottom: 1px solid #ddd;
     }
     .config-input-fixed > input {
@@ -333,7 +333,7 @@ export default {
         .config-input-fixed > input {
             max-width: 80%;
         }
-        .gridContainer2 {
+        .app-grid-2 {
             grid-template-columns: .25fr .35fr;
         }
         .config-inputs  {

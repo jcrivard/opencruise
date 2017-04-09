@@ -16,7 +16,7 @@
                 </div>
                 <div class="footer">
                     <slot name="footer">
-                        <button @click="sendCloseDialogEvent" class="btn--raised app-button">
+                        <button @click="sendCloseDialogEvent" class="btn--raised dialog-button">
                             <i class="material-icons">close</i>
                             <span class="app-button-text">Close</span>
                         </button>
@@ -79,6 +79,9 @@ export default {
         z-index: -1;
         background: transparent;
         justify-content: center;
+    }
+    .dialog-button {
+        height: 34px;
     }
     .container-active {
         z-index: 1;
