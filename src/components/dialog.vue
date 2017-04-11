@@ -57,7 +57,7 @@ export default {
         padding-right: 10px;
         padding-bottom: 15px;
         max-height: 70vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         height: auto;
     }
     .backdrop {
