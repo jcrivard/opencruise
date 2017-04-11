@@ -37,6 +37,12 @@
             <button class="btn--raised app-button" @click="toggleDeleteDialog" >Cancel</button>
         </div>
     </app-dialog>
+    <app-dialog ref="welcomeDialog" v-bind="{showDialog: showWelcomeDialog}" @closeDialog="toggleWelcomeDialog">
+        <h3 slot="header">OpenCruise</h3>
+        <div slot="content">
+                Welcome to OpenCruise!  Tap the nav menu button to get started.
+        </div>
+    </app-dialog>
    </div>
 </template>
 
@@ -49,13 +55,15 @@ export default {
         return {
             state: {},
             cruiseToDelete: null,
-            showDeleteDialog: false
+            showDeleteDialog: false,
+            showWelcomeDialog: false
         }
     },
     mounted () {
-        //window.dialogPolyfill.registerDialog(this.$refs.deleteDialog); //polyfill for html dialog element
         this.state = this.cruiseStore.state;
-        //window.componentHandler.upgradeDom(); //for mdl lite
+        if (this.state.cruiseList.length === 0) {
+            this.toggleWelcomeDialog();
+        }
     },
     methods: {
         openDeleteDialog (cruiseid) {
@@ -64,6 +72,9 @@ export default {
         },
         toggleDeleteDialog () {
             this.showDeleteDialog = !this.showDeleteDialog;
+        },
+        toggleWelcomeDialog () {
+            this.showWelcomeDialog = !this.showWelcomeDialog;
         },
         deleteCruise () {
             this.toggleDeleteDialog();
