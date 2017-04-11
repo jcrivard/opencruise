@@ -2,13 +2,13 @@
 
 > Forest Inventory and Timber Cruising
 
-Installation instructions coming soon...
-
 ## Major/Breaking Changes
 
-1. Dropped support for IOS.<sup>1</sup>
-2. Chrome 57+ or Firefox 53+ required. <sup>2</sup>
-3. Removed speech input support. <sup>3</sup>
+
+1. Android - Chrome 57+ or Firefox 53+ required. <sup>1</sup>
+2. IOS - unsupported.<sup>2</sup>
+3. Removed Email option for offloading data.
+4. Removed speech input support. <sup>3</sup>
 
 ## Enhancements
 
@@ -17,13 +17,16 @@ Installation instructions coming soon...
 3. Grading of segments section enhanced for screens > 800 pixels wide (ie. tablets).
 4. User customizable BAF values in config section.
 
+## Installation
+Copy the contents of the "dist" folder to your SSL(HTTPS) enabled web server.  You will need SSL to use the app offline
+and to get geolocation data for plots.  See the help section for details on additing it to your home screen.
+
 ### Footnotes
 
-1. Due to Safari on IOS lagging behind in functionality and an assumption that most Foresters would rather take a cheap tablet
-into the woods.
-2. Due to support for CSS grid.
-3. I was hoping that browser support for custom grammars would have been usable by now, but that is not the case.  I may
-add this feature back in if the situation changes.
+1. Due to support for CSS grid.
+2. Safari 10.1+ should work, but due to removal of email option, you may be unable to offload data.
+3. I was hoping that browser support for custom grammars would have been usable by now, but that is not the case.
+The feature may be readded if the situation changes.
 4. Replaced jquery mobile with custom css, including a modified version of surface from: [https://github.com/mildrenben/surface](https://github.com/mildrenben/surface); removed jquery and knockout.js; added vue.js.
 
 ## Build Setup
