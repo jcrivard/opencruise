@@ -112,6 +112,7 @@ export default {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
+    justify-content: center;
 }
 div > select, div > input {
     height:100%;
@@ -142,6 +143,9 @@ div > button {
     padding-bottom: 0px;
     padding: 0 0 0 0;
     margin: 0 0 0 0;
+    border-collapse: collapse;
+    outline: none;
+    background: none;
 
 }
 .field-invalid {

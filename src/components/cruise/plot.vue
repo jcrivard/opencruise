@@ -121,6 +121,9 @@ export default {
 </script>
 
 <style scoped>
+.app-grid {
+    grid-auto-columns: 1fr;
+}
 .app-content {
     padding-top: 0px;
 }
