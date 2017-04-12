@@ -4,7 +4,7 @@ Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 credit to https://ole.michelsen.dk/blog/making-an-offline-webapp-with-service-workers.html
 */
-var CACHE_VERSION = 'v2.0.4';
+var CACHE_VERSION = 'v2.0.0';
 
 self.addEventListener('install', function (event) {
     event.waitUntil(
