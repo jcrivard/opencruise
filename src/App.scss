@@ -1,0 +1,260 @@
+@import 'variables';
+#app {
+    height: 100vh;
+}
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(materialicons-regular.woff2) format('woff2');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: middle;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+}
+html {
+  font-size: $opencruise-base-font-size;
+}
+body, input, select, ul, ol {
+    font-size: $opencruise-font-size !important;
+}
+body {
+    background-color: $opencruise-app-background !important;
+    font-family: $opencruise-font-family !important;
+    line-height: $opencruise-line-height;
+    color: #000000;
+    margin:0;
+    height: 100%;
+}
+ul, ol {
+    line-height: $opencruise-line-height;
+}
+h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 15px;
+    text-align: center;
+    font-family: inherit;
+    font-weight: bold;
+}
+h3 {
+    font-size: 3rem !important;
+}
+a {
+    text-decoration: none !important;
+}
+a * {
+    vertical-align: middle;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+input[type="text"] ~ .app-input-label, input[type="number"] ~ .app-input-label {
+    position: absolute;
+    top: 14px;
+    font-size: $opencruise-font-size;
+    color: rgba(0,0,0,0.541176);
+    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+}
+input[type="text"]:focus ~ .app-input-label, input[type="text"]:valid ~ .app-input-label,
+input[type="number"]:focus ~ .app-input-label, input[type="number"]:valid ~ .app-input-label {
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    color: $opencruise-label;
+}
+input[type="radio"] {
+    height: 0.0rem;
+}
+input, label, select, option {
+    font-family: $opencruise-font-family;
+}
+.app-select-label {
+    position: absolute;
+    top: 0;
+    color: $opencruise-label;
+    font-size: 14px;
+}
+.app-select {
+    width: 200px;
+    margin-top: 15px;
+    background-color: transparent;
+    margin-bottom: 20px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 1px #3f51b5;
+    will-change: background-position;
+    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #3f51b5 96%);
+    background-position: -200px 0;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+}
+.app-select:focus {
+    background-position: 0 0;
+    outline: none;
+}
+
+.app-button {
+    background-color: $opencruise-accent !important;
+    color: black !important;
+    text-transform: none;
+}
+.app-button-text {
+    display: inline;
+    font-size: $opencruise-font-size;
+    vertical-align: middle;
+}
+.app-grid-5 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+
+.app-grid {
+    display: grid;
+    justify-content: stretch;
+    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
+    grid-template-rows: auto;
+    grid-auto-columns: 1.2fr 0.8fr;
+    grid-auto-flow: column;
+    justify-items: center;
+}
+.app-grid-3 {
+    display: grid !important;
+    justify-content: stretch;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.app-grid-3-equal {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.app-grid4 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+}
+.app-grid-2 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 0.75fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.app-grid-1 {
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+.app-grid-item {
+    align-self: center;
+    text-align:center;
+    text-align-last:center; /* for select */
+    max-width: 50vw;
+}
+
+.app-grid-itemLeft {
+    justify-self: start;
+    max-width: 40vw;
+}
+.app-grid-item-input {
+    max-width: 20vw;
+    align-self: center;
+    text-align: center;
+    position: relative;
+}
+.app-content {
+    background-color: #FFF;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 15px 15px 15px 15px;
+}
+.app-hide-small-screen {
+        display: none !important;
+}
+.app-fade {
+    opacity: 1;
+    animation: fade .3s ease-in-out;
+}
+.page {
+  background-color: $opencruise-app-background;
+  border-color: $opencruise-app-border;
+  height: calc(100vh - 52px);
+  position: relative;
+  /** next 3 props compensate for toolbar **/
+  padding-bottom: 15px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.page-will-change {
+    will-change: opacity;
+}
+.page-footer-fixed {
+    text-align: center;
+    position: sticky;
+    bottom: 0px;
+    height: 40px;
+    width: 100%;
+    background-color: $opencruise-app-primary;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.hidden {
+    display: none;
+}
+@keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+@media (max-device-width: 500px) {
+    .app-button-text {
+        display: none;
+    }
+    button {
+        padding-top:5px;
+        padding-bottom: 5px;
+    }
+}
+@media (min-device-width: 800px) {
+    .app-hide-big-screen {
+        display: none !important;
+    }
+    .app-hide-small-screen {
+        display: initial !important;
+    }
+}
+
