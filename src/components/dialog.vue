@@ -101,9 +101,6 @@ export default {
         max-height: 85%;
         min-height: 140px;
         display: flex;
-        -ms-flex-flow: column;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
         flex-flow: column;
         overflow: hidden;
         position: absolute;

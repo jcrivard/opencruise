@@ -18,4 +18,13 @@
                 });
             } else {
                 alert('WARNING - NO Service Worker Support!');
-            }</script><link href=static/css/app.233c1ed442e6c7072eb9199e19d7513f.css rel=stylesheet></head><body><noscript><h3>You must enable javascript in your browser settings to use this application.</h3></noscript><div id=app></div><script type=text/javascript src=static/js/manifest.b522b16737d0ddfe8c21.js></script><script type=text/javascript src=static/js/vendor.a0d197278e968aaa56ac.js></script><script type=text/javascript src=static/js/app.8993733a9d3dd392d0ca.js></script></body></html>
+            }
+            if (navigator.storage && navigator.storage.persist) {
+                navigator.storage.persist().then(granted => {
+                    if (granted) {
+                        console.log('Storage will not be cleared except by explicit user action');
+                    } else {
+                        console.log('Storage may be cleared under storage pressure.');
+                    }
+                });
+            }</script><link href=static/css/app.642489a9041151bc147142f15c8d11c3.css rel=stylesheet></head><body><noscript><h3>You must enable javascript in your browser settings to use this application.</h3></noscript><div id=app></div><script type=text/javascript src=static/js/manifest.b526ccd8ccfb0ebe64c9.js></script><script type=text/javascript src=static/js/vendor.a0d197278e968aaa56ac.js></script><script type=text/javascript src=static/js/app.11d48bbf889f740d1a95.js></script></body></html>
