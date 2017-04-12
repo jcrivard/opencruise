@@ -5,7 +5,7 @@
 ## Major/Breaking Changes
 
 
-1. Android - Chrome 57+ or Firefox 53+ required. <sup>1</sup>
+1. Android, Windows, Linux - Chrome 57+ or Firefox 52+ required. Other browsers may or may not work.<sup>1</sup>
 2. IOS - unsupported.<sup>2</sup>
 3. Removed Email option for offloading data.
 4. Removed speech input support. <sup>3</sup>
