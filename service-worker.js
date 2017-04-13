@@ -12,7 +12,7 @@ self.addEventListener('install', function (event) {
             return cache.addAll([
                 'manifest.json',
                 'static/css/material-surface.css',
-                'static/css/app.642489a9041151bc147142f15c8d11c3.css',
+                'static/css/app.62ce9b55fef202453c20016cc86550dc.css',
                 'static/fonts/materialicons-regular.570eb83.woff2',
                 'static/images/biltmore.png',
                 'static/images/icon-144.png',
