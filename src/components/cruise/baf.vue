@@ -38,6 +38,7 @@ input[type="radio"] {
     width: 0;
     position: absolute;
     margin: 0;
+    z-index: -1;
 }
 input[type="radio"] ~ label {
   background-color: $opencruise-radio-inactive;

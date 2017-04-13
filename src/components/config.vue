@@ -4,19 +4,19 @@
             <h3>Defaults</h3>
             <div class="app-content" v-if="cruiseParms">
                 <div class="config-header">
-                    <button ref="cruiseTab" @click="setFocus('cruiseTab')" class="app-grid-item config-header-item">
+                    <button ref="cruise" @click="setFocus('cruise')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="cruise-tab" value="cruise" v-model="activeTab">
                         <label for="cruise-tab">Cruise</label>
                     </button>
-                    <button ref="speciesTab" @click="setFocus('speciesTab')" class="app-grid-item config-header-item">
+                    <button ref="species" @click="setFocus('species')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="species-tab" value="species" v-model="activeTab">
                         <label for="species-tab">Species</label>
                     </button>
-                    <button ref="gradesTab" @click="setFocus('gradesTab')" class="app-grid-item config-header-item">
+                    <button ref="grades" @click="setFocus('grades')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="grades-tab" value="grades" v-model="activeTab">
                         <label for="grades-tab">Grades</label>
                     </button>
-                    <button ref="bafTab" @click="setFocus('bafTab')" class="app-grid-item config-header-item">
+                    <button ref="baf" @click="setFocus('baf')" class="app-grid-item config-header-item">
                         <input type="radio" name="tabs" id="baf-tab" value="baf" v-model="activeTab">
                         <label for="baf-tab">BAF</label>
                     </button>
@@ -165,6 +165,7 @@ export default {
         setFocus(tab) {
             setTimeout(() => {
                 this.$refs[tab].focus();
+                this.activeTab = tab;
             }, 100);
         },
         loadConfig () {
@@ -328,6 +329,7 @@ export default {
     input[type="radio"] {
         width: 0;
         margin: 0;
+        z-index: -1;
     }
     @media (max-device-width: 500px) {
         .config-input-fixed > input {
