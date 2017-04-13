@@ -12,14 +12,14 @@ self.addEventListener('install', function (event) {
             return cache.addAll([
                 'manifest.json',
                 'static/css/material-surface.css',
-                'static/css/app.62ce9b55fef202453c20016cc86550dc.css',
+                'static/css/app.f21325912daab9e268677432a847f7d2.css',
                 'static/fonts/materialicons-regular.570eb83.woff2',
                 'static/images/biltmore.png',
                 'static/images/icon-144.png',
                 'static/images/icon.png',
-                'static/js/app.11d48bbf889f740d1a95.js',
+                'static/js/app.4df3fef97329367455b7.js',
                 'static/js/vendor.a0d197278e968aaa56ac.js',
-                'static/js/manifest.b526ccd8ccfb0ebe64c9.js',
+                'static/js/manifest.3f6bc5909186ffdfbff1.js',
                 'index.html']);
         }).then(function() {
             console.log('[ServiceWorker] Install for version', CACHE_VERSION, 'Time:', Date());
