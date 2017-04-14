@@ -23,9 +23,6 @@ export default {
     created() {
         this.plotlist = this.cruise.plots;
     },
-    mounted() {
-        //window.dialogPolyfill.registerDialog(this.$refs.plotlistRef); //polyfill for html dialog element
-    },
     methods: {
         openPlot(plotnum) {
             this.sendClosePlotlistEvent();
@@ -47,10 +44,6 @@ export default {
         padding-bottom: 8px;
         padding-top: 8px;
         vertical-align: middle;
-    }
-    .mdl-button--fab:focus:not(:active) {
-        box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12),0 1px 1px 0 rgba(0,0,0,.24);
-        background-color: rgba(158,158,158,.2);
     }
     a:hover {
         background-color: #fe9;

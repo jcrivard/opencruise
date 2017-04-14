@@ -22,9 +22,6 @@
                     <li>
                         <router-link to="/help" @click.native="toggleNavMenu" class="navbarItem navbarItemLeft" ><i class="material-icons">help</i><span> Help</span></router-link>
                     </li>
-                    <li>
-                        <router-link to="/about" @click.native="toggleNavMenu" class="navbarItem navbarItemLeft" ><i class="material-icons">info</i><span> About</span></router-link>
-                    </li>
                 </ul>
             </div>
 

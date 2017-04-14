@@ -24,8 +24,6 @@
                     </ul>
                 </div>
             </div>
-            <!--app-delete-dialog [cruiseid]="cruiseToDelete" (deleteCruiseEvent)="onDeleteCruiseEvent($event)"></app-delete-dialog>
-            <app-welcome-dialog></app-welcome-dialog-->
         </div>
     <app-dialog ref="deleteDialog" v-bind="{showDialog: showDeleteDialog}">
         <h3 slot="header">Delete Cruise</h3>
@@ -61,7 +59,7 @@ export default {
     },
     mounted () {
         this.state = this.cruiseStore.state;
-        if (this.state.cruiseList.length === 0) {
+        if (this.state.cruiseList.length === 0 && this.cruiseStore.isOpen) {
             this.toggleWelcomeDialog();
         }
     },

@@ -80,9 +80,6 @@
             this.fullSpeciesList = this.includedSpecies.slice(0); //make a copy to have all species for use below
             this.computeStats();
         },
-        mounted() {
-            //window.dialogPolyfill.registerDialog(this.$refs.statsRef); //polyfill for html dialog element
-        },
         methods: {
             closeDialog() {
                 this.$refs.statsRef.close();
@@ -212,9 +209,6 @@
     }
 
     @media (max-device-width: 700px) {
-        .stats-summary {
-            font-size: 1.8rem; /*need a little more room*/
-        }
         .stats-container {
             font-size: 1.5rem;
         }

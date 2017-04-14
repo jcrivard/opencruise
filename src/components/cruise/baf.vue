@@ -62,7 +62,4 @@ input[type="radio"]:checked ~ label, {
     border-radius: 5px;
     display: flex;
 }
-.mdl-icon-toggle {
-    line-height: 32px;
-}
 </style>

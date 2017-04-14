@@ -279,16 +279,6 @@ export default {
         text-align: left;
     }
     /* credit to https://github.com/leifoolsen/mdl-ext */
-    @mixin help-visually-hidden() {
-        border: 0;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
     .help-collapsible {
         box-sizing: border-box;
         cursor: pointer;
@@ -297,12 +287,7 @@ export default {
         justify-content: center;
         padding-bottom: 10px;
     }
-    .help-collapsible-group,
-    .help-collapsible-region {
+    .help-collapsible-group {
         box-sizing: border-box;
-        &[hidden] {
-            @include help-visually-hidden;
-            pointer-events: none;
-        }
     }
 </style>

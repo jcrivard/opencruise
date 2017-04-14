@@ -159,9 +159,6 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
     opacity: 0;
 }
-.select-margin {
-    margin-top: 15px;
-}
 .cruise-switch {
     margin-top: 15px;
     display: flex;

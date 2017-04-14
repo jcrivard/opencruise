@@ -74,9 +74,6 @@ export default {
             this.validateTree('field4');
         }, err => {});
     },
-    mounted () {
-        //window.dialogPolyfill.registerDialog(this.$refs.segmentDialogRef); //polyfill for html dialog element
-    },
     methods: {
         toggleSegmentsDialog () {
             this.showSegmentsDialog = !this.showSegmentsDialog;
@@ -151,17 +148,10 @@ div > button {
 .field-invalid {
     background-color: #F00;
 }
-.tree-dialog {
-    max-width: 80%;
-    min-height: 450px;
-}
 .app-button {
     min-width: 50px;
 }
 .app-grid-3-equal {
     align-items: flex-end;
-}
-h4 {
-    padding-top: 0;
 }
 </style>

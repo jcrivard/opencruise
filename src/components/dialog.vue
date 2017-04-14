@@ -1,6 +1,6 @@
 <template>
 <div>
-<div class="backdrop" v-if="showDialog"></div>
+    <div class="backdrop" v-if="showDialog"></div>
     <div class="dialog-container" v-bind:class="{'container-active': showDialog}">
         <transition name="fade">
             <div  v-if="showDialog" class="dialog" >
@@ -22,13 +22,12 @@
                         </button>
                     </slot>
                 </div>
-                </slot>
             </div>
         </transition>
     </div>
 </div>
-
 </template>
+
 <script>
 export default {
     props: ['showDialog'],
@@ -110,5 +109,4 @@ export default {
         top: 50px;
         box-shadow: 0 7px 9px -4px rgba(0, 0, 0, 0.2), 0 14px 21px 2px rgba(0, 0, 0, 0.14), 0 5px 26px 4px rgba(0, 0, 0, 0.12);
     }
-
 </style>
