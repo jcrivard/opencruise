@@ -1,13 +1,13 @@
 <template>
-    <div class="splash splash-logo splash-page">
+    <div class="splash-page">
         <div class="splash-content">
             <router-link to="cruiselist">
-                <h1 class="splash-movein">OpenCruise</h1>
+                <h1 class="splash-logo">OpenCruise</h1>
                 <img src="static/images/biltmore.png" alt="Biltmore Stick"/>
             </router-link>
             <p>Tap the Biltmore stick to start.</p>
-            <button href="https://github.com/jcrivard/opencruise" class="btn--raised app-button">Source Code</button>
-            <button href="https://www.gnu.org/copyleft/gpl.html" class="btn--raised app-button">License Info</button>
+            <button class="btn--raised app-button"><a href="https://github.com/jcrivard/opencruise">Source Code</a></button>
+            <button class="btn--raised app-button"><a href="https://www.gnu.org/copyleft/gpl.html">License Info</a></button>
             <p style="font-size: .5em">Copyright (C) 2017 James C. Rivard<br/>
                 This program is free software and comes with ABSOLUTELY NO WARRANTY.<br/>
                 You are welcome to redistribute it under certain conditions.<br/>
@@ -34,16 +34,17 @@ export default {
     padding-bottom: 15px;
     background-color: white;
     height:100%;
-}
-.splash-logo, {
     text-align:center;
     position: absolute;
     width: 100%;
 }
-.splash-logo a {
+.splash-page a {
     text-decoration: none;
 }
-.splash-movein {
+.splash-page a:visited {
+    color: black;
+}
+.splash-logo {
     margin-bottom: 15px;
     line-height: initial;
     position: relative;
@@ -66,7 +67,7 @@ export default {
     .splash-page, {
         font-size: 2.0rem;
     }
-    .splash-movein {
+    .splash-logo {
         font-size: 5.5rem;
     }
     .splash-content {
