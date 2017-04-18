@@ -40,7 +40,7 @@ body {
     background-color: $opencruise-app-background !important;
     font-family: $opencruise-font-family !important;
     line-height: $opencruise-line-height;
-    color: #000000;
+    color: $opencruise-text-color;
     margin:0;
     height: 100%;
 }
@@ -71,7 +71,7 @@ input[type="text"] ~ .app-input-label, input[type="number"] ~ .app-input-label {
     position: absolute;
     top: 14px;
     font-size: $opencruise-font-size;
-    color: rgba(0,0,0,0.541176);
+    color: $opencruise-placeholder-color;
     transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
 input[type="text"]:focus ~ .app-input-label, input[type="text"]:valid ~ .app-input-label,
@@ -79,7 +79,7 @@ input[type="number"]:focus ~ .app-input-label, input[type="number"]:valid ~ .app
     position: absolute;
     top: 0;
     font-size: 14px;
-    color: $opencruise-label;
+    color: $opencruise-label-text;
 }
 input[type="radio"] {
     height: 0.0rem;
@@ -91,7 +91,7 @@ input, label, select, option {
     position: absolute;
     top: 0;
     left: 0;
-    color: $opencruise-label;
+    color: $opencruise-label-text;
     font-size: 14px;
 }
 .app-select {
@@ -102,10 +102,10 @@ input, label, select, option {
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: solid 1px #3f51b5;
+    border-bottom: solid 1px $opencruise-label-text;
     will-change: background-position;
     transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #3f51b5 96%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $opencruise-label-text 96%);
     background-position: -200px 0;
     background-size: 200px 100%;
     background-repeat: no-repeat;
@@ -117,7 +117,7 @@ input, label, select, option {
 
 .app-button {
     background-color: $opencruise-accent !important;
-    color: black !important;
+    color: $opencruise-text-color !important;
     text-transform: none;
 }
 .app-button-text {
@@ -199,7 +199,7 @@ input, label, select, option {
     position: relative;
 }
 .app-content {
-    background-color: #FFF;
+    background-color: $opencruise-content-background;
     padding-top: 15px;
     padding-bottom: 15px;
     margin: 15px 15px 15px 15px;

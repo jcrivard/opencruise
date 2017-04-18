@@ -36,9 +36,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '../../variables';
     .pl-link {
-        color:black !important;
+        color:$opencruise-text-color !important;
         text-decoration-line: none;
         font-size: 2rem;
         padding-bottom: 8px;
@@ -46,7 +47,7 @@ export default {
         vertical-align: middle;
     }
     a:hover {
-        background-color: #fe9;
+        background-color: $opencruise-accent;
         cursor: pointer;
     }
 

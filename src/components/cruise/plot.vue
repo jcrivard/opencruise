@@ -120,7 +120,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '../../variables';
 .app-grid {
     grid-auto-columns: 1fr;
 }
@@ -140,7 +141,7 @@ export default {
 }
 .plot-item-left {
     text-align: center;
-    background-color: white;
+    background-color: $opencruise-content-background;
     margin-bottom: 0;
     padding: 0;
     border-bottom: none;

@@ -110,7 +110,7 @@ export default {
   z-index: 2;
 }
 a {
-    color: black !important;
+    color: $opencruise-text-color !important;
 }
 ul {
     list-style: none;

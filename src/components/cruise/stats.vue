@@ -175,13 +175,14 @@
 </script>
 
 <style scoped lang="scss">
+@import '../../variables';
     .stats-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         /*min-width: 20vw;*/
-        font-size: 2.0rem;
+        font-size: $opencruise-font-size;
         width: 100%;
         padding-bottom: 15px;
     }

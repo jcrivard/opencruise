@@ -220,7 +220,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '../variables';
     .fade-enter-active, .fade-leave-active {
         transform-origin: center center;
         transition: opacity .4s cubic-bezier(0.25, 0.8, 0.25, 1), transform .4s 0.05s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -254,7 +255,7 @@ export default {
         top: 0;
         left: 0;
         width: 100%;
-        background-color: white;
+        background-color: $opencruise-content-background;
         padding-bottom: 15px;
         margin-bottom: 15px;
         overflow-x: hidden;
@@ -263,7 +264,7 @@ export default {
         position: relative;
     }
     .config-header-item {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid $opencruise-config-border;
         font-size: inherit;
         background-color: inherit;
         padding:0;
@@ -273,7 +274,7 @@ export default {
         align-items: center;
         will-change: background-position;
         transition: all .3s cubic-bezier(0.64, 0.09, 0.08, 1);
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #3f51b5 96%);
+        background: linear-gradient(to bottom, $opencruise-config-header-background 96%, $opencruise-label-text 96%);
         background-position: -100px 0;
         background-size: 100px 100%;
         background-repeat: no-repeat;
@@ -282,9 +283,9 @@ export default {
 
     }
     .config-header-item:focus, .config-header-item:hover, .config-header-item:active  {
-        background-color:#ddd;
+        background-color:$opencruise-config-border;
         background-position: 0 0;
-        border-bottom-color: #3f51b5;
+        border-bottom-color: $opencruise-label-text;
     }
     .config-header-item > label {
         width: 100%;
@@ -314,7 +315,7 @@ export default {
         width: 100px;
     }
     .app-grid-5::first-line {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid $opencruise-config-border;
     }
     .config-input-fixed > input {
         max-width: 30vw;

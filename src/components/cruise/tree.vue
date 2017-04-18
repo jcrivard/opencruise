@@ -102,7 +102,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '../../variables';
 .tree-content {
     padding-left: 5px;
     padding-right:5px;
@@ -134,8 +135,8 @@ div > button {
 .tree-input {
     /*font-size: inherit;*/
     width:100%;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: $opencruise-content-background;
+    border: 1px solid $opencruise-tree-border;
     box-sizing: border-box;
     padding-bottom: 0px;
     padding: 0 0 0 0;

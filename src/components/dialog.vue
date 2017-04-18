@@ -39,7 +39,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '../variables';
     .header {
         display: flex;
         justify-content: center;
@@ -60,7 +61,7 @@ export default {
         height: auto;
     }
     .backdrop {
-        background-color: rgba(0, 0, 0, 0.54);
+        background-color: $opencruise-backdrop;
         position: fixed;
         top: 0;
         left: 0;
@@ -94,7 +95,7 @@ export default {
         transform: scale(0.9,0.85);
     }
     .dialog {
-        background-color: white;
+        background-color: $opencruise-content-background;
         min-width: 280px;
         max-width: 80%;
         max-height: 85%;

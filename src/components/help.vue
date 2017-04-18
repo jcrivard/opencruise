@@ -249,6 +249,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '../variables';
     .slide-up {
         max-height: 0;
         overflow: hidden;
@@ -269,7 +270,7 @@ export default {
     }
     .help-collapsible-container {
         overflow: auto;
-        background-color: #eee;
+        background-color: $opencruise-toolbar-background;
         text-align: center;
     }
     .help-item {

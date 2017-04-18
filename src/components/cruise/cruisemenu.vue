@@ -46,9 +46,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import '../../variables';
     .cm-item, .fa {
-        font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;
+        font-family: $opencruise-font-family;
         overflow: hidden;
         line-height: 3.0rem;
     }
@@ -70,7 +71,7 @@ export default {
     }
 
     a {
-        color: black !important;
+        color: $opencruise-text-color !important;
         padding-left: 0;
     }
     ul {
