@@ -41,7 +41,7 @@ export default {
 .splash-page a {
     text-decoration: none;
 }
-.splash-page a:visited {
+a, a:visited {
     color: black;
 }
 .splash-logo {
