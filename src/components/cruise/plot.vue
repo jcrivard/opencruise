@@ -60,9 +60,6 @@ export default {
         this.cruiseid = parseInt(this.$route.params.cruiseid); //for use in toolbar navigation
         this.plotnum = parseInt(this.$route.params.plotnum);
         this.getPlot();
-        this.getPosition().then(position => {
-            this.plot.position = position;
-        });
     },
     methods: {
         getPlot () {
@@ -72,6 +69,11 @@ export default {
                     this.cruise = cruise;
                     let plotIndex = cruise.plots.findIndex(item => item.plotnum === this.plotnum);
                     this.plot = cruise.plots[plotIndex];
+                    if (this.plot.trees[0].field2 === null) { //test if new plot
+                        this.getPosition().then(position => { //update position if new plot
+                            this.plot.position = position;
+                        });
+                    }
                 })
                 .catch(error => {
                     console.error('Error loading plot data. ' + error);
