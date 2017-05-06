@@ -1,6 +1,6 @@
 <template>
     <div class="splash-page">
-        <div class="splash-content">
+        <div>
             <router-link to="cruiselist">
                 <h1 class="splash-logo">OpenCruise</h1>
                 <img src="static/images/biltmore.png" alt="Biltmore Stick"/>
@@ -24,11 +24,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.splash-content {
-    position: relative;
-    top: 20vh;
-    text-align:center;
-}
 .splash-page {
     font-size: 2.4rem;
     padding-bottom: 15px;
@@ -37,6 +32,9 @@ export default {
     text-align:center;
     position: absolute;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .splash-page a {
     text-decoration: none;
