@@ -32,6 +32,7 @@
 }
 html {
   font-size: $opencruise-base-font-size;
+  overscroll-behavior: none;
 }
 body, input, select, ul, ol {
     font-size: $opencruise-font-size !important;
@@ -43,6 +44,7 @@ body {
     color: $opencruise-text-color;
     margin:0;
     height: 100%;
+    overscroll-behavior: none;
 }
 ul, ol {
     line-height: $opencruise-line-height;
