@@ -1,9 +1,24 @@
 <template>
     <div>
         <div class="stats-container" style="flex-direction:row">
-            <span class="stats-Item">Total Plots:  {{stats.totalPlots}}</span>
-            <span class="stats-Item">Total Trees:  {{stats.totalTrees}}</span>
-            <span class="stats-Item">Avg BA/Acre: {{stats.avgBA}}</span>
+            <span class="stats-item">Total Plots:  {{stats.totalPlots}}</span>
+            <span class="stats-item">Total Trees:  {{stats.totalTrees}}</span>
+            <span v-if="statsType === 'BA'" class="stats-item">Avg BA/Acre: {{stats.avgBA}}</span>
+            <span v-if="statsType === 'Diameter'" class="stats-item">Avg Stand Diameter: {{stats.avgDiameter}}</span>
+        </div>
+        <div class="app-grid-2">
+            <div class="stats-container stats-container-inline">
+                <label>
+                    <input type="radio" class="stats-radio" name="statsType" id="stats-type-BA" value="BA" v-model="statsType" v-on:change="computeStats('UPDATE-VALUES')">
+                    BA/Acre
+                </label>
+            </div>
+            <div class="stats-container stats-container-inline">
+                <label>
+                    <input type="radio" class="stats-radio" name="statsType" id="stats-type-diameter" value="Diameter" v-model="statsType" v-on:change="computeStats('UPDATE-VALUES')">
+                    Avg Stand Diameter
+                </label>
+            </div>
         </div>
         <div class="app-grid-2">
             <div class="stats-container" style="text-align: center">
@@ -26,8 +41,11 @@
         <div class="app-grid-2">
             <div class="stats-container" v-for="(val, itemNum) in confidenceVals">
                 <div class="stats-input-container">
-                    <input class="stats-input" required v-bind:id="'Interval' + itemNum" type="number" v-model="val.CI" v-on:change="computeStats()"/>
-                    <label class="app-input-label" v-bind:for="'Interval' + itemNum">Interval {{itemNum + 1}}</label>
+                    <div class="stats-input-header stats-input-item">Interval {{itemNum + 1}}</div>
+                    <div class="stats-input-item">Percent</div>
+                    <div class="stats-input-item">Value</div>
+                    <input class="stats-input" required v-bind:id="'Interval' + itemNum" type="number" v-model="val.CI" v-on:change="computeStats('UPDATE-VALUES')"/>
+                    <input class="stats-input" required v-bind:id="'IntervalValue' + itemNum" type="number" v-model="val.CIValue" v-on:change="computeStats('UPDATE-PERCENTS')"/>
                 </div>
                 <div class="stats-input-container">
 
@@ -44,7 +62,7 @@
             <div class="stats-container" style="text-align: center" v-for="cv in stats.confidenceValues">
                 <div >
                     <div> {{cv.plotsRequired}} plots required for</div>
-                    <div>+/- {{cv.CI}}% BA at {{cv.CL}}%</div>
+                    <div>+/- {{cv.CI}}% {{statsType}} at {{cv.CL}}%</div>
                 </div>
             </div>
         </div>
@@ -60,7 +78,8 @@
         data () {
             return {
                 stats: {},
-                confidenceVals: [{CI: 10, CL: 95, plotsRequired: null}, {CI: 20, CL: 95, plotsRequired: null}], //default CIs; need to setup config option,
+                statsType: 'BA',
+                confidenceVals: [{CI: 10, CL: 95, plotsRequired: null, CIValue: null}, {CI: 20, CL: 95, plotsRequired: null, CIValue: null}], //default CIs; need to setup config option,
                 excludedSpecies: [],
                 includedSpecies: [],
                 fullSpeciesList: [],
@@ -79,6 +98,7 @@
             }
             this.fullSpeciesList = this.includedSpecies.slice(0); //make a copy to have all species for use below
             this.computeStats();
+            this.updateValues(); //need to compute values after stats generated since we need the mean BA/diameter
         },
         methods: {
             closeDialog() {
@@ -86,6 +106,18 @@
             },
             sendCloseStatsEvent() {
                 this.$emit('closeStats');  //to be consistent, we let parent close dialog by toggling showPlotList
+            },
+            updatePercents() {
+                this.confidenceVals.forEach(confidenceVal => {
+                    let newPercent = this.statsType === 'BA' ? confidenceVal.CIValue / this.stats.avgBA : confidenceVal.CIValue / this.stats.avgDiameter;
+                    confidenceVal.CI = Math.round(newPercent * 1000) / 10; //round to 1 decimal
+                })
+            },
+            updateValues() {
+                this.confidenceVals.forEach(confidenceVal => {
+                    let newValue = this.statsType === 'BA' ? confidenceVal.CI / 100 * this.stats.avgBA : confidenceVal.CI / 100 * this.stats.avgDiameter;
+                    confidenceVal.CIValue = Math.round(newValue * 100) / 100;
+                })
             },
             computeStats(flag = '') {
                 let speciesList = this.fullSpeciesList.slice(0); //make a copy to work with
@@ -99,48 +131,61 @@
                         speciesList.splice(speciesList.indexOf(species), 1); //remove species from included list
                     });
                     this.excludedSpecies = speciesList.slice(0);
+                } else if (flag === 'UPDATE-PERCENTS') {
+                    this.updatePercents();
+                } else if (flag === 'UPDATE-VALUES') {
+                    this.updateValues();
                 }
-                let treeCountsArray = this.getTreeCounts(this.cruise);
-                this.stats = this.processTreeCounts(treeCountsArray, this.cruise, this.confidenceVals);
+                let avgBAByPlot = this.getBAByPlot(this.cruise);
+                let avgDiameterByPlot = this.getAvgDiameterByPlot(this.cruise);
+                this.stats = this.processPlotSummaryData(avgBAByPlot, avgDiameterByPlot, this.cruise, this.confidenceVals);
+                this.updateValues(); //need to recompute in the event that include/exclude species list changed
             },
-            numPlotsRequired(CI, CL, numTreesByPlot, numPlots, numTrees, BAF) {
+            numPlotsRequired(CI, CL, plotSummaryData, numPlots, mean, BAF) {
                 var tObj = this.validCLs.find(item => { //should only be one result returned
                     return item.CL === CL;
                 });
                 var t = tObj.T;  //get t value
-                var stdDev = this.stdDeviation(numTreesByPlot, numPlots) * BAF;  //get stddev in expressed as BA/acre
-                var meanBA = (numTrees * BAF) / numPlots; //mean BA/acre
-                var CV = (stdDev / meanBA) * 100; //coeffecient of variation in percent
+                var stdDev = this.stdDeviation(plotSummaryData, numPlots);  //get stddev in expressed as BA/acre
+                var CV = (stdDev / mean) * 100; //coeffecient of variation in percent
                 var A = CI; //in percent (ie. 10 and not .1)
                 var requiredPlots = Math.pow(((t * CV) / A), 2);
                 return Math.round(requiredPlots);
             },
-            processTreeCounts(counts, cruise, confidenceArray) {
-                var total = 0;
-                var totalArray = [];
-                for (var i = 0; i < counts.length; i++) {
-                    total = total + counts[i];
-                    totalArray[i] = counts[i];
-                }
-                let numTreesByPlot = totalArray;
-                var stats = new Stats();
-                stats.totalTrees = total;
+            processPlotSummaryData(avgBAByPlot, avgDiameterByPlot, cruise, confidenceArray) {
+                let stats = new Stats();
+                stats.totalTrees = avgBAByPlot.reduce((sum, curr) => { return sum + curr; }, 0) / cruise.BAF;
                 stats.totalPlots = cruise.plots.length;
                 stats.avgBA = Math.round((stats.totalTrees * cruise.BAF) / stats.totalPlots);
+                stats.avgDiameter = Math.round((avgDiameterByPlot.reduce((sum, diameter) => { return sum + diameter; }, 0) / stats.totalPlots) * 100) / 100;
                 let results = confidenceArray.map(item => {
-                    let plotsRequired = (this.numPlotsRequired(item.CI, item.CL, numTreesByPlot, stats.totalPlots, stats.totalTrees, cruise.BAF));
+                    let plotsRequired = null;
+                    if (this.statsType === 'BA') {
+                        plotsRequired = (this.numPlotsRequired(item.CI, item.CL, avgBAByPlot, stats.totalPlots, stats.avgBA, cruise.BAF));
+                    } else if (this.statsType === 'Diameter') {
+                        plotsRequired = (this.numPlotsRequired(item.CI, item.CL, avgDiameterByPlot, stats.totalPlots, stats.avgDiameter, cruise.BAF));
+                    }
                     stats.confidenceValues.push({CI: item.CI, CL: item.CL, plotsRequired: plotsRequired});
                 });
                 return stats;
             },
-            getTreeCounts(cruise) { //get tree count by plot
+            getBAByPlot(cruise) { //get BA/acre by plot
                 var counts = cruise.plots.map(plot => {
                     var trees = plot.trees.filter(tree => {
                         return (tree.field2 !== null && this.includedSpecies.includes(tree.field1));  //exclude empty trees in case new plot created and not updated before user checks stats
                     })
-                    return trees.length;
+                    return trees.length * cruise.BAF;
                 })
                 return counts;
+            },
+            getAvgDiameterByPlot(cruise) { //get avg diameter by plot
+                let avgDiameterByPlot = cruise.plots.map(plot => {
+                    let trees = plot.trees.filter(tree => {
+                        return (tree.field2 !== null && this.includedSpecies.includes(tree.field1));  //exclude empty trees in case new plot created and not updated before user checks stats
+                    })
+                    return trees.length === 0 ? 0 : trees.reduce((sum, tree) => { return sum + tree.field2; }, 0) / trees.length;
+                })
+                return avgDiameterByPlot;
             },
             stdDeviation(values, N) {
                 function average(data, N) {
@@ -186,9 +231,13 @@
         width: 100%;
         padding-bottom: 15px;
     }
-    .stats-Item {
+    .stats-item {
         margin-left: 15px;
         margin-right: 15px;
+    }
+    .stats-container-inline {
+        display: inline;
+        text-align: center;
     }
     .app-grid-2 {
         grid-template-columns: 0.75fr .75fr;
@@ -196,17 +245,34 @@
     .stats-input-container {
         width: 100px;
         position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        column-gap: 10px;
+    }
+    .stats-input-header {
+        grid-column-start: span 2;
+        border-bottom: 1px solid black;
+        width: 100%;
+        text-align: center;
     }
     .stats-label {
         color: rgba(0, 0, 0, 0.541176);
         position: absolute;
         top: 0;
     }
-    .app-select, .stats-input {
-        width: 100px;
+    .stats-radio {
+        height:auto;
     }
     .app-select {
+        width: 100px;
         margin-bottom: 0;
+    }
+    .stats-input {
+        width: 100px;
+        text-align: center;
     }
 
     @media (max-device-width: 700px) {

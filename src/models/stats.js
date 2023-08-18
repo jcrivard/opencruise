@@ -4,5 +4,6 @@ export class Stats {
         this.totalTrees = null;
         this.avgBA = null;
         this.confidenceValues = [];
+        this.avgDiameter = null;
     }
 }

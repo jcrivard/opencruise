@@ -11,8 +11,8 @@
                 <div>
                     <h4>Android</h4>
                     <ul class="collapse help-left">
-                        <li><span class="help-item">Chrome 57+</span> - tap the three dot menu and then "Add to Home Screen".</li>
-                        <li><span class="help-item">Firefox 52+</span> - tap the three dot menu, then page, then "Add to Home Screen."</li>
+                        <li><span class="help-item">Chrome 57+</span> - tap the three dot menu and then "Install OpenCruise" or "Add to Home Screen".</li>
+                        <li><span class="help-item">Firefox 52+</span> - tap the three dot menu, then page, then "Install OpenCruise" or "Add to Home Screen."</li>
                         </li>
                     </ul>
                     <h4>Desktop</h4>
@@ -111,12 +111,12 @@
         </div>
         <div class="help-collapsible" role="button" @click="getAnimation('group6')">
             <i class="material-icons">gps_not_fixed</i>
-            <span>Edit Plots</span>
+            <span>Edit/Delete Plots</span>
         </div>
         <div class="help-collapsible-container">
             <div class="help-collapsible-group  slide-up" role="group" ref="group6">
                 <ul class="collapse">
-                    Tap "Plot List" in the cruise menu then tap the plot you want to edit. Make sure to press SAVE when done!
+                    Tap "Plot List" in the cruise menu then tap the plot you want to edit. Make sure to press SAVE when done!  Tap the trash can icon to delete a plot.
                 </ul>
             </div>
         </div>
@@ -128,8 +128,20 @@
             <div class="help-collapsible-group slide-up" role="group" ref="group7">
                 <div>
                     <ul class="collapse help-left">
-                        <li><span class="help-item">Interval -</span> confidence limits.  eg. 10 represents a confidence interval
-                        of +/- 10%.</li>
+                        <li><span class="help-item">Type -</span> select either BA/Acre or Avg. Stand Diameter to have confidence levels / plots required
+                            determined by the selection.
+                        </li>
+                        <li>
+                            <span class="help-item">Interval - confidence limits</span>
+                            <ul style="margin-left: 30px;">
+                                <li>
+                                    <span>Percent - confidence limits expressed as a percent.  eg. 10 represents a confidence interval of +/- 10%.</span>
+                                </li>
+                                <li>
+                                    <span>Value - conficene limits expressed as a value.  eq. 10 represents a value of 10 sq.ft./acre of BA.</span>
+                                </li>
+                            </ul>
+                        </li>
                         <li><span class="help-item">Level -</span> confidence level.  eg. 95% means that there is a 95% probability
                         that the mean lies within the confidence interval.</li>
                         <li><span class="help-item">Include/Exclude Species -</span> to include or exclude certain species from the
@@ -198,6 +210,13 @@
                         <h4>Version 2.0</h4>
                         Initial release
                     </li>
+                    <li>
+                        <h4>Version 2.1</h4>
+                        Prevent user from accidentally erasing plot data before save by disabling swipe down to refresh page.</br>
+                        Update statistics for Bayfield County, WI. to include stats/plots required for avg. stand diameter.</br>
+                        Update statistics to include values along with percents for confidence intervals.</br>
+                        Add ability to delete plots.</br></br>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -208,7 +227,7 @@
         <div class="help-collapsible-container">
             <div class="help-collapsible-group  slide-up" role="group" ref="group12">
                 <ul id="helpAbout" class="collapse">
-                    <li>Version: 2.0</li>
+                    <li>Version: 2.1</li>
                     <li>OpenCruise is open source and licensed under the :
                         <a href="http://www.gnu.org/copyleft/gpl.html">GNU Public License Version 3.</a></li>
                     <li>Developed by <a href="mailto:jcrivard@mtu.edu">Jim Rivard.</a></li>

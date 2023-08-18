@@ -2,20 +2,12 @@
 
 > Forest Inventory and Timber Cruising
 
-## Major/Breaking Changes
-
-
-1. Android, Windows, Linux - Chrome 57+ or Firefox 52+ required. Other browsers may or may not work.<sup>1</sup>
-2. IOS - unsupported.<sup>2</sup>
-3. Removed Email option for offloading data.
-4. Removed speech input support. <sup>3</sup>
-
 ## Enhancements
 
-1. Completely rewritten, fully responsive user interface.<sup>4</sup>
-2. Enhanced statistics section with more options to include/exclude species and adjust confidence levels/intervals.
-3. Grading of segments section enhanced for screens > 800 pixels wide (ie. tablets).
-4. User customizable BAF values in config section.
+1. Added overscroll-behavior: none to prevent accidental refresh of page during plot data entry.
+2. Can now delete plots.
+3. Added "Avg. Stand Diameter" to statistics and ability to compute plots required to achieve confidence levels for avg. stand diamter.
+4. Statistics - can now express confidence intervals as a value (e.q. 10 ft2/acre) in addition to a percent of the mean.
 
 ## Installation
 Copy the contents of the "dist" folder to your SSL(HTTPS) enabled web server.  You will need SSL to use the app offline
