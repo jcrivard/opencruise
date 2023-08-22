@@ -4,7 +4,7 @@
             <span class="stats-item">Total Plots:  {{stats.totalPlots}}</span>
             <span class="stats-item">Total Trees:  {{stats.totalTrees}}</span>
             <span v-if="statsType === 'BA'" class="stats-item">Avg BA/Acre: {{stats.avgBA}}</span>
-            <span v-if="statsType === 'Diameter'" class="stats-item">Avg Stand Diameter: {{stats.avgDiameter}}</span>
+            <span v-if="statsType === 'Diameter'" class="stats-item">Quadratic Mean Diameter: {{stats.avgDiameter}}</span>
         </div>
         <div class="app-grid-2">
             <div class="stats-container stats-container-inline">
@@ -16,7 +16,7 @@
             <div class="stats-container stats-container-inline">
                 <label>
                     <input type="radio" class="stats-radio" name="statsType" id="stats-type-diameter" value="Diameter" v-model="statsType" v-on:change="computeStats('UPDATE-VALUES')">
-                    Avg Stand Diameter
+                    Quadratic Mean Diameter
                 </label>
             </div>
         </div>
@@ -110,7 +110,7 @@
             updatePercents() {
                 this.confidenceVals.forEach(confidenceVal => {
                     let newPercent = this.statsType === 'BA' ? confidenceVal.CIValue / this.stats.avgBA : confidenceVal.CIValue / this.stats.avgDiameter;
-                    confidenceVal.CI = Math.round(newPercent * 1000) / 10; //round to 1 decimal
+                    confidenceVal.CI = Math.round(newPercent * 10000) / 100; //round to 2 decimals
                 })
             },
             updateValues() {
@@ -137,7 +137,7 @@
                     this.updateValues();
                 }
                 let avgBAByPlot = this.getBAByPlot(this.cruise);
-                let avgDiameterByPlot = this.getAvgDiameterByPlot(this.cruise);
+                let avgDiameterByPlot = this.getQMDByPlot(this.cruise);
                 this.stats = this.processPlotSummaryData(avgBAByPlot, avgDiameterByPlot, this.cruise, this.confidenceVals);
                 this.updateValues(); //need to recompute in the event that include/exclude species list changed
             },
@@ -178,12 +178,23 @@
                 })
                 return counts;
             },
-            getAvgDiameterByPlot(cruise) { //get avg diameter by plot
+            getQMDByPlot(cruise) { //get avg diameter by plot
+                let configBAFEntry = this.cruiseStore.state.config.bafArray.values.find(element => element.value === cruise.BAF);
+                let PRF = configBAFEntry ? configBAFEntry.PRF : null; // just in case
                 let avgDiameterByPlot = cruise.plots.map(plot => {
                     let trees = plot.trees.filter(tree => {
                         return (tree.field2 !== null && this.includedSpecies.includes(tree.field1));  //exclude empty trees in case new plot created and not updated before user checks stats
                     })
-                    return trees.length === 0 ? 0 : trees.reduce((sum, tree) => { return sum + tree.field2; }, 0) / trees.length;
+                    let treesWithTPA = JSON.parse(JSON.stringify(trees)); //make a working copy so as not to modify tree array elements
+                    treesWithTPA.forEach(tree => {
+                        let plotRadiusForTree = tree.field2 * PRF;
+                        let plotAreaForTree = (plotRadiusForTree ** 2) * Math.PI / 43560;
+                        tree.TPA = 1 / plotAreaForTree;
+                    })
+                    let totalTPAForPlot = treesWithTPA.reduce((sum, tree) => { return sum + tree.TPA }, 0);
+                    let totalBAForPlot = cruise.BAF * treesWithTPA.length;
+                    let QMD = Math.sqrt(totalBAForPlot / (0.005454 * totalTPAForPlot)); //from Curtis/Marshall, W.Journal Applied Forestry, Why Quadratic Mean Diameter
+                    return QMD;
                 })
                 return avgDiameterByPlot;
             },

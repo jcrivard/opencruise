@@ -128,7 +128,7 @@
             <div class="help-collapsible-group slide-up" role="group" ref="group7">
                 <div>
                     <ul class="collapse help-left">
-                        <li><span class="help-item">Type -</span> select either BA/Acre or Avg. Stand Diameter to have confidence levels / plots required
+                        <li><span class="help-item">Type -</span> select either BA/Acre or Quadratic Mean Diameter to have confidence levels / plots required
                             determined by the selection.
                         </li>
                         <li>
@@ -211,9 +211,9 @@
                         Initial release
                     </li>
                     <li>
-                        <h4>Version 2.1</h4>
+                        <h4>Version 2.1.1</h4>
                         Prevent user from accidentally erasing plot data before save by disabling swipe down to refresh page.</br>
-                        Update statistics for Bayfield County, WI. to include stats/plots required for avg. stand diameter.</br>
+                        Update statistics for Bayfield County, WI. to include stats/plots required for quadratic mean diameter.</br>
                         Update statistics to include values along with percents for confidence intervals.</br>
                         Add ability to delete plots.</br></br>
                     </li>
@@ -227,7 +227,7 @@
         <div class="help-collapsible-container">
             <div class="help-collapsible-group  slide-up" role="group" ref="group12">
                 <ul id="helpAbout" class="collapse">
-                    <li>Version: 2.1</li>
+                    <li>Version: 2.1.1</li>
                     <li>OpenCruise is open source and licensed under the :
                         <a href="http://www.gnu.org/copyleft/gpl.html">GNU Public License Version 3.</a></li>
                     <li>Developed by <a href="mailto:jcrivard@mtu.edu">Jim Rivard.</a></li>

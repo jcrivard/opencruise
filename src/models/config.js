@@ -115,15 +115,16 @@ class GradeKey {
 class BAF {
     constructor () {
         this.value = 99;
+        this.PRF = 0;
     }
 }
 class BAFArray {
     constructor () {
         this.values = [
-            { value: 10 },
-            { value: 20 },
-            { value: 40 },
-            { value: 80 }
+            { value: 10, PRF: 2.75 },
+            { value: 20, PRF: 1.944 },
+            { value: 40, PRF: 1.375 },
+            { value: 80, PRF: 0.972 }
         ];
     }
 }

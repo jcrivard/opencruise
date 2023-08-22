@@ -1,4 +1,4 @@
-# Opencruise Version 2.1
+# Opencruise Version 2.1.1
 
 > Forest Inventory and Timber Cruising
 
@@ -6,7 +6,7 @@
 
 1. Added overscroll-behavior: none to prevent accidental refresh of page during plot data entry.
 2. Can now delete plots.
-3. Added "Avg. Stand Diameter" to statistics and ability to compute plots required to achieve confidence levels for avg. stand diamter.
+3. Added "Quadratic Mean Diameter (QMD)" to statistics and ability to compute plots required to achieve confidence levels for QMD.
 4. Statistics - can now express confidence intervals as a value (e.q. 10 ft2/acre) in addition to a percent of the mean.
 
 ## Installation

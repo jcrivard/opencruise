@@ -126,14 +126,23 @@
                         <!--**************  BAF TAB ***************** -->
                     <transition name="fade">
                         <div class="tab-content" id="baf-panel" ref="baf-panel" v-if="activeTab=='baf'">
-                            <div class="app-grid-2 config-margin">
-                            <button class="btn--raised" @click="addBAF()"><i class="material-icons">add</i><span class="app-button-text"> Add</span></button>
+                            <div class="app-grid-3-equal config-margin">
+                                <button class="btn--raised" @click="addBAF()">
+                                    <i class="material-icons">add</i>
+                                    <span class="app-button-text"> Add</span>
+                                </button>
                                 <label class='app-grid-item'>BAF</label>
-                            </div>
-                            <div v-for="bafVal in bafArray.values" class="app-grid-2" >
-                            <button class="btn--raised"  @click="deleteBAF(bafVal)"><i class="material-icons">delete</i><span class="app-button-text"> Delete</span></button>
+                                <label class='app-grid-item'>Plot Radius Factor</label>
+                                </div>
+                            <div v-for="bafVal in bafArray.values" class="app-grid-3-equal" >
+                                <button class="btn--raised"  @click="deleteBAF(bafVal)">
+                                    <i class="material-icons">delete</i><span class="app-button-text"> Delete</span>
+                                </button>
                                 <div class="config-inputs">
                                     <input required class="app-grid-itemLeft app-grid-item-input" type='text' v-model.number="bafVal.value"  @change="updateConfig()" />
+                                </div>
+                                <div class="config-inputs">
+                                    <input required class="app-grid-itemLeft app-grid-item-input" type='text' v-model.number="bafVal.PRF"  @change="updateConfig()" />
                                 </div>
                             </div>
                         </div>
