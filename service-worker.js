@@ -4,7 +4,7 @@ Licensed under the GNU Public License Version 3:
 http://www.gnu.org/copyleft/gpl.html
 credit to https://ole.michelsen.dk/blog/making-an-offline-webapp-with-service-workers.html
 */
-var CACHE_VERSION = 'v2.1.1';
+var CACHE_VERSION = 'v2.1.2';
 
 self.addEventListener('install', function (event) {
     event.waitUntil(
@@ -17,9 +17,9 @@ self.addEventListener('install', function (event) {
                 'static/images/biltmore.png',
                 'static/images/icon-144.png',
                 'static/images/icon.png',
-                'static/js/app.ebffd75345cef9ae5f2b.js',
+                'static/js/app.db45695e90829b32b921.js',
                 'static/js/vendor.a0d197278e968aaa56ac.js',
-                'static/js/manifest.5ead4917c94a0ac9d979.js',
+                'static/js/manifest.45b1c8c44969eeb34931.js',
                 'index.html']);
         }).then(function() {
             console.log('[ServiceWorker] Install for version', CACHE_VERSION, 'Time:', Date());
