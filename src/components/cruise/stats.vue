@@ -193,7 +193,7 @@
                     })
                     let totalTPAForPlot = treesWithTPA.reduce((sum, tree) => { return sum + tree.TPA }, 0);
                     let totalBAForPlot = cruise.BAF * treesWithTPA.length;
-                    let QMD = Math.sqrt(totalBAForPlot / (0.005454 * totalTPAForPlot)); //from Curtis/Marshall, W.Journal Applied Forestry, Why Quadratic Mean Diameter
+                    let QMD = totalTPAForPlot ? Math.sqrt(totalBAForPlot / (0.005454 * totalTPAForPlot)) : 0; //from Curtis/Marshall, W.Journal Applied Forestry, Why Quadratic Mean Diameter
                     return QMD;
                 })
                 return avgDiameterByPlot;
