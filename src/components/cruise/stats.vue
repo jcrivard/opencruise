@@ -4,7 +4,7 @@
             <span class="stats-item">Total Plots:  {{stats.totalPlots}}</span>
             <span class="stats-item">Total Trees:  {{stats.totalTrees}}</span>
             <span v-if="statsType === 'BA'" class="stats-item">Avg BA/Acre: {{stats.avgBA}}</span>
-            <span v-if="statsType === 'Diameter'" class="stats-item">Quadratic Mean Diameter: {{stats.avgDiameter}}</span>
+            <span v-if="statsType === 'Diameter'" class="stats-item">Quad. Mean Diam.: {{stats.avgDiameter}}</span>
         </div>
         <div class="app-grid-2">
             <div class="stats-container stats-container-inline">
@@ -66,6 +66,15 @@
                 </div>
             </div>
         </div>
+        <app-dialog ref="missingPRFDialog" v-bind="{showDialog: showMissingPRFDialog}" @closeDialog="togglePRFDialog">
+            <h3 slot="header">OpenCruise</h3>
+            <div slot="content">
+                    No Plot Radius Factor Found - you must enter a PRF for each BAF in the Config section.
+            </div>
+            <div slot="footer">
+                <button class="btn--raised app-button" @click="toggleMissingPRFDialog" >Close</button>
+            </div>
+        </app-dialog>
     </div>
 </template>
 
@@ -77,6 +86,7 @@
         inject: ['cruiseStore'],
         data () {
             return {
+                showMissingPRFDialog: false,
                 stats: {},
                 statsType: 'BA',
                 confidenceVals: [{CI: 10, CL: 95, plotsRequired: null, CIValue: null}, {CI: 20, CL: 95, plotsRequired: null, CIValue: null}], //default CIs; need to setup config option,
@@ -103,6 +113,9 @@
         methods: {
             closeDialog() {
                 this.$refs.statsRef.close();
+            },
+            toggleMissingPRFDialog () {
+                this.showMissingPRFDialog = !this.showMissingPRFDialog;
             },
             sendCloseStatsEvent() {
                 this.$emit('closeStats');  //to be consistent, we let parent close dialog by toggling showPlotList
@@ -181,6 +194,7 @@
             getQMDByPlot(cruise) { //get avg diameter by plot
                 let configBAFEntry = this.cruiseStore.state.config.bafArray.values.find(element => element.value === cruise.BAF);
                 let PRF = configBAFEntry ? configBAFEntry.PRF : null; // just in case
+                if (!PRF && this.statsType === 'Diameter') this.toggleMissingPRFDialog();
                 let avgDiameterByPlot = cruise.plots.map(plot => {
                     let trees = plot.trees.filter(tree => {
                         return (tree.field2 !== null && this.includedSpecies.includes(tree.field1));  //exclude empty trees in case new plot created and not updated before user checks stats
@@ -282,7 +296,7 @@
         margin-bottom: 0;
     }
     .stats-input {
-        width: 100px;
+        width: 50px;
         text-align: center;
     }
 
